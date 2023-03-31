@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "instant_food_app",
+    "slug": "instant_food_app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/food_app.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/food_app.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/food_app.png"
+    }
+  }
+}
