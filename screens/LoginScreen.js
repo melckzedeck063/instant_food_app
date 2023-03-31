@@ -44,9 +44,9 @@ const LoginScreen = () => {
       <ScrollView>
 
            {/* <LinearGradient colors={['transparent', '#F54749']} > */}
-           <View className={`bg-slate-900 w-full h-full ${height < 300 ? 'py-2' : 'py-6'} ${Platform.select({ios : 'pb-96', android : "pb-56"})}`}>
+           <View style={{backgroundColor : '#0e2433'}} className={`bg-slate-900 w-full h-full ${height < 300 ? 'py-2' : 'py-6'} ${Platform.select({ios : 'pb-96', android : "pb-56"})}`}>
           {/* <Text className={`text-sky-600 text-center font-medium text-3xl ${height < 400 ? 'mt-1' : 'mt-24'} `}>Login Screen</Text> */}
-        <View className={`mx-auto shadow-md bg-slate-700 rounded-lg ${height < 400 ? 'mt-32 py-1' : 'py-6 mt-52'} ${width < 400 ? 'w-10/12' : 'w-9/12'} px-6`}  style={{alignSelf : 'center'}} >
+        <View className={`mx-auto shadow-md bg-slate-700 rounded-lg ${height < 400 ? 'mt-32 py-1' : 'py-6 mt-52'} ${width < 400 ? 'w-10/12' : 'w-9/12'} px-6`}  style={{alignSelf : 'center', backgroundColor : '#1c4966'}} >
       <Text className="text-2xl font-medium text-slate-100 text-center" >Sign In</Text>
           <View className="my-2">
            <Text className={`text-slate-100 text-xl ${Platform.select({android : 'text-lg'})}`} > Username</Text>
@@ -61,7 +61,7 @@ const LoginScreen = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md text-white bg-gray-600 text-lgg px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.username? 'border-2 border-red-500' : 'border-2 border-green-400'}`}
+          <TextInput  className={`rounded-md text-white bg-gray-500 text-lgg px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.username? 'border-2 border-red-500' : 'border-2 border-slate-300'}`}
           placeholder="Enter username"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -88,7 +88,7 @@ const LoginScreen = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md text-white bg-gray-600 px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.password? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md text-white bg-gray-500 px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.password? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Enter password"
             onBlur={onBlur}
             autoCapitalize = {false}
@@ -102,7 +102,7 @@ const LoginScreen = () => {
       {errors.password && <Text className="text-red-400"> {errors.password.message} </Text>}
        </View>
         <View>
-             <TouchableOpacity className="bg-green-500 rounded-md px-2 py-1 my-3"
+             <TouchableOpacity className="bg-amber-600 rounded-md px-2 py-1 my-3"
                onPress={handleSubmit(onSubmit)}
              >
                 <Text className={`text-2xl font-medium text-white text-center ${Platform.select({android : 'text-xl'})}`} >Sign In</Text>
@@ -114,7 +114,7 @@ const LoginScreen = () => {
              <TouchableOpacity className="rounded-md px-2 py-1 hover:text-sky-300"
              onPress={() => navigation.navigate('SignUp') }
              >
-                <Text className="text-xl font-medium text-green-500 text-center" >Sign Up</Text>
+                <Text className="text-xl font-medium text-orange-500 text-center" >Sign Up</Text>
              </TouchableOpacity>
             </View>
         </View>

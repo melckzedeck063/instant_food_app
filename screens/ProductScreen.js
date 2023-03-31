@@ -21,22 +21,22 @@ const ProductScreen = () => {
 
   return (
     <>
-     <ScrollView  className="bg-slate-800 h-full">
+     <ScrollView style={{backgroundColor : '#0e2433'}}  className="bg-slate-800 h-full">
      <View >
      <View className="relative">
         <Image style={{height : height/2.6}} source={props.image} className="w-full" />
-        <View className='absolute inset-0 bg-black/20' ></View>
+        <View className='absolute inset-0 bg-black/30' ></View>
         <View className="absolute bottom-2 px-2">
             <Text className={`font-bold my-1.5 text-2xl capitalize text-white ${Platform.select({android : 'text-xl'})}`}>{props.name}</Text>
-            <View className="flex flex-row justify-between bg-slate-700 p-0.5 rounded-lg">
-                <TouchableOpacity className="bg-slate-700 rounded-full h-10 w-10 mt-1">
+            <View className="flex flex-row justify-between bg-orange-500 p-0.5 rounded-lg">
+                <TouchableOpacity className="bg-slatee-700 rounded-full h-10 w-10 mt-1">
                     <Text className="text-center font-bold -ml-0.5 -mt-0.5">
                         {Platform.select({ios : <FontAwesome name='minus-circle' size={42} color="white" /> })}
                         {Platform.select({android : <FontAwesome name='minus-circle' size={32} color="white" /> })}
                           </Text>
                 </TouchableOpacity>
                 <Text className={`font-bold text-white text-3xl px-2 py-1 ${Platform.select({android : 'text-2xl'})}`}> 2 </Text>
-                <TouchableOpacity className={`bg-slate-700 rounded-full h-10 w-10 mt-1`}>
+                <TouchableOpacity className={`bg-slatee-700 rounded-full h-10 w-10 mt-1`}>
                     {Platform.select({ios : <Text className="text-center font-bold -ml-0.5 -mt-0.5"> <Ionicons name='ios-add-circle' size={42} color="white" /> </Text> })}
                     {Platform.select({android : <Text className="text-center font-bold -ml-0.5 -mt-0.5"> <Ionicons name='ios-add-circle' size={32} color="white" /> </Text> })}
                     
@@ -81,13 +81,13 @@ const ProductScreen = () => {
         </Text>
      </View>
 
-     <View style={{height : useResponsiveHeight(8), width : useResponsiveWidth(100)}} className="my-3 px-3 bg-slate-700 w=full">
+     <View style={{height : height/9.99, width : width}} className="mt-8 px-3 bg-slate-700 w=full">
         <View className="flex flex-row mt-1  justify-between">
             <View className=""> 
                 <Text className={`font-bold text-white text-xl ${Platform.select({android : 'text-lg'})}`}> Total</Text>
                 <Text className={`font-bold text-amber-500 text-xl ${Platform.select({android : 'text-lg'})}`}> 4000 Tshs </Text>  
             </View>
-            <TouchableOpacity className="bg-green-500 rounded-lg h-10 px-4 py-0.5 mt-2">
+            <TouchableOpacity className="bg-orange-500 rounded-lg h-10 px-4 py-0.5 mt-4">
                 <Text className={`font-bold text-white mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>Add  to Cart</Text>
             </TouchableOpacity>
         </View>

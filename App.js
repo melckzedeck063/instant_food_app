@@ -11,6 +11,7 @@ import SIgnUpScreen from './screens/SIgnUpScreen';
 import AllProducts from './screens/AllProducts';
 import AllCategories from './screens/AllCategories';
 import ProductScreen from './screens/ProductScreen';
+import OrderDetails from './screens/OrderDetails';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,7 +24,7 @@ export default function App() {
       <Stack.Navigator
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#161E35',
+              backgroundColor: '#0e2433',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -51,6 +52,9 @@ export default function App() {
          options={{
           headerShown : false,
          }}  />
+         <Stack.Screen  name='OrderDetails' component={OrderDetails} 
+           options={{ title :  "Order Details" }}
+         />
       </Stack.Navigator>
     </NavigationContainer>
     </>

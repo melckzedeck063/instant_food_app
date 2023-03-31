@@ -4,7 +4,7 @@ import {FontAwesome, Ionicons} from '@expo/vector-icons';
 
 const CartItem = (props) => {
   return (
-    <View style={{color : 'white', backgroundColor  :  '#053F5E'}} className="my-2 bg-slate-700 py-3 rounded-lg" >
+    <View style={{color : 'white', backgroundColor  :  '#053F5E'}} className="my-1.5 bg-slate-700 py-2 rounded-lg" >
       {/* <Text>CartItem</Text> */}
       <View className="flex-row justify-between px-2">
         <View className=" h-10 w-10 rounded-full" >
@@ -16,7 +16,9 @@ const CartItem = (props) => {
            <Text className="text-green py-2 font-medium text-amber-500" > Tshs 3500 </Text>
          </View>
          <View className="py-5" >
-            <TouchableOpacity className="bg-green-500 rounded-md p-2 " >
+            <TouchableOpacity className="bg-orange-500 rounded-md p-2 "
+              onPress={() => console.log("clicked")}
+            >
                 <Text className="font-bold text-center" >
                     <FontAwesome name='close' size={24} color="white"/>
                 </Text>

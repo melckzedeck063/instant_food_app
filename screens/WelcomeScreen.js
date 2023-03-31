@@ -32,16 +32,22 @@ const WelcomeScreen = () => {
        
       <View className="relative">
         
-          <View className={`py-2 bg-slate-700 shadow-md px-2 rounded-xl absolute ${height < 450 ? 'top-3' : 'top-6'} ${width < 380 ? 'w-10/12' : 'w-9/12'}`}  style={{alignSelf : 'center'}}>
+          <View className={`py-2 bg-slate-700 shadow-md px-2 rounded-xl absolute ${height < 450 ? 'top-3' : 'top-6'} ${width < 380 ? 'w-10/12' : 'w-9/12'}`}  style={{alignSelf : 'center', backgroundColor : '#0e2433'}}>
            <Text className={`text-xl font-medium text-amber-500 my-2 text-center ${ Platform.select({android : 'text-lg'})}`} >Instant Food Delivery For You at Your Door </Text>
            <Text className={`my-2 text-sm text-left text-white px-3 ${Platform.select({android : 'text-xs'})}`} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat labore ad similique esse ut vitae </Text>
            
         
-        <View className="mt-2 py-2" >
-             <TouchableOpacity style={{alignSelf: 'center'}} className="rounded-lg px-2 py-1 bg-green-500 hover:text-sky-300 w-9/12 mx-auto"
-             onPress={() => navigation.navigate('Login') }
+        <View className="mt-2 py-2 flex flex-row justify-between" >
+             <TouchableOpacity style={{alignSelf: 'center'}} className="rounded-lg px-2 py-1 bg-orange-500 hover:text-sky-300 w-5/12 mx-auto"
+               onPress={() => navigation.navigate('Login') }
              >
-                <Text className={`text-xl font-medium text-blue-100 text-center ${Platform.select({android : 'text-lg'})}`} >Get Started</Text>
+                <Text className={`text-xl font-medium text-blue-100 text-center ${Platform.select({android : 'text-lg'})}`} >Sign In</Text>
+             </TouchableOpacity>
+
+             <TouchableOpacity style={{alignSelf: 'center', backgroundColor : '#1c4966'}} className="rounded-lg px-2 py-1 bg-amber-500 hover:text-sky-300 w-5/12 mx-auto"
+               onPress={() => navigation.navigate('SignUp') }
+             >
+                <Text className={`text-xl font-medium text-white text-center ${Platform.select({android : 'text-lg'})}`} >Sign Up</Text>
              </TouchableOpacity>
         </View>
         

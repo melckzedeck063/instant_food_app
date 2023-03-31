@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/food_app.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.melckzedeck063.instant_food_app"
     },
     "web": {
       "favicon": "./assets/food_app.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "44980b7c-0e36-4f52-a24e-81151bf8e8c6"
+      }
     }
   }
 }

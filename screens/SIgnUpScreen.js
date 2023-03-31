@@ -35,7 +35,7 @@ const SIgnUpScreen = () => {
         navigation.setOptions({
             // headerShown : false,
             headerStyle : {
-                backgroundColor : "#161E35"
+                backgroundColor : "#0e2433"
             },
             headerTintColor : "white"
         })
@@ -49,8 +49,8 @@ const SIgnUpScreen = () => {
     {/* <View > */}
       <ScrollView>
         {/* <LinearGradient colors={['transparent', '#F54749']} className="h-full" > */}
-        <View className={`w-full h-full bg-slate-900 -mtt-10 ${Platform.select({ios : 'py-32 -mt-20', android : 'py-4'})}`}>
-      <View style={{alignSelf : 'center'}} className="bg-slate-700 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
+        <View style={{backgroundColor : '#0e2433'}} className={`w-full h-full bg-slate-900 -mtt-10 ${Platform.select({ios : 'py-32 -mt-20', android : 'py-4'})}`}>
+      <View style={{alignSelf : 'center', backgroundColor  : '#1c4966'}} className="bg-slate-700 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
            <Text className={`text-2xl font-medium text-white text-center ${Platform.select({android : 'text-xl'})}`} >Sign Up</Text>
       <View className="my-2">
        <Text className={`text-lg text-white ${Platform.select({android : 'text-sm'})}`} >FirstName</Text>
@@ -61,7 +61,7 @@ const SIgnUpScreen = () => {
         //  minLength : {value : 3,  message : "Requires atleast three characters"}
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.firstName? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.firstName? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Enter firstName"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -81,7 +81,7 @@ const SIgnUpScreen = () => {
           minLength : {value : 3,  message : "Requires atleast three characters"}
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.lastName? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.lastName? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Enter lastName"
             onBlur={onBlur} 
             onChangeText={onChange}
@@ -104,12 +104,12 @@ const SIgnUpScreen = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.username? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.username? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Enter username or email"
             onBlur={onBlur}
             autoCapitalize = {false}
             onChangeText={onChange}
-            value={value}border-2 border-green-500
+            value={value}border-2 border-slate-300
           />
         )}
         name="username"
@@ -124,11 +124,11 @@ const SIgnUpScreen = () => {
          required: "Telephone is  required",
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.telephone? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.telephone? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Enter telephone"
             onBlur={onBlur}
             onChangeText={onChange}
-            value={value}border-2 border-green-500
+            value={value}border-2 border-slate-300
           />
         )}
         name="telephone"
@@ -147,7 +147,7 @@ const SIgnUpScreen = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.password? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.password? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Enter password"
             onBlur={onBlur}
             autoCapitalize={false}
@@ -172,7 +172,7 @@ const SIgnUpScreen = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.confirmPassword? 'border-2 border-red-400' : 'border-2 border-green-500'}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.confirmPassword? 'border-2 border-red-400' : 'border-2 border-slate-300'}`}
           placeholder="Confirm Password"
             onBlur={onBlur}
             autoCapitalize={false}
@@ -186,7 +186,7 @@ const SIgnUpScreen = () => {
       {errors.confirmPassword && <Text className="text-red-400"> {errors.confirmPassword.message} </Text>}
                   </View>
                   <View>
-             <TouchableOpacity className="bg-green-500 rounded-md px-2 py-1 my-3"
+             <TouchableOpacity className="bg-orange-400 rounded-md px-2 py-1 my-3"
                onPress={handleSubmit(onSubmit)}
              >
                 <Text className={`text-2xl font-medium text-white text-center ${Platform.select({android : 'text-lg'})}`}>Submit</Text>
@@ -197,7 +197,7 @@ const SIgnUpScreen = () => {
              <TouchableOpacity className="rounded-md px-2 py-1 hover:text-sky-300"
              onPress={() => navigation.navigate('Login') }
              >
-                <Text className="text-xl font-medium text-green-500 text-center" >Sign In</Text>
+                <Text className="text-xl font-medium text-orange-400 text-center" >Sign In</Text>
              </TouchableOpacity>
             </View>
          </View> 

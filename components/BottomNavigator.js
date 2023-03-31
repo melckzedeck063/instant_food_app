@@ -61,7 +61,8 @@ export default function BottomNavigator() {
           tabBarInactiveTintColor: 'pink',
           tabBarActiveTintColor: 'white',
           tabBarStyle : {
-            backgroundColor : '#053F5E'
+            backgroundColor : '#ff781f',
+            opacity : 0.98
           }
           // tabBarBackground : {
           //   backgroundColor : 'black'

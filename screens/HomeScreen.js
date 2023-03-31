@@ -51,7 +51,7 @@ const HomeScreen = () => {
   return (
     <>
       {/* <SafeAreaView className="" /> */}
-    <View style={{ height : height, width : width, backgroundColorR :  '#152B3C'}} className={`bg-slate-800 text-white relative px-1`}>
+    <View style={{ height : height, width : width, backgroundColor :  '#0e2433'}} className={`bg-slate-800 text-white relative px-1`}>
       <View style={{height : responsiveHeight(2.8)}} className={`flex-row justify-between px-4 mt-16 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-14'}) :Platform.select({android : 'mt-8'})}`} >
         <View className="" >
             <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8" >

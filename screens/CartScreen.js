@@ -37,14 +37,14 @@ const CartScreen = () => {
         navigation.setOptions({
             // headerShown : false,
             headerStyle : {
-                backgroundColor : "#161E35"
+                backgroundColor : "#0e2433"
             },
             headerTintColor : "white"
         })
     })
 
   return (
-    <View style={{height : height, width: width}} className="bg-slate-900" >
+    <View style={{height : height, width: width, backgroundColor : '#0e2433'}} className="bg-slate-900" >
       <View style={{alignSelf : 'center'}} className="border-b-2 border-slate-300 w-10/12 py-3">
         <Text className="text-white text-center font-bold text-xl" >Cart Items (3) </Text>
       </View>
@@ -65,7 +65,7 @@ const CartScreen = () => {
             <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> Total (5) Items </Text>
             <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> 3425 Tshs </Text>
           </View>
-          <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-green-500 rounded-lg px-4 py-2 w-5/12`} >
+          <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-500 rounded-lg px-4 py-2 w-5/12`} >
              <Text className={`text-white font-medium text-center ${Platform.select({ios  :  'text-lg'})}`}> Place Order </Text>
           </TouchableOpacity>
          </View>

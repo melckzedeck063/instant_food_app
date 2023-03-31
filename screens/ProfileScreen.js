@@ -11,7 +11,7 @@ const ProfileScreen = () => {
         navigation.setOptions({
             // headerShown : false
             headerStyle : {
-                backgroundColor : "#161E35"
+                backgroundColor : "#0e2433"
             },
             headerTintColor : "white"
         })
@@ -19,7 +19,7 @@ const ProfileScreen = () => {
 
 
   return (
-    <View style={{width : width, height: height}} className="bg-slate-800" >
+    <View style={{width : width, height: height, backgroundColor  : '#0e2433'}} className="bg-slate-800" >
       <Text className="text-white text-center font-bold text-xl" >ProfileScreen</Text>
      
     </View>
