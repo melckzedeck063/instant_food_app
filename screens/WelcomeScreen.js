@@ -38,7 +38,7 @@ const WelcomeScreen = () => {
            
         
         <View className="mt-2 py-2 flex flex-row justify-between" >
-             <TouchableOpacity style={{alignSelf: 'center'}} className="rounded-lg px-2 py-1 bg-orange-500 hover:text-sky-300 w-5/12 mx-auto"
+             <TouchableOpacity style={{alignSelf: 'center'}} className="rounded-lg px-2 py-1 bg-orange-400 hover:text-sky-300 w-5/12 mx-auto"
                onPress={() => navigation.navigate('Login') }
              >
                 <Text className={`text-xl font-medium text-blue-100 text-center ${Platform.select({android : 'text-lg'})}`} >Sign In</Text>

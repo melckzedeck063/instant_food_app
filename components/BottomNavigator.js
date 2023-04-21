@@ -7,6 +7,7 @@ import CartScreen from '../screens/CartScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import OrdersScreen from '../screens/OrdersScreen';
+import SettingsScreen from '../screens/SettingScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -39,10 +40,10 @@ export default function BottomNavigator() {
                 />
               );
             }
-            else if (route.name === 'Profile') {
+            else if (route.name === 'Settings') {
                 return (
-                  <FontAwesome5
-                    name={focused ? 'user-cog' : 'user-cog'}
+                  <Ionicons
+                    name={focused ? 'settings' : 'md-settings-outline'}
                     size={size}
                     color={color}
                   />
@@ -58,11 +59,11 @@ export default function BottomNavigator() {
                 );
               }
           },
-          tabBarInactiveTintColor: 'pink',
+          tabBarInactiveTintColor: 'grey',
           tabBarActiveTintColor: 'white',
           tabBarStyle : {
-            backgroundColor : '#ff781f',
-            opacity : 0.98
+            backgroundColor : '#ff963f',
+            opacity : 0.9
           }
           // tabBarBackground : {
           //   backgroundColor : 'black'
@@ -77,7 +78,7 @@ export default function BottomNavigator() {
         />
         <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Orders" component={OrdersScreen} options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     // </NavigationContainer>
   );

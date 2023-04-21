@@ -12,9 +12,12 @@ import AllProducts from './screens/AllProducts';
 import AllCategories from './screens/AllCategories';
 import ProductScreen from './screens/ProductScreen';
 import OrderDetails from './screens/OrderDetails';
+import ProfileScreen from './screens/ProfileScreen';
+import CategoryScreen from './screens/CategoryScreen';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 export default function App() {
   return (
@@ -54,6 +57,12 @@ export default function App() {
          }}  />
          <Stack.Screen  name='OrderDetails' component={OrderDetails} 
            options={{ title :  "Order Details" }}
+         />
+         <Stack.Screen name='Profile' component={ProfileScreen} 
+           options={{title : 'Profile'}}
+         />
+         <Stack.Screen name='Category' component={CategoryScreen} 
+           options={{title : 'Category Screen'}}
          />
       </Stack.Navigator>
     </NavigationContainer>

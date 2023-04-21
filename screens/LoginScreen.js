@@ -27,6 +27,10 @@ const LoginScreen = () => {
         navigation.navigate('HomeTab')
       }
 
+      setTimeout(() => {
+         navigation.navigate('HomeTab')
+      }, 2000);
+
       useLayoutEffect(() => 
     {
         navigation.setOptions({
@@ -102,7 +106,7 @@ const LoginScreen = () => {
       {errors.password && <Text className="text-red-400"> {errors.password.message} </Text>}
        </View>
         <View>
-             <TouchableOpacity className="bg-amber-600 rounded-md px-2 py-1 my-3"
+             <TouchableOpacity className="bg-orange-400 rounded-md px-2 py-1 my-3"
                onPress={handleSubmit(onSubmit)}
              >
                 <Text className={`text-2xl font-medium text-white text-center ${Platform.select({android : 'text-xl'})}`} >Sign In</Text>
@@ -114,7 +118,7 @@ const LoginScreen = () => {
              <TouchableOpacity className="rounded-md px-2 py-1 hover:text-sky-300"
              onPress={() => navigation.navigate('SignUp') }
              >
-                <Text className="text-xl font-medium text-orange-500 text-center" >Sign Up</Text>
+                <Text className="text-xl font-medium text-orange-400 text-center" >Sign Up</Text>
              </TouchableOpacity>
             </View>
         </View>

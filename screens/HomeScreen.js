@@ -13,7 +13,8 @@ import image4 from '../assets/images/pexels-pixabay-262978.jpg';
 // import categoryCard from '../components/categoryCard';
 import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import NavigationDrawer from '../components/NavigationDrawer'
 
 const categories =  [
   {name : "vegetables", image :image1, id : 1 },
@@ -28,6 +29,8 @@ const HomeScreen = () => {
     
     const navigation =  useNavigation();
     const {height, width} =  useWindowDimensions()
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
 
     // console.log(height);
    
@@ -53,8 +56,11 @@ const HomeScreen = () => {
       {/* <SafeAreaView className="" /> */}
     <View style={{ height : height, width : width, backgroundColor :  '#0e2433'}} className={`bg-slate-800 text-white relative px-1`}>
       <View style={{height : responsiveHeight(2.8)}} className={`flex-row justify-between px-4 mt-16 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-14'}) :Platform.select({android : 'mt-8'})}`} >
+
         <View className="" >
-            <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8" >
+            <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8"
+               onPress={() => setIsDrawerOpen(!isDrawerOpen)}
+            >
                 <Text>
                     <FontAwesome name='navicon' size={32}  color="white"  />
                 </Text>
@@ -151,6 +157,15 @@ const HomeScreen = () => {
           />
         </View>
       </View>
+
+      <View style={[style.drawer, isDrawerOpen ? { left: 0 } : { left: -250 }]} className="bg-slatee-700">
+          <TouchableOpacity onPress={() => setIsDrawerOpen(false)} className="pt-4 right-2 my-2">
+            <Ionicons name="close" size={48} color="red" />
+          </TouchableOpacity>
+
+          <NavigationDrawer  />
+      </View>
+
     </View>
     </>
   )
@@ -175,5 +190,18 @@ const style = StyleSheet.create({
   },
   sampleText: {
     fontSize: responsiveFontSize(2) // 2% of total window size
-  }
+  },
+  drawer: {
+    position: "absolute",
+    left: -280,
+    top: 0,
+    bottom: 0,
+    width: responsiveWidth(60),
+    // height : responsiveHeight(80),
+    backgroundColor :  '#1c4966',
+    padding: 20,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
 })
