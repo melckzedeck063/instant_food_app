@@ -40,15 +40,15 @@ export default function BottomNavigator() {
                 />
               );
             }
-            else if (route.name === 'Settings') {
-                return (
-                  <Ionicons
-                    name={focused ? 'settings' : 'md-settings-outline'}
-                    size={size}
-                    color={color}
-                  />
-                );
-              }
+            // else if (route.name === 'Settings') {
+            //     return (
+            //       <Ionicons
+            //         name={focused ? 'settings' : 'md-settings-outline'}
+            //         size={size}
+            //         color={color}
+            //       />
+            //     );
+            //   }
               else if (route.name === 'Orders') {
                 return (
                   <Ionicons
@@ -78,7 +78,7 @@ export default function BottomNavigator() {
         />
         <Tab.Screen name="Cart" component={CartScreen} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Orders" component={OrdersScreen} options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
       </Tab.Navigator>
     // </NavigationContainer>
   );

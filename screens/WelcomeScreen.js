@@ -5,6 +5,7 @@ import image2 from '../assets/images/product-238816929-1673073324827.jpeg'
 
 import { useNavigation } from '@react-navigation/native'
 // import { LinearGradient } from 'expo-linear-gradient'
+import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 
 const WelcomeScreen = () => {
 
@@ -19,7 +20,7 @@ const WelcomeScreen = () => {
 
   return (
     // <LinearGradient colors={['transparent', '#F54749']} className="bg-slate-100 w-full h-full" style={{flex : 1}}>
-      <View className="bg-slatee-100 w-full h-full" style={{flex : 1}}>
+      <View className="bg-slatee-100 w-full h-full" style={{flex : 1, height : responsiveHeight(110)}}>
         <ImageBackground source={image2} resizeMode='cover'
           style={{
             flex: 1,

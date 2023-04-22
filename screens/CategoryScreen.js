@@ -41,7 +41,7 @@ const CategoryScreen = () => {
      {/* <ScrollView   > */}
      <View style={{backgroundColor :  '#0e2433'}} className="h-full">
      <View className="relative">
-        <Image style={{height : height/3}} source={props.image} className="w-full" />
+        <Image style={{height : height/3.1}} source={props.image} className="w-full" />
         <View className='absolute inset-0 bg-black/60' ></View>
         <View className="absolute bottom-2 px-2">
             {/* <Text className={`font-bold my-1.5 text-2xl capitalize text-white ${Platform.select({android : 'text-xl'})}`}>{props.name}</Text> */}
@@ -49,7 +49,15 @@ const CategoryScreen = () => {
       </View>
 
      <View className="mx-2 px-2 mb-3">
+      <View className="flex flex-row justify-between my-4">
         <Text className={`font-bold capitalize text-white text-xl py-2 ${Platform.select({android : 'text-lg'})}`}>{props.name}</Text>
+        <TouchableOpacity className="px-2 h-9 -p-1 bg-orange-400 flex flex-row space-x-2 rounded-lg">
+          <Text className={`mt-0.5`}>
+            {Platform.select({android :<Ionicons name='add-circle' size={24}  color="white" /> ,  ios :<Ionicons name='add-circle' size={32}  color="white" /> })}
+          </Text>
+          <Text className={`text-white font-bold mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>New</Text>
+        </TouchableOpacity>
+      </View>
         <Text className={`font-mediumm capitalize text-slate-100 px-2 ${Platform.select({android : 'text-xs'})}`}> 
          Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quam suscipit veniam ut doloremque quas, reprehenderit commodi deserunt 
          perferendis ducimus ullam fuga sequi optio laboriosam quaerat ipsum asperiores eius nemo.

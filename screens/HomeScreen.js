@@ -159,8 +159,10 @@ const HomeScreen = () => {
       </View>
 
       <View style={[style.drawer, isDrawerOpen ? { left: 0 } : { left: -250 }]} className="bg-slatee-700">
-          <TouchableOpacity onPress={() => setIsDrawerOpen(false)} className="pt-4 right-2 my-2">
-            <Ionicons name="close" size={48} color="red" />
+          <TouchableOpacity onPress={() => setIsDrawerOpen(false)} className="pt-4 my-2 right-0">
+            {/* <Ionicons name="close" size={48} color="red" /> */}
+            {Platform.select({android : <Ionicons name="close" size={42} color="red" /> })}
+            {Platform.select({ios: <Ionicons name="close" size={42} color="red" /> })}
           </TouchableOpacity>
 
           <NavigationDrawer  />

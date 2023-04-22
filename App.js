@@ -14,6 +14,7 @@ import ProductScreen from './screens/ProductScreen';
 import OrderDetails from './screens/OrderDetails';
 import ProfileScreen from './screens/ProfileScreen';
 import CategoryScreen from './screens/CategoryScreen';
+import SettingsScreen from './screens/SettingScreen';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,6 +64,9 @@ export default function App() {
          />
          <Stack.Screen name='Category' component={CategoryScreen} 
            options={{title : 'Category Screen'}}
+         />
+         <Stack.Screen name='Settings' component={SettingsScreen} 
+           options={{title : 'Settings Screen'}}
          />
       </Stack.Navigator>
     </NavigationContainer>

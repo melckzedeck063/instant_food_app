@@ -2,6 +2,7 @@ import React,{useLayoutEffect} from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Switch, ScrollView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import  {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 
 const SettingsScreen = () => {
 
@@ -20,7 +21,7 @@ const SettingsScreen = () => {
   useLayoutEffect(() => 
     {
         navigation.setOptions({
-            // headerShown : false,
+            headerShown : true,
             headerStyle : {
                 backgroundColor : "#0e2433"
             },
@@ -32,51 +33,51 @@ const SettingsScreen = () => {
     <ScrollView style={styles.container} className="-mt-4 bg-slate-800">
       <View style={styles.content}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Account</Text>
+          <Text style={styles.sectionTitle} className={`${Platform.select({android : '-mt-2'})}`}>Account</Text>
           <TouchableOpacity style={styles.item} 
              onPress={() => navigation.navigate("Profile") }
           >
-            <Text style={styles.itemText}>Edit Profile</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Edit Profile</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item}>
-            <Text style={styles.itemText}>Change Password</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Change Password</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
         </View>
         <View style={styles.section} className="-mt-1">
-          <Text style={styles.sectionTitle}>Notifications</Text>
+          <Text style={styles.sectionTitle} className={`${Platform.select({android : '-mt-2'})}`}>Notifications</Text>
           <View style={styles.item}>
-            <Text style={styles.itemText}>Enable Notifications</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Enable Notifications</Text>
             <Switch value={notificationsEnabled} onValueChange={handleToggleNotifications} />
           </View>
           <View style={styles.section} className={`flex flex-row justify-between border-b border-slate-200 mt-5`}>
-        <Text style={styles.itemText}>Location</Text>
+        <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Location</Text>
         <Switch value={locationEnabled} onValueChange={handleLocationToggle} />
       </View>
       <View style={styles.section} className={`flex flex-row justify-between border-b border-slate-200`}>
-        <Text style={styles.itemText}>Auto-Complete Address</Text>
+        <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Auto-Complete Address</Text>
         <Switch value={autoCompleteEnabled} onValueChange={handleAutoCompleteToggle} />
       </View>
         </View>
         <View style={styles.section} className="-mt-6">
-          <Text style={styles.sectionTitle}>About</Text>
+          <Text style={styles.sectionTitle} className={`${Platform.select({android : '-mt-2'})}`}>About</Text>
           <TouchableOpacity style={styles.item}>
-            <Text style={styles.itemText}>Terms & Conditions</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Terms & Conditions</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item}>
-            <Text style={styles.itemText}>Privacy Policy</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Privacy Policy</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item}>
-            <Text style={styles.itemText}>App Version</Text>
-            <Text style={styles.itemText}>1.0.0</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>App Version</Text>
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>1.0.0</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity className="bg-orange-400 py-2 rounded-lg">
+        {/* <TouchableOpacity className="bg-orange-400 py-2 rounded-lg">
           <Text className={`text-center text-white font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>Log Out</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </ScrollView>
   );
@@ -85,7 +86,9 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor :  '#0e2433'
+    backgroundColor :  '#0e2433',
+    height : responsiveHeight(90),
+    paddingBottom : 10
   },
   header: {
     flexDirection: 'row',
@@ -100,6 +103,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 16,
     marginTop: 32,
+    marginBottom  :  15
   },
   section: {
     marginBottom: 32,
@@ -107,14 +111,14 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 10,
     color : 'white'
   },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: 14,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#ccc',
   },
