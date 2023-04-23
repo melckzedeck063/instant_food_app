@@ -44,6 +44,12 @@ const SettingsScreen = () => {
             <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Change Password</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
+          <TouchableOpacity style={styles.item}
+             onPress={() => navigation.navigate("RegisterBoda") }
+          >
+            <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Register as Boda</Text>
+            <Ionicons name="arrow-forward" size={20} color="#ccc" />
+          </TouchableOpacity>
         </View>
         <View style={styles.section} className="-mt-1">
           <Text style={styles.sectionTitle} className={`${Platform.select({android : '-mt-2'})}`}>Notifications</Text>

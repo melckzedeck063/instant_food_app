@@ -51,12 +51,18 @@ const CategoryScreen = () => {
      <View className="mx-2 px-2 mb-3">
       <View className="flex flex-row justify-between my-4">
         <Text className={`font-bold capitalize text-white text-xl py-2 ${Platform.select({android : 'text-lg'})}`}>{props.name}</Text>
-        <TouchableOpacity className="px-2 h-9 -p-1 bg-orange-400 flex flex-row space-x-2 rounded-lg">
+        
+        <TouchableOpacity className="px-2 h-9 -p-1 bg-orange-400 flex flex-row space-x-2 rounded-lg"
+          onPress={()  => navigation.navigate('NewProduct',{
+            props
+          }) }
+        >
           <Text className={`mt-0.5`}>
             {Platform.select({android :<Ionicons name='add-circle' size={24}  color="white" /> ,  ios :<Ionicons name='add-circle' size={32}  color="white" /> })}
           </Text>
           <Text className={`text-white font-bold mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>New</Text>
         </TouchableOpacity>
+
       </View>
         <Text className={`font-mediumm capitalize text-slate-100 px-2 ${Platform.select({android : 'text-xs'})}`}> 
          Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quam suscipit veniam ut doloremque quas, reprehenderit commodi deserunt 

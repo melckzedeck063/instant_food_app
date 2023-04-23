@@ -15,6 +15,9 @@ import OrderDetails from './screens/OrderDetails';
 import ProfileScreen from './screens/ProfileScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import SettingsScreen from './screens/SettingScreen';
+import NewCategory from './screens/NewCategoryScreen';
+import NewProduct from './screens/NewProductScreen';
+import RegisterBodaScreen from './screens/RegisterBodaScreen';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,6 +70,15 @@ export default function App() {
          />
          <Stack.Screen name='Settings' component={SettingsScreen} 
            options={{title : 'Settings Screen'}}
+         />
+         <Stack.Screen name='NewCategory' component={NewCategory} 
+           options={{title : 'Create Category'}}
+         />
+         <Stack.Screen name='NewProduct' component={NewProduct} 
+           options={{title : 'Create  Product'}}
+         />
+         <Stack.Screen name='RegisterBoda' component={RegisterBodaScreen} 
+           options={{title : 'Register as Boda'}}
          />
       </Stack.Navigator>
     </NavigationContainer>

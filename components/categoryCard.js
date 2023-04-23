@@ -6,7 +6,6 @@ const CategoryCard = (props) => {
 
   const navigation =  useNavigation();
 
-  
   return (
     <TouchableOpacity className="mx-1.5"
     onPress={() => navigation.navigate('Category', {
