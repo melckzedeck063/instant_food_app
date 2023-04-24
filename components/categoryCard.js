@@ -1,6 +1,7 @@
 import { View, Text , StyleSheet, Image, TouchableOpacity, Platform} from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 
 const CategoryCard = (props) => {
 
@@ -12,8 +13,8 @@ const CategoryCard = (props) => {
       props
     }) }
     >
-      <View style={{backgroundColor  : '#1c4966'}}  className="bg-slate-700 p-2.5 rounded-xl">
-        <Image source={props.image} className="h-20 w-32"  />
+      <View style={{backgroundColor  : '#1c4966'}}  className="bg-slate-700 p-1.5 rounded-xl">
+        <Image style={{width : responsiveWidth(26)}} source={props.image} className="h-24 w-32"  />
       </View>
       <Text className={`text-white text-lg font-medium capitalize ${Platform.select({android : 'text-sm'})}`} > {props.name} </Text>
     </TouchableOpacity>

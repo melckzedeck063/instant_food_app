@@ -77,8 +77,8 @@ const NewProduct = () => {
 
     const onSubmit = data => {
       data.photo = imageData
-      data.id =  restaurant_id
-      // console.log(data)
+      // data.id =  restaurant_id
+      console.log(data)
       // createNewProduct(data)
     //   dispatch(  makeNewProduct(data) )
     }
@@ -151,7 +151,7 @@ const NewProduct = () => {
         name="price"
       />
       </View>
-      <View className="my-2">
+      {/* <View className="my-2">
       <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Quantity</Text>
      <Controller
         control={control}
@@ -169,9 +169,9 @@ const NewProduct = () => {
         )}
         name="quantity"
       />
-      </View>
+      </View> */}
       <View className="my-2">
-          <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Location</Text>
+          <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Restaurant</Text>
           <Controller
             control={control}
             rules={{

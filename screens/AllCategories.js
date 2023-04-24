@@ -89,7 +89,7 @@ const AllCategories = () => {
       </View>
 
 
-      <View className="">
+      <View className="px-2">
          <FlatList
           data={categories}
           numColumns={3} 

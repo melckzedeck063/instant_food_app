@@ -1,6 +1,7 @@
 import { View, Text, useWindowDimensions, FlatList } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import  {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 
 import image1 from '../assets/images/pexels-elevate-1267320.jpg';
 import image2 from '../assets/images/pexels-matheus-guimarÃ£es-1291712.jpg';
@@ -47,7 +48,7 @@ const AllProducts = () => {
         <View style={{alignSelf : 'center'}} className="border-slate-400 border-b-2 w-10/12" >           
             <Text className="text-lg text-white text-center font-bold py-3" >AllProducts</Text>
         </View>
-        <View  className="my-4 mb-10">
+        <View style={{height  : responsiveHeight(82.5)}} className="my-4 mb-10">
             {data && data.length > 1 ?
           <>
           <FlatList 

@@ -74,7 +74,7 @@ const NewCategory = () => {
 
 const onSubmit = (data) => {
   data.photo = imageData
-  // console.log(data)
+  console.log(data)
     //   dispatch( createNewBakery(data))
       // uploadImage();
   }
@@ -88,7 +88,7 @@ useLayoutEffect(() => {
 
   return (
     <KeyboardAwareScrollView style={{height : responsiveHeight(100), backgroundColor : '#0e2433' }}  >
-    <ScrollView className="mt-6">
+    <ScrollView className="mt-10">
       <View  className ="my-4">
           <View className="relative">
           {/* <View className="absolute top-1 left-2 flex-row justify-between">
@@ -157,7 +157,7 @@ useLayoutEffect(() => {
   name="photo"
 /> */}
 
-<View className="my-2">
+{/* <View className="my-2">
 <Text className="text-xl text-white" >Contacts</Text>
 <Controller
   control={control}
@@ -175,9 +175,9 @@ useLayoutEffect(() => {
   )}
   name="contacts"
 />
-</View>
+</View> */}
             <View className="my-2">
-            <Text className="text-xl text-white" >Bakery Email</Text>
+            <Text className="text-xl text-white" >Category Contents</Text>
             <Controller
   control={control}
   rules={{
@@ -201,7 +201,7 @@ useLayoutEffect(() => {
        <TouchableOpacity className="bg-orange-400 rounded-md px-2 py-1 my-3"
          onPress={handleSubmit(onSubmit)}
        >
-          <Text className="text-2xl font-medium text-white text-center" >Submit</Text>
+          <Text className={`text-2xl font-medium text-white text-center ${Platform.select({android  : 'text-xl'})}`} >Submit</Text>
        </TouchableOpacity>
   </View>
    </View> 

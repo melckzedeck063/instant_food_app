@@ -55,7 +55,7 @@ const HomeScreen = () => {
     <>
       {/* <SafeAreaView className="" /> */}
     <View style={{ height : height, width : width, backgroundColor :  '#0e2433'}} className={`bg-slate-800 text-white relative px-1`}>
-      <View style={{height : responsiveHeight(2.8)}} className={`flex-row justify-between px-4 mt-16 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-14'}) :Platform.select({android : 'mt-8'})}`} >
+      <View style={{height : responsiveHeight(2.8)}} className={`flex-row justify-between px-4 mt-16 mb-4 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-14'}) :Platform.select({android : 'mt-8'})}`} >
 
         <View className="" >
             <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8"
@@ -75,7 +75,7 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      <View style={{alignSelf : 'center', height : responsiveHeight(5)}} className="my-8 flex-row space-x-6 justify-between w-full px-3" >
+      <View style={{alignSelf : 'center', height : responsiveHeight(5)}} className="my-7 flex-row space-x-6 justify-between w-full px-3" >
       <View className="w-10/12">       
       <Controller
         control={control}
@@ -105,6 +105,9 @@ const HomeScreen = () => {
          </Text>
       </TouchableOpacity>
       </View>
+      {/* <View style={[style.card, style.ad_card]} className={``}>
+
+      </View> */}
       <View style={{height : responsiveHeight(27) }} className={`w-full ${Platform.select({android : 'mt-2'})}`} >
         <View className="flex-row justify-between" >
           <View>
@@ -185,6 +188,9 @@ const style = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius : 8,
     width  : '90%'
+   },
+   ad_card :  {
+    height  : responsiveHeight(10)
    },
    container: {
     height: responsiveHeight(46), // 50% of window height

@@ -22,8 +22,8 @@ const ProductCard = (props) => {
               <Text className={`text-white -mt-0.5 ${Platform.select({android : 'text-xs'})}`} > 3000 Tsh </Text>
             </View>
             <TouchableOpacity  className="bg-orange-500 rounded-l-xl bottom-3" >
-                <Text className="text-white  text-xl px-2 py-0.5">
-                    <FontAwesome name='plus' size={16} color="white"  />
+                <Text className="text-white  text-xl px-1 py-0.5">
+                    <FontAwesome name='heart' size={24} color="white"  />
                 </Text>
             </TouchableOpacity>
         </View>
