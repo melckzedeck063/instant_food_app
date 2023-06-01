@@ -1,5 +1,5 @@
 import { View, Text, Image, useWindowDimensions, TouchableOpacity, ScrollView, Platform, FlatList } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
@@ -13,6 +13,8 @@ import image4 from '../assets/images/pexels-pixabay-262978.jpg';
 // import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
 import { IMAGE_URL } from '../store/URL'
+import { useDispatch, useSelector } from 'react-redux'
+import { getRestaurantProducts } from '../store/actions/product_actions'
 
 
 const categories =  [
@@ -28,6 +30,17 @@ const CategoryScreen = () => {
     const navigation =  useNavigation();
     const {params : {props}} =  useRoute();
     const {width, height} =  useWindowDimensions();
+    const [reload, setReload] = useState(0);
+    const  dispatch =  useDispatch();
+
+    setTimeout(() => {
+      if(reload < 5){
+        setReload(reload => reload + 1)
+      }
+    }, 1000);
+
+    const restaurantProducts = useSelector(state => state.product);
+    // console.log(restaurantProducts.restaurant_products);
 
     // console.log(height);
 
@@ -35,6 +48,12 @@ const CategoryScreen = () => {
         navigation.setOptions({
         //    headerShown : false
         })
+    })
+
+    useEffect(() => {
+      if(restaurantProducts && restaurantProducts.restaurant_products && reload < 4 ){
+        dispatch( getRestaurantProducts(props.id) )
+      }
     })
 
   return (
@@ -86,23 +105,33 @@ const CategoryScreen = () => {
            <Text className={`text-amber-500 text-lg mr-1 ${Platform.select({android : 'text-sm mr-2'})}`}  > See All </Text>  
            </TouchableOpacity> */}
         </View>
-        
-         <FlatList 
-          data={categories}
-          horizontal = {false}
-          showsHorizontalScrollIndicator ={false}
-          numColumns={2}
-          contentContainerStyle = {{
-            paddingHorizontal : 1,
-            paddingVertical : 5
-          }}
-          renderItem={(itemData) => {
-            return (
-               <ProductCard name={itemData.item.name} image={itemData.item.image}  />
-            )
-          }}
-          keyExtractor={(item) => item.id}
-         />
+        {
+          restaurantProducts?.restaurant_products?.data?.product?(
+            <>
+          <FlatList 
+           data={restaurantProducts.restaurant_products.data.product}
+           horizontal = {false}
+           showsHorizontalScrollIndicator ={false}
+           numColumns={2}
+           contentContainerStyle = {{
+             paddingHorizontal : 1,
+             paddingVertical : 5
+           }}
+           renderItem={(itemData) => {
+             return (
+               <ProductCard name={itemData.item.productName} image={itemData.item.photo} price={itemData.item.price} quantity={itemData.item.quantity}
+                 prepared_by={itemData.item.prepared_by} 
+                 desc = {itemData.item.description}
+                 />
+             )
+           }}
+           keyExtractor={(item) => item.id}
+          />
+            </>
+          )
+          :
+          <></>
+        }
       </View>
 
      </View>

@@ -1,5 +1,5 @@
 import { View, Text, useWindowDimensions, FlatList } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState,useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import  {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 
@@ -11,6 +11,8 @@ import image5 from '../assets/images/pexels-miguel-Ã¡-padriÃ±Ã¡n-159106
 import image6 from '../assets/images/pexels-william-choquette-2641886.jpg';
 import image7 from '../assets/images/product-741755043-1673243019360.jpeg';
 import ProductCard from '../components/ProductCard';
+import { useDispatch,useSelector } from 'react-redux';
+import { getAllProducts } from '../store/actions/product_actions';
 
 
 const data = [
@@ -30,7 +32,24 @@ const AllProducts = () => {
 
     const navigation =  useNavigation();
     const {width, height} =  useWindowDimensions();
+    const dispatch =  useDispatch();
+    const [reload, setReload] =  useState(0)
 
+    const  products =  useSelector(state => state.product);
+    // console.log(products.all_products)
+
+    setTimeout(() => {
+        if(reload <5){
+            setReload(reload => reload + 1)
+        }
+    }, 1000);
+
+
+    useEffect(() => {
+        if(products  && products.all_products && reload < 4){
+          dispatch( getAllProducts() );
+        }
+      })
 
     useLayoutEffect (() => {
         navigation.setOptions({
@@ -49,10 +68,10 @@ const AllProducts = () => {
             <Text className="text-lg text-white text-center font-bold py-3" >AllProducts</Text>
         </View>
         <View style={{height  : responsiveHeight(82.5)}} className="my-4 mb-10">
-            {data && data.length > 1 ?
+            { products?.all_products?.data?.data ?
           <>
           <FlatList 
-           data={data}
+           data={products.all_products.data.data}
            numColumns={2}
            style={{
             padding : 3,
@@ -61,10 +80,13 @@ const AllProducts = () => {
            }}
            renderItem = {(itemData) => {
             return (
-                <ProductCard name={itemData.item.name} image={itemData.item.image}  />
+               <ProductCard name={itemData.item.productName} image={itemData.item.photo} price={itemData.item.price} quantity={itemData.item.quantity}
+                 prepared_by={itemData.item.prepared_by} 
+                 desc = {itemData.item.description}
+                 />
             )
            }}
-           keyExtractor={(item) => item.id}
+           keyExtractor={(item) => item._id}
           />
           </>
            :  null    
