@@ -21,7 +21,11 @@ const NewProduct = () => {
   const [imageData, setImageData] =  useState("")
 //   const dispatch =  useDispatch();
 
-    const { register, handleSubmit, control, formState : {error} } =  useForm();
+    const { register, handleSubmit, control, formState : {error} } =  useForm({
+      defaultValues:{
+        
+      }
+    });
     const navigation =  useNavigation();
 
     const {params :  {props}} =  useRoute();
@@ -142,7 +146,6 @@ const NewProduct = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
           placeholder="Enter Price"
-          keyboardType='phone-pad'
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -171,7 +174,7 @@ const NewProduct = () => {
       />
       </View> */}
       <View className="my-2">
-          <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Restaurant</Text>
+          <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Quantity</Text>
           <Controller
             control={control}
             rules={{
@@ -179,14 +182,13 @@ const NewProduct = () => {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
-              placeholder="Enter location"
-              keyboardType='phone-pad'
+              placeholder="Enter quantity"
               onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
             )}
-            name="location"
+            name="quantity"
           />
 
         </View>

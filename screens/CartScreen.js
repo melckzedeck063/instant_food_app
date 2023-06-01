@@ -15,15 +15,15 @@ import {useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-d
 
 
 const data = [
-  {name : "vegetables", image :image1, id : 1 },
-  {name : "Fruits", image :image2, id : 2 },
-  {name : "Drinks", image :image3, id: 3 },
-  {name : "Bites", image : image4 , id : 4},
-  {name : "Fast food", image :image1, id: 5 },
-  {name : "Fruits", image :image2, id : 6 },
-  {name : "Bites", image : image5 , id : 7},
-  {name : "Fast food", image :image6, id: 8 },
-  {name : "Fruits", image :image7, id : 9 },
+  {name : "vegetables", image :image1, id : 1 , price : 2400, quantity :  3},
+  {name : "Fruits", image :image2, id : 2 , price : 2400, quantity :  3},
+  {name : "Drinks", image :image3, id: 3 , price : 2400, quantity :  3},
+  {name : "Bites", image : image4 , id : 4, price : 2400, quantity :  3},
+  {name : "Fast food", image :image1, id: 5 , price : 2400, quantity :  3},
+  {name : "Fruits", image :image2, id : 6 , price : 2400, quantity :  3},
+  {name : "Bites", image : image5 , id : 7, price : 2400, quantity :  3},
+  {name : "Fast food", image :image6, id: 8 , price : 2400, quantity :  3},
+  {name : "Fruits", image :image7, id : 9 , price : 2400, quantity :  3},
 ]
 
 
@@ -53,7 +53,7 @@ const CartScreen = () => {
          data={data}
          renderItem={(itemData) => {
           return(
-            <CartItem image={itemData.item.image} name={itemData.item.name}  />
+            <CartItem image={itemData.item.image} name={itemData.item.name} quantity={itemData.item.quantity} price={itemData.item.price} />
           )
          }}
          keyExtractor={(item) => item.id}

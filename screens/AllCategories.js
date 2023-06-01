@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import CategoryCard from '../components/categoryCard';
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch,useSelector } from 'react-redux';
 
 const categories =  [
   {name : "vegetables", image :image1, id : 1 },
@@ -27,6 +28,24 @@ const AllCategories = () => {
 
     const navigation =  useNavigation();
     const {width,height} =  useWindowDimensions()
+    const [reload, setReload]=  useState(0)
+    const dispatch= useDispatch();
+
+    setTimeout(() => {
+      if(reload < 5){
+        setReload(reload => reload + 1)
+      }
+    }, 1000);
+
+
+    const restaurants =   useSelector(state => state.restaurant);
+    // console.log(restaurants.restaurants)
+
+    useEffect(() => {
+      if(restaurants && restaurants.restaurants.length < 1 && reload < 4){
+        dispatch( getAllRestaurant() )
+      }
+    })
 
     const {  control } = useForm();
     const [items, setItems] =  useState([]);
@@ -89,17 +108,29 @@ const AllCategories = () => {
       </View>
 
 
-      <View className="px-2">
-         <FlatList
-          data={categories}
-          numColumns={3} 
-          renderItem={(itemData) => {
-            return(
-                <CategoryCard name={itemData.item.name} image={itemData.item.image}  />
-            )
-          }}
-          keyExtractor={(item) =>item.id }
-         />
+      <View style={{alignSelf : 'center'}} className="px-2 w-11/12">
+      {
+          restaurants?.restaurants?.data?.data?(
+            <>
+          <FlatList 
+           data={restaurants.restaurants.data.data}
+           numColumns={2}
+           contentContainerStyle = {{
+             paddingHorizontal : 1,
+             paddingVertical : 5
+           }}
+           renderItem={(itemData) => {
+             return (
+                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description} />
+             )
+           }}
+           keyExtractor={(item) => item._id}
+          />
+            </>
+          )
+          :
+          <></>
+         }
       </View>
     </View>
   )

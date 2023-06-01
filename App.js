@@ -18,6 +18,9 @@ import SettingsScreen from './screens/SettingScreen';
 import NewCategory from './screens/NewCategoryScreen';
 import NewProduct from './screens/NewProductScreen';
 import RegisterBodaScreen from './screens/RegisterBodaScreen';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import LocationTracking from './screens/LocationTracking';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,7 +30,8 @@ export default function App() {
   return (
     <>
     <StatusBar style='light'/>
-    <NavigationContainer>
+    <Provider store={store} >
+     <NavigationContainer>
       <Stack.Navigator
           screenOptions={{
             headerStyle: {
@@ -80,8 +84,12 @@ export default function App() {
          <Stack.Screen name='RegisterBoda' component={RegisterBodaScreen} 
            options={{title : 'Register as Boda'}}
          />
+          <Stack.Screen name='Location' component={LocationTracking} 
+           options={{title : 'Location Tracking'}}
+         />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
     </>
   );
 }

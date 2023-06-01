@@ -15,16 +15,27 @@ import { useNavigation } from '@react-navigation/native';
 // import { createNewBakery, uploadImage } from '../store/reduxStore/actions/bakery_actions';
 // import { FileSystemUploadType } from 'expo-file-system';
 import axios from 'axios';
-// import { BASE_URL } from '../store/url';
+import { BASE_URL } from '../store/URL';
+import { useDispatch } from 'react-redux';
+import { registerRestaurant } from '../store/actions/restaurant_action';
 
 const NewCategory = () => {
 
     const [image, setImage] =   useState(null);
     const [imageData, setImageData] =  useState("")
     const [galleryPhoto, setgalleryPhoto] = useState(null)
-    const { register,defaultValue, handleSubmit, control, formState : {error} } =  useForm();
+    const { register,defaultValue, reset, handleSubmit, control, formState : {errors} } =  useForm({
+      defaultValues  : {
+        restaurantName : '',
+        location : '',
+        contacts : '',
+        email : '',
+        description  : ''
+    },
+    mode : 'all'
+    });
     const navigation =  useNavigation();
-    // const dispatch =   useDispatch()
+    const dispatch =  useDispatch();
 
 
 
@@ -58,12 +69,12 @@ const NewCategory = () => {
         },
       };
 
-      // const response = 
-      // console.log(response) 
+      const response = 
+      console.log(response) 
                        
-    //   return fetch(`${BASE_URL}/posts/upload_photo`, options)
-    //               .then((response) => response.json())
-    //               .then( (data) => setImageData(data.data) )
+      return fetch(`${BASE_URL}/posts/upload_photo`, options)
+                  .then((response) => response.json())
+                  .then( (data) => setImageData(data.data) )
                   
     }
   } catch(e) {
@@ -75,10 +86,13 @@ const NewCategory = () => {
 const onSubmit = (data) => {
   data.photo = imageData
   console.log(data)
-    //   dispatch( createNewBakery(data))
+      dispatch(registerRestaurant(data))
       // uploadImage();
+
+      setTimeout(() => {
+         reset()
+      }, 1500);
   }
-// console.log(imageData)
 
 useLayoutEffect(() => {
   navigation.setOptions({
@@ -88,42 +102,32 @@ useLayoutEffect(() => {
 
   return (
     <KeyboardAwareScrollView style={{height : responsiveHeight(100), backgroundColor : '#0e2433' }}  >
-    <ScrollView className="mt-10">
+    <ScrollView className="mt-4">
       <View  className ="my-4">
           <View className="relative">
-          {/* <View className="absolute top-1 left-2 flex-row justify-between">
-          
-          <TouchableOpacity className="rounde-lg bgg-white h-8 w-8 -mt-8 rounded-full"
-           onPress={()=> navigation.goBack()}
-          >
-            <Text className="-ml-1.5 mt-1 text-xl font-bold" > <Ionicons size={32} color="black" name='chevron-back' /> </Text>  
-          </TouchableOpacity>
-        </View> */}
-        
-          {/* <Text className="text-xl text-white my-3" >Restaurant Name</Text> */}
               <View  className="my-2 mb-4">
                 <Text   className="text-center font-bold text-lg text-white" >
-                  Add Category
+                  Register Restaurant
                 </Text>
               </View>
               <View style={{alignSelf : 'center', backgroundColor : '#1c4966'}} className="bg-white shadow-md rounded-lg px-4 py-5 w-10/12 my-2">
      {/* <Text className="text-2xl font-medium text-red-400 text-center" >Sign Up</Text> */}
 <View className="my-2">
- <Text className={`text-xl text-white ${Platform.select({android  : 'text-lg'})}`} >Category Name</Text>
+ <Text className={`text-xl text-white ${Platform.select({android  : 'text-lg'})}`} >Restaurant Name</Text>
   <Controller
   control={control}
   rules={{
    required: true,
   }}
-  name="bakeryName"
   render={({ field: { onChange, onBlur, value} }) => (
-    <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
-    placeholder="Enter bakery name"
+    <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})} ${errors.restaurantName? 'border-2 border-red-500' : 'border-2 border-slate-300'} `}
+    placeholder="Enter restaurant name"
       onBlur={onBlur}
       onChangeText={ onChange}
       value={value}
-    />
-  )}
+      />
+      )}
+  name = "restaurantName"
 />
 </View>
 {/* <View className="my-2">
@@ -139,25 +143,26 @@ useLayoutEffect(() => {
     </View>
       {image && <Image className="rounded-full" source={{ uri: image.uri }} style={{ width: 180, height: 180 }} />}
 </View>
-    {/* <Controller
+<View className="my-2">
+<Text className="text-xl text-white" >location</Text>
+<Controller
   control={control}
   rules={{
    required: true,
   }}
-  defaultValue="home"
-  render={({ field: { onChange, onBlur, value} }) => (
-    <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5`}
-    placeholder="choose photo"
+  render={({ field: { onChange, onBlur, value } }) => (
+    <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})} ${errors.location? 'border-2 border-red-500' : 'border-2 border-slate-300'}`}
+    placeholder="Enter bakery location"
+    keyboardType='phone-pad'
       onBlur={onBlur}
-      // editable={false}
       onChangeText={onChange}
       value={value}
     />
   )}
-  name="photo"
-/> */}
-
-{/* <View className="my-2">
+  name="location"
+/>
+</View>
+<View className="my-2">
 <Text className="text-xl text-white" >Contacts</Text>
 <Controller
   control={control}
@@ -165,7 +170,7 @@ useLayoutEffect(() => {
    required: true,
   }}
   render={({ field: { onChange, onBlur, value } }) => (
-    <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
+    <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})} ${errors.contacts? 'border-2 border-red-500' : 'border-2 border-slate-300'}`}
     placeholder="Enter bakery contacts"
     keyboardType='phone-pad'
       onBlur={onBlur}
@@ -175,9 +180,37 @@ useLayoutEffect(() => {
   )}
   name="contacts"
 />
-</View> */}
+</View>
+<View className="my-2">
+<Text className={`text-slate-100 text-xl ${Platform.select({android : 'text-lg'})}`} >Email</Text>
+      <Controller
+        control={control}
+        defaultValue =  ""
+        rules={{
+          required: "email is required",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: 'Invalid email address'
+          }
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput  className={`rounded-md text-slate-900 bg-gray-100 text-lgg px-4 py-2.5 ${Platform.select({android : 'py-1.5'})} ${errors.email? 'border-2 border-red-500' : 'border-2 border-slate-300'}`}
+          placeholder="Enter restaurant  email"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            autoCapitalize ={false}
+            // autoComplete='email'
+            value={value}
+            // errors = {errors.name}
+            // errorText = {errors?.name?.message}
+          />
+        )}
+        name="email"
+      />
+      { errors.email && <Text className="text-red-400" > {errors.email.message} </Text>}
+</View>
             <View className="my-2">
-            <Text className="text-xl text-white" >Category Contents</Text>
+            <Text className="text-xl text-white" >Description</Text>
             <Controller
   control={control}
   rules={{
@@ -185,7 +218,7 @@ useLayoutEffect(() => {
   }}
   render={({ field: { onChange, onBlur, value } }) => (
     <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
-    placeholder="Enter bakery email"
+    placeholder="Enter restaurant description"
     multiline={true}
     autoCapitalize={false}
       onBlur={onBlur}
@@ -193,7 +226,7 @@ useLayoutEffect(() => {
       value={value}
     />
   )}
-  name="email"
+  name="description"
 />
       </View>
 

@@ -12,6 +12,7 @@ import image4 from '../assets/images/pexels-pixabay-262978.jpg';
 // import categoryCard from '../components/categoryCard';
 // import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
+import { IMAGE_URL } from '../store/URL'
 
 
 const categories =  [
@@ -41,7 +42,7 @@ const CategoryScreen = () => {
      {/* <ScrollView   > */}
      <View style={{backgroundColor :  '#0e2433'}} className="h-full">
      <View className="relative">
-        <Image style={{height : responsiveHeight(31)}} source={props.image} className="w-full" />
+        <Image style={{height : responsiveHeight(31)}} source={{uri : `${IMAGE_URL}/${props.image}`}} className="w-full" />
         <View className='absolute inset-0 bg-black/60' ></View>
         <View className="absolute bottom-2 px-2">
             {/* <Text className={`font-bold my-1.5 text-2xl capitalize text-white ${Platform.select({android : 'text-xl'})}`}>{props.name}</Text> */}

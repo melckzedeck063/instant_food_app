@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, useWindowDimensions,TextInput, StyleSheet, ScrollView, FlatList, Platform } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, useWindowDimensions,TextInput, StyleSheet, ScrollView, FlatList, Platform, TouchableWithoutFeedback } from 'react-native'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/core'
 import {Controller, useForm} from 'react-hook-form'
 import { Ionicons, FontAwesome, FontAwesome5, Entypo, MaterialCommunityIcons }  from '@expo/vector-icons'
@@ -15,6 +15,8 @@ import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import NavigationDrawer from '../components/NavigationDrawer'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllRestaurant } from '../store/actions/restaurant_action'
 
 const categories =  [
   {name : "vegetables", image :image1, id : 1 },
@@ -29,10 +31,31 @@ const HomeScreen = () => {
     
     const navigation =  useNavigation();
     const {height, width} =  useWindowDimensions()
+    const [reload, setReload]  =  useState(0);
+    const dispatch = useDispatch();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+    setTimeout(() => {
+      if(reload < 5){
+        setReload(reload => reload + 1)
+      }
+    }, 1000);
 
+
+    const restaurants =   useSelector(state => state.restaurant);
+    // console.log(restaurants.restaurants)
+
+    useEffect(() => {
+      if(restaurants && restaurants.restaurants.length < 1 && reload < 4){
+        dispatch( getAllRestaurant() )
+      }
+    })
     // console.log(height);
+
+    const handleOutsidePress = (event) => {
+
+      setIsDrawerOpen(false);
+};
    
 
     useLayoutEffect(() => 
@@ -53,6 +76,8 @@ const HomeScreen = () => {
 
   return (
     <>
+    <TouchableWithoutFeedback  onPress={handleOutsidePress} >
+    
       {/* <SafeAreaView className="" /> */}
     <View style={{ height : height, width : width, backgroundColor :  '#0e2433'}} className={`bg-slate-800 text-white relative px-1`}>
       <View style={{height : responsiveHeight(2.8)}} className={`flex-row justify-between px-4 mt-16 mb-4 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-14'}) :Platform.select({android : 'mt-8'})}`} >
@@ -119,22 +144,29 @@ const HomeScreen = () => {
            <Text className={`text-amber-500 text-lg mr-1 ${Platform.select({android : 'text-sm mr-2'})}`}  > See All </Text>  
            </TouchableOpacity>
         </View>
-        
-         <FlatList 
-          data={categories}
-          horizontal = {true}
-          showsHorizontalScrollIndicator ={false}
-          contentContainerStyle = {{
-            paddingHorizontal : 1,
-            paddingVertical : 5
-          }}
-          renderItem={(itemData) => {
-            return (
-               <CategoryCard name={itemData.item.name} image={itemData.item.image}  />
-            )
-          }}
-          keyExtractor={(item) => item.id}
-         />
+         {
+          restaurants?.restaurants?.data?.data?(
+            <>
+          <FlatList 
+           data={restaurants.restaurants.data.data}
+           horizontal = {true}
+           showsHorizontalScrollIndicator ={false}
+           contentContainerStyle = {{
+             paddingHorizontal : 1,
+             paddingVertical : 5
+           }}
+           renderItem={(itemData) => {
+             return (
+                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description}  />
+             )
+           }}
+           keyExtractor={(item) => item._id}
+          />
+            </>
+          )
+          :
+          <></>
+         }
       </View>
 
       <View className={` mb-1.5 ${height> 750? '-mt-10' : '-mt-4'} ${height > 700 ?Platform.select({android : '-mt-8'}) : ''}`} >
@@ -162,16 +194,13 @@ const HomeScreen = () => {
       </View>
 
       <View style={[style.drawer, isDrawerOpen ? { left: 0 } : { left: -250 }]} className="bg-slatee-700">
-          <TouchableOpacity onPress={() => setIsDrawerOpen(false)} className="pt-4 my-2 right-0">
-            {/* <Ionicons name="close" size={48} color="red" /> */}
-            {Platform.select({android : <Ionicons name="close" size={42} color="red" /> })}
-            {Platform.select({ios: <Ionicons name="close" size={42} color="red" /> })}
-          </TouchableOpacity>
+          
 
           <NavigationDrawer  />
       </View>
 
     </View>
+    </TouchableWithoutFeedback>
     </>
   )
 }
