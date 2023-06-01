@@ -17,6 +17,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import NavigationDrawer from '../components/NavigationDrawer'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllRestaurant } from '../store/actions/restaurant_action'
+import { getAllProducts } from '../store/actions/product_actions'
 
 const categories =  [
   {name : "vegetables", image :image1, id : 1 },
@@ -45,8 +46,11 @@ const HomeScreen = () => {
     const restaurants =   useSelector(state => state.restaurant);
     // console.log(restaurants.restaurants)
 
+    const  products =  useSelector(state => state.product);
+    // console.log(products.all_products)
+
     useEffect(() => {
-      if(restaurants && restaurants.restaurants.length < 1 && reload < 4){
+      if(restaurants && restaurants.restaurants && reload < 4){
         dispatch( getAllRestaurant() )
       }
     })
@@ -57,6 +61,11 @@ const HomeScreen = () => {
       setIsDrawerOpen(false);
 };
    
+useEffect(() => {
+  if(products  && products.all_products && reload < 4){
+    dispatch( getAllProducts());
+  }
+})
 
     useLayoutEffect(() => 
     {
@@ -157,7 +166,7 @@ const HomeScreen = () => {
            }}
            renderItem={(itemData) => {
              return (
-                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description}  />
+                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description} id={itemData.item._id}  />
              )
            }}
            keyExtractor={(item) => item._id}
@@ -181,15 +190,26 @@ const HomeScreen = () => {
            <Text className={`text-amber-500 text-lg mr-1 ${Platform.select({android : 'text-sm mr-3'})}`} > See All </Text>  
            </TouchableOpacity> 
           </View>
-          <FlatList className="borderd-2 border-gray-400 rounded pr-3 pl-1" 
-           numColumns={2}
-           data={categories}
-           renderItem={(itemData) => {
-            return (
-              <ProductCard name={itemData.item.name} image={itemData.item.image}  />
+          {
+            products?.all_products?.data?.data?(
+              <>
+            <FlatList className="borderd-2 border-gray-400 rounded pr-3 pl-1" 
+             numColumns={2}
+             data={products.all_products.data.data}
+             renderItem={(itemData) => {
+              return (
+                <ProductCard name={itemData.item.productName} image={itemData.item.photo} price={itemData.item.price} quantity={itemData.item.quantity}
+                 prepared_by={itemData.item.prepared_by} 
+                 desc = {itemData.item.description}
+                 />
+              )
+             }}
+            />
+              </>
             )
-           }}
-          />
+            :
+            <></>
+          }
         </View>
       </View>
 

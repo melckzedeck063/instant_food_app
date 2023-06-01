@@ -1,15 +1,17 @@
 import { View, Text, Image, useWindowDimensions, TouchableOpacity, ScrollView, Platform } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
 import {useResponsiveHeight, useResponsiveWidth, useResponsiveFontSize} from 'react-native-responsive-dimensions'
+import { IMAGE_URL } from '../store/URL'
 
 const ProductScreen = () => {
 
     const navigation =  useNavigation();
     const {params : {props}} =  useRoute();
     const {width, height} =  useWindowDimensions();
+    const [amount,setAmount]  = useState(1);
 
     // console.log(props);
 
@@ -19,24 +21,38 @@ const ProductScreen = () => {
         })
     })
 
+    const handleIncrement  = useCallback(() => {
+        setAmount((prevAmount) => prevAmount + 1)
+    },[])
+
+    const handleDecrement = useCallback(() => {
+        if(amount >=  2){
+            setAmount((prevAmount) => prevAmount - 1)
+        }
+    })
+
   return (
     <>
      <ScrollView style={{backgroundColor : '#0e2433'}}  className="bg-slate-800 h-full">
      <View >
      <View className="relative">
-        <Image style={{height : height/2.6}} source={props.image} className="w-full" />
+        <Image style={{height : height/2.6}} source={{uri : `${IMAGE_URL}/${props.image}`}} className="w-full" />
         <View className='absolute inset-0 bg-black/30' ></View>
         <View className="absolute bottom-2 px-2">
             <Text className={`font-bold my-1.5 text-2xl capitalize text-white ${Platform.select({android : 'text-xl'})}`}>{props.name}</Text>
             <View className="flex flex-row justify-between bg-orange-500 p-0.5 rounded-lg">
-                <TouchableOpacity className="bg-slatee-700 rounded-full h-10 w-10 mt-1">
+                <TouchableOpacity className="bg-slatee-700 rounded-full h-10 w-10 mt-1"
+                 onPress={handleDecrement}
+                >
                     <Text className="text-center font-bold -ml-0.5 -mt-0.5">
                         {Platform.select({ios : <FontAwesome name='minus-circle' size={42} color="white" /> })}
                         {Platform.select({android : <FontAwesome name='minus-circle' size={32} color="white" /> })}
                           </Text>
                 </TouchableOpacity>
-                <Text className={`font-bold text-white text-3xl px-2 py-1 ${Platform.select({android : 'text-2xl'})}`}> 2 </Text>
-                <TouchableOpacity className={`bg-slatee-700 rounded-full h-10 w-10 mt-1`}>
+                <Text className={`font-bold text-white text-3xl px-2 py-1 ${Platform.select({android : 'text-2xl'})}`}> {amount} </Text>
+                <TouchableOpacity className={`bg-slatee-700 rounded-full h-10 w-10 mt-1`}
+                 onPress={handleIncrement}
+                >
                     {Platform.select({ios : <Text className="text-center font-bold -ml-0.5 -mt-0.5"> <Ionicons name='ios-add-circle' size={42} color="white" /> </Text> })}
                     {Platform.select({android : <Text className="text-center font-bold -ml-0.5 -mt-0.5"> <Ionicons name='ios-add-circle' size={32} color="white" /> </Text> })}
                     
@@ -51,7 +67,7 @@ const ProductScreen = () => {
             <Text className={`text-white font-medium py-1 ${Platform.select({android : 'text-xs'})}`}>Product category</Text>
         </View>
         <View>
-            <Text className={`text-white font-bold text-2xl py-2 ${Platform.select({android : 'text-xl'})}`}> 4000 Tshs</Text>
+            <Text className={`text-white font-bold text-2xl py-2 ${Platform.select({android : 'text-xl'})}`}> {props.price} Tshs</Text>
         </View>
       </View>
 
@@ -85,7 +101,7 @@ const ProductScreen = () => {
         <View className="flex flex-row mt-1  justify-between">
             <View className=""> 
                 <Text className={`font-bold text-white text-xl ${Platform.select({android : 'text-lg'})}`}> Total</Text>
-                <Text className={`font-bold text-amber-500 text-xl ${Platform.select({android : 'text-lg'})}`}> 4000 Tshs </Text>  
+                <Text className={`font-bold text-amber-500 text-xl ${Platform.select({android : 'text-lg'})}`}> {(props.price) * amount } Tshs </Text>  
             </View>
             <TouchableOpacity className="bg-orange-500 rounded-lg h-10 px-4 py-0.5 mt-4">
                 <Text className={`font-bold text-white mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>Add  to Cart</Text>

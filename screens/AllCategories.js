@@ -121,7 +121,7 @@ const AllCategories = () => {
            }}
            renderItem={(itemData) => {
              return (
-                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description} />
+                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description} id={itemData.item._id}   />
              )
            }}
            keyExtractor={(item) => item._id}

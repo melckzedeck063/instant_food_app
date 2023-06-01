@@ -3,6 +3,7 @@ import React from 'react'
 
 import {FontAwesome, Ionicons} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { IMAGE_URL } from '../store/URL'
 
 const ProductCard = (props) => {
   const navigation =  useNavigation();
@@ -14,12 +15,12 @@ const ProductCard = (props) => {
       <TouchableOpacity onPress={() => navigation.navigate('ProductScreen', {
         props
       }) } >
-        <Image source={props.image} className="h-52 w-full rounded-lg"  />
+        <Image source={{uri  : `${IMAGE_URL}/${props.image}`}} className="h-52 w-full rounded-lg"  />
       <View style={{alignSelf : 'center', backgroundColor : '#1c4966'}} className="bg-slate-600 absolute w-11/12 rounded-lg -py-1 bottom-1" >
         <Text className={`text-white text-lg font-bold capitalize ${Platform.select({android : 'text-sm'})}`} > {props.name} </Text>
         <View className="flex-row justify-between px-1">
             <View className="mt-1">
-              <Text className={`text-white -mt-0.5 ${Platform.select({android : 'text-xs'})}`} > 3000 Tsh </Text>
+              <Text className={`text-white -mt-0.5 ${Platform.select({android : 'text-xs'})}`} > {props.price} Tsh </Text>
             </View>
             <TouchableOpacity  className="bg-orange-500 rounded-l-xl bottom-3" >
                 <Text className="text-white  text-xl px-1 py-0.5">

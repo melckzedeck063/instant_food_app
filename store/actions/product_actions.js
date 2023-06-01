@@ -6,7 +6,7 @@ import *  as SecureStore  from 'expo-secure-store';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-const PRODUCT_API = axios.create({baseURL : `${BASE_URL}/laundry`});
+const PRODUCT_API = axios.create({baseURL : `${BASE_URL}/product`});
 PRODUCT_API.interceptors.request.use(async(req)  =>{
     const storage = await  SecureStore.getItemAsync('token');
     const authToken =  JSON.parse(storage)
@@ -20,22 +20,22 @@ PRODUCT_API.interceptors.request.use(async(req)  =>{
 
 
 export const createProduct = createAsyncThunk('new/product', async(values) => {
+    console.log('called');
     try{
         const response =  await PRODUCT_API.post('/new_product', {
-            productName :  values.productName,
-            location :  values.location,
+            productName :  values.product_name,
+            quantity :  values.quantity,
             description :  values.description,
-            email : values.email,
-            telephone : values.telephone,
+            price : values.price,
             photo :  values.photo,
-            category :  values.category
+            prepared_by :  values.restaurant
         })
 
         // console.log(response.data);
         return response.data
     }
     catch(error){
-        console.log(error);
+        console.log(error.response);
         return error.message
     }
 })

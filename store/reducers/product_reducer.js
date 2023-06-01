@@ -20,7 +20,7 @@ const productSlice  =   createSlice({
             state.current_product.push(action.payload)
         },
         allProduct : (state,action) => {
-            state.all_product.push(action.payload)
+            state.all_products.push(action.payload)
         }
     },
     extraReducers (builder) {

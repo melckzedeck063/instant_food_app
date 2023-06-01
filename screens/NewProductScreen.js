@@ -8,18 +8,20 @@ import * as ImagePicker from 'expo-image-picker';
 import { Ionicons, MaterialIcons}  from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 // import {makeNewProduct } from '../store/reduxStore/actions/product_actions';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { BASE_URL } from '../store/url';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import  {useResponsiveHeight, useResponsiveWidth, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 import { useWindowDimensions } from 'react-native';
+import { createProduct } from '../store/actions/product_actions';
+import { BASE_URL } from '../store/URL';
 
 const NewProduct = () => {
     
   const [image, setImage] =   useState(null);
   const [imageData, setImageData] =  useState("")
-//   const dispatch =  useDispatch();
+  const dispatch =  useDispatch();
 
     const { register, handleSubmit, control, formState : {error} } =  useForm({
       defaultValues:{
@@ -66,11 +68,10 @@ const NewProduct = () => {
           },
         };
   
-        // const response =  
                          
-        // return fetch(`${BASE_URL}/posts/upload_photo`, options)
-        //             .then((response) => response.json())
-        //             .then( (data) => setImageData(data.data) )
+        return fetch(`${BASE_URL}/posts/upload_photo`, options)
+                    .then((response) => response.json())
+                    .then( (data) => setImageData(data.data) )
                     
       }
     } catch(e) {
@@ -81,10 +82,10 @@ const NewProduct = () => {
 
     const onSubmit = data => {
       data.photo = imageData
-      // data.id =  restaurant_id
-      console.log(data)
+      data.restaurant =  props.id
+      // console.log(data)
       // createNewProduct(data)
-    //   dispatch(  makeNewProduct(data) )
+      dispatch( createProduct(data) );
     }
 
     useLayoutEffect(() => {
