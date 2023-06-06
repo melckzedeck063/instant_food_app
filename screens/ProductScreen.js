@@ -4,7 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
 import {useResponsiveHeight, useResponsiveWidth, useResponsiveFontSize} from 'react-native-responsive-dimensions'
-import { IMAGE_URL } from '../store/URL'
+import { IMAGE_URL, NEW_IMAGE_URL } from '../store/URL'
+import { useCart } from 'react-use-cart'
 
 const ProductScreen = () => {
 
@@ -13,6 +14,8 @@ const ProductScreen = () => {
     const {width, height} =  useWindowDimensions();
     const [amount,setAmount]  = useState(1);
 
+    const {addItem} = useCart()
+
     // console.log(props);
 
     useLayoutEffect(() => {
@@ -20,6 +23,14 @@ const ProductScreen = () => {
         //    headerShown : false
         })
     })
+
+    const handlCartItem = (data) => {
+        props.quantity = amount
+    
+        // console.log(data)
+        addItem(data);
+      }
+
 
     const handleIncrement  = useCallback(() => {
         setAmount((prevAmount) => prevAmount + 1)
@@ -36,16 +47,17 @@ const ProductScreen = () => {
      <ScrollView style={{backgroundColor : '#0e2433'}}  className="bg-slate-800 h-full">
      <View >
      <View className="relative">
-        <Image style={{height : height/2.6}} source={{uri : `${IMAGE_URL}/${props.image}`}} className="w-full" />
+        <Image style={{height : height/2.6}} source={{uri : `${NEW_IMAGE_URL}/${props.image}`}} className="w-full" />
         <View className='absolute inset-0 bg-black/30' ></View>
         <View className="absolute bottom-2 px-2">
             <Text className={`font-bold my-1.5 text-2xl capitalize text-white ${Platform.select({android : 'text-xl'})}`}>{props.name}</Text>
-            <View className="flex flex-row justify-between bg-orange-500 p-0.5 rounded-lg">
-                <TouchableOpacity className="bg-slatee-700 rounded-full h-10 w-10 mt-1"
+            <View  className="flex flex-row justify-between bg-orange-500 p-0.5 rounded-lg">
+                <TouchableOpacity className={`bg-slatee-700 rounded-full h-10 w-10 mt-1 ${!amount > 1? '' : ''}`}
+                disabled={!amount > 1}
                  onPress={handleDecrement}
                 >
                     <Text className="text-center font-bold -ml-0.5 -mt-0.5">
-                        {Platform.select({ios : <FontAwesome name='minus-circle' size={42} color="white" /> })}
+                        {Platform.select({ios : <FontAwesome name='minus-circle' size={42} color={`${!amount > 1 ? 'grey' : 'white'}`} /> })}
                         {Platform.select({android : <FontAwesome name='minus-circle' size={32} color="white" /> })}
                           </Text>
                 </TouchableOpacity>
@@ -103,7 +115,9 @@ const ProductScreen = () => {
                 <Text className={`font-bold text-white text-xl ${Platform.select({android : 'text-lg'})}`}> Total</Text>
                 <Text className={`font-bold text-amber-500 text-xl ${Platform.select({android : 'text-lg'})}`}> {(props.price) * amount } Tshs </Text>  
             </View>
-            <TouchableOpacity className="bg-orange-500 rounded-lg h-10 px-4 py-0.5 mt-4">
+            <TouchableOpacity className="bg-orange-500 rounded-lg h-10 px-4 py-0.5 mt-4"
+             onPress={() => handlCartItem(props) }
+            >
                 <Text className={`font-bold text-white mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>Add  to Cart</Text>
             </TouchableOpacity>
         </View>

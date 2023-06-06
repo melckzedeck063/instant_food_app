@@ -31,7 +31,7 @@ const NavigationDrawer = () => {
               <TouchableOpacity className="py-2 px-2 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg"
                  onPress={() => navigation.navigate('AllCategories') }
               >
-                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >All Categories</Text>
+                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >All Restaurants</Text>
                  <Text className="mt-0.5">
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
@@ -39,7 +39,7 @@ const NavigationDrawer = () => {
               <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg"
                 onPress={() => navigation.navigate("NewCategory")}
               >
-                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >New Category</Text>
+                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >New Restaurant</Text>
                  <Text className="mt-0.5">
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>

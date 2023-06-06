@@ -200,7 +200,7 @@ useEffect(() => {
               return (
                 <ProductCard name={itemData.item.productName} image={itemData.item.photo} price={itemData.item.price} quantity={itemData.item.quantity}
                  prepared_by={itemData.item.prepared_by} 
-                 desc = {itemData.item.description}
+                 desc = {itemData.item.description}  id={itemData.item._id}
                  />
               )
              }}

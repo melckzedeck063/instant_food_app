@@ -12,7 +12,7 @@ import image4 from '../assets/images/pexels-pixabay-262978.jpg';
 // import categoryCard from '../components/categoryCard';
 // import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
-import { IMAGE_URL } from '../store/URL'
+import { IMAGE_URL, NEW_IMAGE_URL } from '../store/URL'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRestaurantProducts } from '../store/actions/product_actions'
 
@@ -42,7 +42,7 @@ const CategoryScreen = () => {
     const restaurantProducts = useSelector(state => state.product);
     // console.log(restaurantProducts.restaurant_products);
 
-    // console.log(height);
+    // console.log(props);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -61,7 +61,7 @@ const CategoryScreen = () => {
      {/* <ScrollView   > */}
      <View style={{backgroundColor :  '#0e2433'}} className="h-full">
      <View className="relative">
-        <Image style={{height : responsiveHeight(31)}} source={{uri : `${IMAGE_URL}/${props.image}`}} className="w-full" />
+        <Image style={{height : responsiveHeight(31)}} source={{uri : `${NEW_IMAGE_URL}/${props.image}`}} className="w-full" />
         <View className='absolute inset-0 bg-black/60' ></View>
         <View className="absolute bottom-2 px-2">
             {/* <Text className={`font-bold my-1.5 text-2xl capitalize text-white ${Platform.select({android : 'text-xl'})}`}>{props.name}</Text> */}

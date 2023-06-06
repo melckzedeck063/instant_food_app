@@ -15,7 +15,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import  {useResponsiveHeight, useResponsiveWidth, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 import { useWindowDimensions } from 'react-native';
 import { createProduct } from '../store/actions/product_actions';
-import { BASE_URL } from '../store/URL';
+import { BASE_URL} from '../store/URL';
+import { NEW_IMAGE_URL } from '../store/URL'; '../store/URL'
 
 const NewProduct = () => {
     
@@ -23,7 +24,7 @@ const NewProduct = () => {
   const [imageData, setImageData] =  useState("")
   const dispatch =  useDispatch();
 
-    const { register, handleSubmit, control, formState : {error} } =  useForm({
+    const { register, handleSubmit,reset, control, formState : {error} } =  useForm({
       defaultValues:{
         
       }
@@ -69,7 +70,7 @@ const NewProduct = () => {
         };
   
                          
-        return fetch(`${BASE_URL}/posts/upload_photo`, options)
+        return fetch(`${NEW_IMAGE_URL}/api/v1/posts/upload_photo`, options)
                     .then((response) => response.json())
                     .then( (data) => setImageData(data.data) )
                     
@@ -86,6 +87,9 @@ const NewProduct = () => {
       // console.log(data)
       // createNewProduct(data)
       dispatch( createProduct(data) );
+      setTimeout(() => {
+        reset()
+      }, 1000);
     }
 
     useLayoutEffect(() => {

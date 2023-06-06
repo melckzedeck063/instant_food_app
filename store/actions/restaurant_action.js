@@ -28,7 +28,7 @@ export  const registerRestaurant  = createAsyncThunk ( 'new/category', async(val
             email :  values.email
         })
 
-        console.log(response);
+        // console.log(response);
         return  response.data
     }
     catch(error){

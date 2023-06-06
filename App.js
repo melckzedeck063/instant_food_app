@@ -21,6 +21,7 @@ import RegisterBodaScreen from './screens/RegisterBodaScreen';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import LocationTracking from './screens/LocationTracking';
+import { CartProvider } from 'react-use-cart';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,6 +32,7 @@ export default function App() {
     <>
     <StatusBar style='light'/>
     <Provider store={store} >
+      <CartProvider>
      <NavigationContainer>
       <Stack.Navigator
           screenOptions={{
@@ -89,6 +91,7 @@ export default function App() {
          />
       </Stack.Navigator>
     </NavigationContainer>
+    </CartProvider>
     </Provider>
     </>
   );

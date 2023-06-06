@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 // import { createNewBakery, uploadImage } from '../store/reduxStore/actions/bakery_actions';
 // import { FileSystemUploadType } from 'expo-file-system';
 import axios from 'axios';
-import { BASE_URL } from '../store/URL';
+import { BASE_URL, IMAGE_URL, NEW_IMAGE_URL } from '../store/URL';
 import { useDispatch } from 'react-redux';
 import { registerRestaurant } from '../store/actions/restaurant_action';
 
@@ -54,7 +54,8 @@ const NewCategory = () => {
     if (!result.cancelled) {
       setImageData(result.data)
       setImage(result)
-      let localUri = result.uri;
+      let selectedAsset = result.assets[0]; // Assuming you want to upload the first selected asset
+      let localUri = selectedAsset.uri;
       let filename = localUri.split('/').pop();
       let match = /\.(\w+)$/.exec(filename);
       let type = match ? `image/${match[1]}` : `image`;
@@ -69,12 +70,16 @@ const NewCategory = () => {
         },
       };
 
-      const response = 
-      console.log(response) 
                        
-      return fetch(`${BASE_URL}/posts/upload_photo`, options)
+      return fetch(`${NEW_IMAGE_URL}/api/v1/posts/upload_photo`, options)
                   .then((response) => response.json())
-                  .then( (data) => setImageData(data.data) )
+                  .then( (data) => {
+                    console.log(data)
+                    setImageData(data.data) 
+
+                    const uploadedImageUrl = data.url;
+                    console.log('Uploaded Image URL:', uploadedImageUrl);
+                  })
                   
     }
   } catch(e) {

@@ -79,7 +79,7 @@ const LoginScreen = () => {
 
       setTimeout(() => {
         checkUser()
-        //  navigation.navigate('HomeTab')
+        //  navigation.navigate('HomeTab');
       }, 2000);
 
       useLayoutEffect(() => 

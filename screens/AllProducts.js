@@ -68,7 +68,7 @@ const AllProducts = () => {
             <Text className="text-lg text-white text-center font-bold py-3" >AllProducts</Text>
         </View>
         <View style={{height  : responsiveHeight(82.5)}} className="my-4 mb-10">
-            { products?.all_products?.data?.data ?
+            { products?.all_products?.data?.data?
           <>
           <FlatList 
            data={products.all_products.data.data}
@@ -82,7 +82,7 @@ const AllProducts = () => {
             return (
                <ProductCard name={itemData.item.productName} image={itemData.item.photo} price={itemData.item.price} quantity={itemData.item.quantity}
                  prepared_by={itemData.item.prepared_by} 
-                 desc = {itemData.item.description}
+                 desc = {itemData.item.description}  id={itemData.item._id}
                  />
             )
            }}
