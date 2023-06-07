@@ -3,13 +3,8 @@ import React, { useLayoutEffect, useState,useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import  {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 
-import image1 from '../assets/images/pexels-elevate-1267320.jpg';
-import image2 from '../assets/images/pexels-matheus-guimarÃ£es-1291712.jpg';
-import image3 from '../assets/images/pexels-julias-torten-und-tÃ¶rtchen-1120464.jpg';
-import image4 from '../assets/images/pexels-pixabay-262978.jpg';
-import image5 from '../assets/images/pexels-miguel-Ã¡-padriÃ±Ã¡n-1591060.jpg';
-import image6 from '../assets/images/pexels-william-choquette-2641886.jpg';
-import image7 from '../assets/images/product-741755043-1673243019360.jpeg';
+import image1 from '../assets/images/product-741755043-1673243019360.jpeg';
+
 import ProductCard from '../components/ProductCard';
 import { useDispatch,useSelector } from 'react-redux';
 import { getAllProducts } from '../store/actions/product_actions';
@@ -17,14 +12,14 @@ import { getAllProducts } from '../store/actions/product_actions';
 
 const data = [
     {name : "vegetables", image :image1, id : 1 },
-  {name : "Fruits", image :image2, id : 2 },
-  {name : "Drinks", image :image3, id: 3 },
-  {name : "Bites", image : image4 , id : 4},
+  {name : "Fruits", image :image1, id : 2 },
+  {name : "Drinks", image :image1, id: 3 },
+  {name : "Bites", image : image1 , id : 4},
   {name : "Fast food", image :image1, id: 5 },
-  {name : "Fruits", image :image2, id : 6 },
-  {name : "Bites", image : image5 , id : 4},
-  {name : "Fast food", image :image6, id: 5 },
-  {name : "Fruits", image :image7, id : 6 },
+  {name : "Fruits", image :image1, id : 6 },
+  {name : "Bites", image : image1 , id : 4},
+  {name : "Fast food", image :image1, id: 5 },
+  {name : "Fruits", image :image1, id : 6 },
 ]
 
 

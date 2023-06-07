@@ -2,10 +2,10 @@ import { View, Text, useWindowDimensions, FlatList, TextInput } from 'react-nati
 import React, {useLayoutEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-import image1 from '../assets/images/pexels-pixabay-38544.jpg';
-import image2 from '../assets/images/pexels-miguel-Ã¡-padriÃ±Ã¡n-1591060.jpg';
-import image3 from '../assets/images/pexels-julias-torten-und-tÃ¶rtchen-1120464.jpg';
-import image4 from '../assets/images/pexels-realtoughcandycom-11035380.jpg';
+import image1 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
+import image2 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
+import image3 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
+import image4 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
 // import categoryCard from '../components/categoryCard';
 import { useState, useEffect } from 'react'
 import {Controller, useForm, Control} from 'react-hook-form'

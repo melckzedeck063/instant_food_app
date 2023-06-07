@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react
 import React from 'react'
 
 import {Ionicons, FontAwesome, FontAwesome5} from '@expo/vector-icons'
-import image2 from '../assets/images/pexels-pixabay-38544.jpg';
+import image2 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
 
 const OrderItem = (props) => {
   return (

@@ -4,12 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 import { useWindowDimensions } from 'react-native';
 
 
-import image1 from '../assets/images/pexels-elevate-1267320.jpg';
-import image2 from '../assets/images/pexels-matheus-guimarÃ£es-1291712.jpg';
-import image3 from '../assets/images/pexels-julias-torten-und-tÃ¶rtchen-1120464.jpg';
-import image4 from '../assets/images/pexels-pixabay-262978.jpg';
-import image5 from '../assets/images/pexels-miguel-Ã¡-padriÃ±Ã¡n-1591060.jpg';
-import image6 from '../assets/images/pexels-william-choquette-2641886.jpg';
+import image1 from '../assets/images/product-741755043-1673243019360.jpeg';
+import image2 from '../assets/images/product-741755043-1673243019360.jpeg';
+import image3 from '../assets/images/product-741755043-1673243019360.jpeg';
+import image4 from '../assets/images/product-741755043-1673243019360.jpeg';
+import image5 from '../assets/images/product-741755043-1673243019360.jpeg';
+import image6 from '../assets/images/product-741755043-1673243019360.jpeg';
 import image7 from '../assets/images/product-741755043-1673243019360.jpeg';
 import OrderComponent from '../components/OrderComponent';
 

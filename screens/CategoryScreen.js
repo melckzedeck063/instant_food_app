@@ -5,10 +5,10 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 
-import image1 from '../assets/images/pexels-william-choquette-2641886.jpg';
-import image2 from '../assets/images/pexels-elevate-1267320.jpg';
+import image1 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
+import image2 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
 import image3 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-import image4 from '../assets/images/pexels-pixabay-262978.jpg';
+import image4 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
 // import categoryCard from '../components/categoryCard';
 // import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';

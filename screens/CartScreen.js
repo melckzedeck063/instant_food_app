@@ -2,30 +2,13 @@ import { View, Text, useWindowDimensions, FlatList, TouchableOpacity, Platform }
 import React, {useLayoutEffect, useState, useCallback} from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-import image1 from '../assets/images/pexels-elevate-1267320.jpg';
-import image2 from '../assets/images/pexels-matheus-guimarÃ£es-1291712.jpg';
-import image3 from '../assets/images/pexels-julias-torten-und-tÃ¶rtchen-1120464.jpg';
-import image4 from '../assets/images/pexels-pixabay-262978.jpg';
-import image5 from '../assets/images/pexels-miguel-Ã¡-padriÃ±Ã¡n-1591060.jpg';
-import image6 from '../assets/images/pexels-william-choquette-2641886.jpg';
-import image7 from '../assets/images/product-741755043-1673243019360.jpeg';
 import ProductCard from '../components/ProductCard';
 import CartItem from '../components/CartItem';
 import {useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-dimensions';
 import { useCart } from 'react-use-cart';
 
 
-const data = [
-  {name : "vegetables", image :image1, id : 1 , price : 2400, quantity :  3},
-  {name : "Fruits", image :image2, id : 2 , price : 2400, quantity :  3},
-  {name : "Drinks", image :image3, id: 3 , price : 2400, quantity :  3},
-  {name : "Bites", image : image4 , id : 4, price : 2400, quantity :  3},
-  {name : "Fast food", image :image1, id: 5 , price : 2400, quantity :  3},
-  {name : "Fruits", image :image2, id : 6 , price : 2400, quantity :  3},
-  {name : "Bites", image : image5 , id : 7, price : 2400, quantity :  3},
-  {name : "Fast food", image :image6, id: 8 , price : 2400, quantity :  3},
-  {name : "Fruits", image :image7, id : 9 , price : 2400, quantity :  3},
-]
+
 
 
 const CartScreen = () => {

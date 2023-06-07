@@ -6,10 +6,6 @@ import { Ionicons, FontAwesome, FontAwesome5, Entypo, MaterialCommunityIcons }  
 import {responsiveHeight, responsiveWidth, responsiveFontSize} from 'react-native-responsive-dimensions'
 
 
-import image1 from '../assets/images/pexels-william-choquette-2641886.jpg';
-import image2 from '../assets/images/pexels-elevate-1267320.jpg';
-import image3 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-import image4 from '../assets/images/pexels-pixabay-262978.jpg';
 // import categoryCard from '../components/categoryCard';
 import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
@@ -19,14 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllRestaurant } from '../store/actions/restaurant_action'
 import { getAllProducts } from '../store/actions/product_actions'
 
-const categories =  [
-  {name : "vegetables", image :image1, id : 1 },
-  {name : "Fruits", image :image2, id : 2 },
-  {name : "Drinks", image :image3, id: 3 },
-  {name : "Bites", image : image4 , id : 4},
-  {name : "Fast food", image :image1, id: 5 },
-  {name : "Fruits", image :image2, id : 6 },
-]
+
 
 const HomeScreen = () => {
     

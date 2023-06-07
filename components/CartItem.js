@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useState,useCallback } from 'react'
 import { useCart} from 'react-use-cart'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import image1 from '../assets/images/pexels-elevate-1267320.jpg';
+import image1 from '../assets/images/product-741755043-1673243019360.jpeg';
 import {AntDesign, EvilIcons, MaterialIcons, Entypo} from '@expo/vector-icons'
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { IMAGE_URL } from '../store/URL';
