@@ -81,33 +81,36 @@ useEffect(() => {
     
       {/* <SafeAreaView className="" /> */}
     <View style={{ height : height, width : width, backgroundColor :  '#0e2433'}} className={`bg-slate-800 text-white relative px-1`}>
-      <View style={{height : responsiveHeight(2)}} className={`flex-row justify-between px-4 mt-14 mb-5 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-12'}) :Platform.select({android : 'mt-6'})}`} >
+      <View style={{height : responsiveHeight(2)}} className={`flex-row justify-between px-4 mt-12 mb-5 ${height<=500?Platform.select({android : 'mt-6'}) :height>700?Platform.select({android : 'mt-9'}) :Platform.select({android : 'mt-6'})}`} >
 
         <View className="" >
             <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8"
                onPress={() => setIsDrawerOpen(!isDrawerOpen)}
             >
-                <Text>
-                    <FontAwesome name='navicon' size={32}  color="white"  />
+                <Text >
+                  {Platform.select({android : <FontAwesome name='navicon' size={24}  color="orange"  /> })}
+                  {Platform.select({ios : <FontAwesome name='navicon' size={32}  color="orange"  /> })}
                 </Text>
             </TouchableOpacity>
         </View>
         <View className="" >
         <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8" >
                 <Text>
-                <Ionicons name="notifications-sharp" size={32} color="white" />
+                {Platform.select({android : <Ionicons name="heart" size={24} color="orange" /> })}
+                {Platform.select({ios : <Ionicons name="heart" size={32} color="orange" />})}
+                
                 </Text>
         </TouchableOpacity>
         </View>
       </View>
 
-      <View style={{alignSelf : 'center', height : responsiveHeight(13)}} className="mt-5 mb-2 flex-row space-x-6 justify-between w-full px-3" >
+      <View style={{alignSelf : 'center', height : responsiveHeight(14)}} className="mt-4 mb-2 flex-row space-x-6 justify-between w-full px-3" >
         <WelcomeCard  />
       </View>
       {/* <View style={[style.card, style.ad_card]} className={``}>
 
       </View> */}
-      <View style={{height : responsiveHeight(27) }} className={`w-full ${Platform.select({android : 'mt-1'})}`} >
+      <View style={{height : responsiveHeight(26) }} className={`w-full ${Platform.select({android : 'mt-1'})}`} >
         <View className="flex-row justify-between" >
           <View>
              <Text className={`text-white font-bold text-lg px-2 py-1.5 ${Platform.select({android : 'text-sm'})}`} >Restaurants</Text>

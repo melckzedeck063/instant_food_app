@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import image1 from '../assets/images/product-741755043-1673243019360.jpeg';
-import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
 const WelcomeCard = () => {
   return (
@@ -35,18 +35,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: responsiveHeight(7),
     borderRadius: 10,
-    marginBottom: 8,
+    marginBottom: 6,
   },
   textContainer: {
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: responsiveFontSize(2),
     fontWeight: 'bold',
     marginBottom: 2,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: responsiveFontSize(1.6),
     color: '#666',
     textAlign: 'center',
   },
