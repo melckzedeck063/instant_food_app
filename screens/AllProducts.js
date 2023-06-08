@@ -8,6 +8,7 @@ import image1 from '../assets/images/product-741755043-1673243019360.jpeg';
 import ProductCard from '../components/ProductCard';
 import { useDispatch,useSelector } from 'react-redux';
 import { getAllProducts } from '../store/actions/product_actions';
+import ProductSkeleton from '../components/productSkeleton';
 
 
 const data = [
@@ -42,7 +43,7 @@ const AllProducts = () => {
 
     useEffect(() => {
         if(products  && products.all_products && reload < 4){
-          dispatch( getAllProducts() );
+          // dispatch( getAllProducts() );
         }
       })
 
@@ -84,7 +85,17 @@ const AllProducts = () => {
            keyExtractor={(item) => item._id}
           />
           </>
-           :  null    
+           : 
+           <ScrollView className="mx-3">
+            <View className="flex-row justify-between">
+               <ProductSkeleton />
+               <ProductSkeleton />
+            </View>
+            <View className="flex-row justify-between">
+               <ProductSkeleton />
+               <ProductSkeleton />
+            </View>
+          </ScrollView>    
         }
         </View>
     </View>

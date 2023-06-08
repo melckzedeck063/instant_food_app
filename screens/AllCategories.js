@@ -14,6 +14,8 @@ import { Ionicons } from '@expo/vector-icons';
 import CategoryCard from '../components/categoryCard';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch,useSelector } from 'react-redux';
+import { getAllRestaurant } from '../store/actions/restaurant_action';
+import RestaurantSkeleton from '../components/RestaurantSkeleton';
 
 const categories =  [
   {name : "vegetables", image :image1, id : 1 },
@@ -129,7 +131,13 @@ const AllCategories = () => {
             </>
           )
           :
-          <></>
+          <>
+            <View className="flex-row justify-between mx-1.5">
+            <RestaurantSkeleton />
+            <RestaurantSkeleton />
+            <RestaurantSkeleton />
+          </View>
+          </>
          }
       </View>
     </View>

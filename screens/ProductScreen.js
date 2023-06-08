@@ -3,9 +3,11 @@ import React, { useCallback, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
-import {useResponsiveHeight, useResponsiveWidth, useResponsiveFontSize} from 'react-native-responsive-dimensions'
+import {useResponsiveHeight, useResponsiveWidth, useResponsiveFontSize, responsiveFontSize} from 'react-native-responsive-dimensions'
 import { IMAGE_URL, NEW_IMAGE_URL } from '../store/URL'
 import { useCart } from 'react-use-cart'
+import { addItemToCart, allCartItems } from '../store/actions/cart_actions'
+import { useDispatch } from 'react-redux'
 
 const ProductScreen = () => {
 
@@ -13,8 +15,8 @@ const ProductScreen = () => {
     const {params : {props}} =  useRoute();
     const {width, height} =  useWindowDimensions();
     const [amount,setAmount]  = useState(1);
-
-    const {addItem} = useCart()
+    const [showMessage, setShowMessage]  =  useState(false)
+    const dispatch =  useDispatch();
 
     // console.log(props);
 
@@ -24,11 +26,23 @@ const ProductScreen = () => {
         })
     })
 
+    const  formData  =   new  FormData();
+
     const handlCartItem = (data) => {
-        props.quantity = amount
+        formData.append({
+            'amount' : amount,
+            'total_cost': (props.price *  amount),
+            "id" :  props.id
+           });
+      
     
         // console.log(data)
-        addItem(data);
+        setTimeout(() => {
+            dispatch(  addItemToCart(formData._parts[0][0]) )
+            setShowMessage(true);
+            // addItem(data);
+        }, 500);
+
       }
 
 
@@ -42,8 +56,18 @@ const ProductScreen = () => {
         }
     })
 
+    const handleBasket = () => {
+        dispatch( allCartItems())
+
+        setShowMessage(false)
+
+        setTimeout(() => {
+            navigation.navigate('Basket')
+        }, 1000);
+    }
+
   return (
-    <>
+    <View className="relative">
      <ScrollView style={{backgroundColor : '#0e2433'}}  className="bg-slate-800 h-full">
      <View >
      <View className="relative">
@@ -75,7 +99,7 @@ const ProductScreen = () => {
 
       <View className="flex flex-row justify-between py-2 my-2 px-4">
         <View>
-            <Text className={`font-bold capitalize text-white text-xl ${Platform.select({android : 'text-lg'})}`}>{props.name}</Text>
+            <Text style={{fontSize  :  responsiveFontSize(2.5)}} className={`font-bold capitalize text-white text-xl ${Platform.select({android : 'text-lg'})}`}>{props.name}</Text>
             <Text className={`text-white font-medium py-1 ${Platform.select({android : 'text-xs'})}`}>Product category</Text>
         </View>
         <View>
@@ -103,10 +127,7 @@ const ProductScreen = () => {
 
      <View className="mx-2 px-2 mb-3">
         <Text className={`font-bold capitalize text-white text-xl ${Platform.select({android : 'text-lg'})}`}>Description</Text>
-        <Text className={`font-mediumm capitalize text-white px-2 ${Platform.select({android : 'text-xs'})}`}> 
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quam suscipit veniam ut doloremque quas, reprehenderit commodi deserunt 
-         perferendis ducimus ullam fuga sequi optio laboriosam quaerat ipsum asperiores eius nemo.
-        </Text>
+        <Text className={`font-mediumm capitalize text-white px-2 ${Platform.select({android : 'text-xs'})}`}> {props.desc} </Text>
      </View>
 
      <View style={{height : height/9.99, width : width}} className="mt-8 px-3 bg-slate-700 w=full">
@@ -125,7 +146,23 @@ const ProductScreen = () => {
 
      </View>
      </ScrollView>
-    </>
+     {
+        showMessage &&(
+     <View style={{alignSelf : 'center'}} className="bg-orange-400 w-11/12 rounded-lg p-2 flex-row justify-between absolute bottom-11">
+        <View>
+            <Text style={{fontSize :  responsiveFontSize(2)}} className="font-medium text-slate-200"> ({amount}) Items added to cart </Text>
+        </View>
+        <View>
+            <TouchableOpacity 
+             onPress={()=> handleBasket()}
+            className="bg-slate-700 rounded-lg  px-2 py-1">
+                <Text style={{fontSize :  responsiveFontSize(2)}} className="font-bold text-slate-200">View</Text>
+            </TouchableOpacity>
+        </View>
+     </View>
+        )
+     }
+    </View>
   )
 }
 

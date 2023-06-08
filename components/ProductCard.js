@@ -16,7 +16,7 @@ const ProductCard = (props) => {
     addItem(data);
   }
 
-  // console.log(props.image)
+  // console.log(props)
 
   return (
     <View style={style.card} className="bg-slate-700 mx-1.5 my-1.5 relative rounded-lg">
@@ -31,10 +31,10 @@ const ProductCard = (props) => {
               <Text className={`text-white -mt-0.5 ${Platform.select({android : 'text-xs'})}`} > {props.price} Tsh </Text>
             </View>
             <TouchableOpacity  className="bg-orange-500 rounded-l-xl bottom-3" 
-              onPress={() =>  handlCartItem(props)}
+              // onPress={() =>  handlCartItem(props)}
             >
                 <Text className="text-white  text-xl px-1 py-0.5">
-                    <FontAwesome name='shopping-cart' size={24} color="white"  />
+                    <FontAwesome name='heart' size={24} color="white"  />
                 </Text>
             </TouchableOpacity>
         </View>

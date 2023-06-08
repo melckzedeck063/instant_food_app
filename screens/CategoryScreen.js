@@ -15,6 +15,7 @@ import ProductCard from '../components/ProductCard';
 import { IMAGE_URL, NEW_IMAGE_URL } from '../store/URL'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRestaurantProducts } from '../store/actions/product_actions'
+import ProductSkeleton from '../components/productSkeleton'
 
 
 const categories =  [
@@ -130,7 +131,12 @@ const CategoryScreen = () => {
             </>
           )
           :
-          <></>
+          <>
+             <View className="flex-row justify-between mx-3">
+              <ProductSkeleton  />
+              <ProductSkeleton  />
+             </View>
+          </>
         }
       </View>
 

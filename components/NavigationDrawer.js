@@ -3,16 +3,25 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {Ionicons, AntDesign, FontAwesome}  from  '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useDispatch } from 'react-redux'
+import { allCartItems } from '../store/actions/cart_actions'
 
 const NavigationDrawer = () => {
 
     const navigation = useNavigation();
+    const dispatch =  useDispatch()
     const [notificationsEnabled, setNotificationsEnabled] = React.useState(false);
 
     const handleToggleNotifications = () => {
         setNotificationsEnabled(!notificationsEnabled);
       };
 
+      const handleBasket = ()  => {
+        dispatch( allCartItems() )
+        setTimeout(() => {
+          navigation.navigate('Basket');
+        }, 500);
+      }
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
      {/* <Text className="text-white">Drawer Content</Text> */}
@@ -55,8 +64,10 @@ const NavigationDrawer = () => {
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
               </TouchableOpacity>
-              <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between space-x-6 active:bg-slate-500  hover:bg-slate-500 rounded-lg">
-                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >Products</Text>
+              <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between space-x-6 active:bg-slate-500  hover:bg-slate-500 rounded-lg"
+                onPress={()  =>  handleBasket() }
+              >
+                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >My Basket</Text>
                  <Text className="mt-0.5">
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>

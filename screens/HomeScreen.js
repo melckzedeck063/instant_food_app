@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, useWindowDimensions,TextInput, StyleSheet, ScrollView, FlatList, Platform, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableOpacity, useWindowDimensions,TextInput, StyleSheet, ScrollView, FlatList, Platform, TouchableWithoutFeedback, ScrollViewBase } from 'react-native'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/core'
 import {Controller, useForm} from 'react-hook-form'
@@ -14,6 +14,8 @@ import NavigationDrawer from '../components/NavigationDrawer'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllRestaurant } from '../store/actions/restaurant_action'
 import { getAllProducts } from '../store/actions/product_actions'
+import ProductSkeleton from '../components/productSkeleton'
+import RestaurantSkeleton from '../components/RestaurantSkeleton'
 
 
 
@@ -134,7 +136,7 @@ useEffect(() => {
       <View style={{height : responsiveHeight(27) }} className={`w-full ${Platform.select({android : 'mt-2'})}`} >
         <View className="flex-row justify-between" >
           <View>
-             <Text className={`text-white font-bold text-lg px-2 py-1.5 ${Platform.select({android : 'text-sm'})}`} >Categories</Text>
+             <Text className={`text-white font-bold text-lg px-2 py-1.5 ${Platform.select({android : 'text-sm'})}`} >Restaurants</Text>
           </View>
            <TouchableOpacity
             onPress={() =>  navigation.navigate('AllCategories')}
@@ -163,8 +165,16 @@ useEffect(() => {
             </>
           )
           :
-          <></>
+          <>
+          <View className="flex-row justify-between mx-1.5">
+            <RestaurantSkeleton />
+            <RestaurantSkeleton />
+            <RestaurantSkeleton />
+          </View>
+          </>
          }
+
+         
       </View>
 
       <View className={` mb-1.5 ${height> 750? '-mt-10' : '-mt-4'} ${height > 700 ?Platform.select({android : '-mt-8'}) : ''}`} >
@@ -197,7 +207,16 @@ useEffect(() => {
               </>
             )
             :
-            <></>
+            <ScrollView className="mx-3">
+            <View className="flex-row justify-between">
+               <ProductSkeleton />
+               <ProductSkeleton />
+            </View>
+            <View className="flex-row justify-between">
+               <ProductSkeleton />
+               <ProductSkeleton />
+            </View>
+          </ScrollView>
           }
         </View>
       </View>

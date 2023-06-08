@@ -13,7 +13,7 @@ import { allCartItems } from '../store/actions/cart_actions';
 
 
 
-const CartScreen = () => {
+const Basketscreen = () => {
 
     const navigation =  useNavigation()
     const {height, width} = useWindowDimensions();
@@ -96,7 +96,7 @@ const CartScreen = () => {
       </View>
       <View className={`bg-slate-800 p-2 ${Platform.select({android :'mt-2 py-5'})}`}>
          <View className="flex-row flex justify-between px-2">
-          {
+         {
             cart_items?.cart_items?.data?.data?(
               <>
           <View>
@@ -129,4 +129,4 @@ const CartScreen = () => {
   )
 }
 
-export default CartScreen
+export default Basketscreen

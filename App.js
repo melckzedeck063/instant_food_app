@@ -22,6 +22,7 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import LocationTracking from './screens/LocationTracking';
 import { CartProvider } from 'react-use-cart';
+import BasketScreen from './screens/BasketScreen';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -88,6 +89,9 @@ export default function App() {
          />
           <Stack.Screen name='Location' component={LocationTracking} 
            options={{title : 'Location Tracking'}}
+         />
+          <Stack.Screen name='Basket' component={BasketScreen} 
+           options={{title : 'My Basket', presentation :  'modal', headerShown : false}}
          />
       </Stack.Navigator>
     </NavigationContainer>
