@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
+import * as SecureStore from 'expo-secure-store';
 
 import image1 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
 import image2 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
@@ -32,6 +33,7 @@ const CategoryScreen = () => {
     const {params : {props}} =  useRoute();
     const {width, height} =  useWindowDimensions();
     const [reload, setReload] = useState(0);
+    const [isOWner , setIsOwner] = useState(false)
     const  dispatch =  useDispatch();
 
     setTimeout(() => {
@@ -43,7 +45,20 @@ const CategoryScreen = () => {
     const restaurantProducts = useSelector(state => state.product);
     // console.log(restaurantProducts.restaurant_products);
 
-    // console.log(props);
+    // console.log(isOWner);
+
+    const gettToken =  async () => {
+      const storage = await SecureStore.getItemAsync('token');
+      const user_role =  JSON.parse(storage)
+      // console.log( "user role : ",user_role.doc.user.role)
+      // console.log(props)
+      if(user_role.doc.user.role === "admin" || user_role.doc.user._id === props.register._id){
+        setIsOwner(true)
+      }
+      
+    }
+  // console.log(isOWner)
+    gettToken();
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -72,17 +87,23 @@ const CategoryScreen = () => {
      <View className="mx-2 px-2 mb-2">
       <View className={`flex flex-row justify-between my-3 ${height <  850 ?  'my-2' :  ''}`}>
         <Text className={`font-bold capitalize text-white text-xl py-2 ${Platform.select({android : 'text-lg'})}`}>{props.name}</Text>
+
+        {
+          isOWner &&(
+            <TouchableOpacity className="px-2 h-9 -p-1 bg-orange-400 flex flex-row space-x-2 rounded-lg"
+            onPress={()  => navigation.navigate('NewProduct',{
+              props
+            }) }
+          >
+            <Text className={`mt-0.5`}>
+              {Platform.select({android :<Ionicons name='add-circle' size={24}  color="white" /> ,  ios :<Ionicons name='add-circle' size={32}  color="white" /> })}
+            </Text>
+            <Text className={`text-white font-bold mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>New</Text>
+          </TouchableOpacity>
+          )
+        }
         
-        <TouchableOpacity className="px-2 h-9 -p-1 bg-orange-400 flex flex-row space-x-2 rounded-lg"
-          onPress={()  => navigation.navigate('NewProduct',{
-            props
-          }) }
-        >
-          <Text className={`mt-0.5`}>
-            {Platform.select({android :<Ionicons name='add-circle' size={24}  color="white" /> ,  ios :<Ionicons name='add-circle' size={32}  color="white" /> })}
-          </Text>
-          <Text className={`text-white font-bold mt-1 text-lg ${Platform.select({android : 'text-sm'})}`}>New</Text>
-        </TouchableOpacity>
+       
 
       </View>
         <Text className={`font-mediumm capitalize text-slate-100 ${height  < 838 ? '-mt-1' :  ''} px-2 ${Platform.select({android : 'text-xs'})}`}> 

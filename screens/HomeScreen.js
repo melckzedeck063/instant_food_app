@@ -16,6 +16,7 @@ import { getAllRestaurant } from '../store/actions/restaurant_action'
 import { getAllProducts } from '../store/actions/product_actions'
 import ProductSkeleton from '../components/productSkeleton'
 import RestaurantSkeleton from '../components/RestaurantSkeleton'
+import WelcomeCard from '../components/WelcomeCard'
 
 
 
@@ -80,7 +81,7 @@ useEffect(() => {
     
       {/* <SafeAreaView className="" /> */}
     <View style={{ height : height, width : width, backgroundColor :  '#0e2433'}} className={`bg-slate-800 text-white relative px-1`}>
-      <View style={{height : responsiveHeight(2.8)}} className={`flex-row justify-between px-4 mt-16 mb-4 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-14'}) :Platform.select({android : 'mt-8'})}`} >
+      <View style={{height : responsiveHeight(2)}} className={`flex-row justify-between px-4 mt-14 mb-5 ${height<=500?Platform.select({android : 'mt-8'}) :height>700?Platform.select({android : 'mt-12'}) :Platform.select({android : 'mt-6'})}`} >
 
         <View className="" >
             <TouchableOpacity className="rounded-lg bg-whitee h-8  w-8"
@@ -100,40 +101,13 @@ useEffect(() => {
         </View>
       </View>
 
-      <View style={{alignSelf : 'center', height : responsiveHeight(5)}} className="my-7 flex-row space-x-6 justify-between w-full px-3" >
-      <View className="w-10/12">       
-      <Controller
-        control={control}
-        rules={{
-          required: {value : true, message :  "Password is required"},
-          pattern: {
-            value: /^([a-zA-Z0-9]{8,16})$/,
-            message: 'Must contain atleast 8 characters'
-          }
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-600 text-lg text-white px-4 h-10 py-1  'border-2 border-green-500 ${Platform.select({android : 'py-1.5'})}`}
-          placeholder="Search"
-            onBlur={onBlur}
-            paddingVertical={1}
-            autoCapitalize={false}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="search"
-      />
-      </View>
-      <TouchableOpacity className="" >
-        <Text className="" > 
-        <MaterialCommunityIcons name="sort" size={42} color="white" />
-         </Text>
-      </TouchableOpacity>
+      <View style={{alignSelf : 'center', height : responsiveHeight(13)}} className="mt-5 mb-2 flex-row space-x-6 justify-between w-full px-3" >
+        <WelcomeCard  />
       </View>
       {/* <View style={[style.card, style.ad_card]} className={``}>
 
       </View> */}
-      <View style={{height : responsiveHeight(27) }} className={`w-full ${Platform.select({android : 'mt-2'})}`} >
+      <View style={{height : responsiveHeight(27) }} className={`w-full ${Platform.select({android : 'mt-1'})}`} >
         <View className="flex-row justify-between" >
           <View>
              <Text className={`text-white font-bold text-lg px-2 py-1.5 ${Platform.select({android : 'text-sm'})}`} >Restaurants</Text>
@@ -157,7 +131,7 @@ useEffect(() => {
            }}
            renderItem={(itemData) => {
              return (
-                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} desc={itemData.item.description} id={itemData.item._id}  />
+                <CategoryCard name={itemData.item.restaurantName} image={itemData.item.photo} register={itemData.item.registered_by} desc={itemData.item.description} id={itemData.item._id}  />
              )
            }}
            keyExtractor={(item) => item._id}
@@ -177,7 +151,7 @@ useEffect(() => {
          
       </View>
 
-      <View className={` mb-1.5 ${height> 750? '-mt-10' : '-mt-4'} ${height > 700 ?Platform.select({android : '-mt-8'}) : ''}`} >
+      <View className={` mb-1.5 ${height> 750? '-mt-16' : '-mt-3'} ${height > 700 ?Platform.select({android : '-mt-8'}) : ''}`} >
         <View style={style.container} className="" >
          <View className="flex-row justify-between" >
           <View>

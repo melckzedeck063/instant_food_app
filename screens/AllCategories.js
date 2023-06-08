@@ -32,6 +32,8 @@ const AllCategories = () => {
     const {width,height} =  useWindowDimensions()
     const [reload, setReload]=  useState(0)
     const dispatch= useDispatch();
+    const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
     setTimeout(() => {
       if(reload < 5){
@@ -51,19 +53,39 @@ const AllCategories = () => {
 
     const {  control } = useForm();
     const [items, setItems] =  useState([]);
-  if(categories && items.length === 0){
-    setItems(categories)
-  }
-  const [searchQuery, setSearchQuery] = useState('');
+    // setItems(restaurants.restaurants.data.data)
+    useEffect(() => {
+      if (
+        restaurants &&
+        restaurants.restaurants &&
+        restaurants.restaurants.data &&
+        restaurants.restaurants.data.data
+      ) {
+        setItems(restaurants.restaurants.data.data);
+        setFilteredData(restaurants.restaurants.data.data)
+        // console.log('data set');
+      }
+    }, [restaurants]);
 
-  const filteredItems = items.filter((item) => {
-    const propertiesToSearch = ['name', "id"]; // adjust to the properties you want to search
+  const handleSearch = (text) => {
+  const updatedSearchQuery = text; // Use a separate variable to store the updated search query
+  setSearchQuery(updatedSearchQuery);
+
+  const filteredResults = items.filter((item) => {
+    const propertiesToSearch = ['restaurantName', 'location']; // adjust to the properties you want to search
     return propertiesToSearch.some((property) =>
-      item[property].toLowerCase().includes(searchQuery.toLowerCase())
+      item[property].toLowerCase().includes(updatedSearchQuery.toLowerCase())
     );
+    // item.restaurantName.toLowerCase().includes(text.toLowerCase())
+
   });
 
-  // console.log(searchQuery)
+  setFilteredData(filteredResults);
+}
+
+
+
+  // console.log(items)
   // console.log(items, "home")
 
 
@@ -94,12 +116,9 @@ const AllCategories = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput  className={`rounded-md bg-reds-300 text-lg px-4 pb-1 -mt-1.5 ${Platform.select({android : 'py-1.5'})}` }
           placeholder="Search"
-          onChangeText={(text) => {
-            onChange(text);
-            setSearchQuery(text);
-          }}
           onBlur={onBlur}
-          value={value}
+          value={searchQuery}
+          onChangeText={handleSearch}
           />
         )}
         name="searchQuery"
@@ -115,7 +134,7 @@ const AllCategories = () => {
           restaurants?.restaurants?.data?.data?(
             <>
           <FlatList 
-           data={restaurants.restaurants.data.data}
+           data={filteredData}
            numColumns={2}
            contentContainerStyle = {{
              paddingHorizontal : 1,

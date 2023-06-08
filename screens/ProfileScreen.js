@@ -59,12 +59,12 @@ const MyProfile = () => {
     })
 
   return (
-    <View className="bg-slate-800">
+    <View className="bg-slate-900 h-full">
         <KeyboardAwareScrollView className="">
         <SafeAreaView  />
 
    <View className={`w-full h-full bg-slatee-700 mt-3 ${Platform.select({ios : 'py-12', android : 'py-12'})}`}>
-     <View style={{alignSelf : 'center'}} className="bg-slate-700 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
+     <View style={{alignSelf : 'center', backgroundColor : '#1c4966' }} className="bg-slate-700 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
     <View className="">
            <Text className="text-2xl font-medium text-orange-400 text-center my-2" >User Profile</Text> 
            <View style={{alignSelf : 'center', borderWidth : 2}} className="p-0.5 border-sky-400 rounded-full bg-sky-500">

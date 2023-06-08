@@ -78,7 +78,7 @@ const LoginScreen = () => {
       }
 
       setTimeout(() => {
-        checkUser()
+        // checkUser()
         //  navigation.navigate('HomeTab');
       }, 2000);
 
