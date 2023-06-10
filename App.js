@@ -23,6 +23,7 @@ import store from './store/store';
 import LocationTracking from './screens/LocationTracking';
 import { CartProvider } from 'react-use-cart';
 import BasketScreen from './screens/BasketScreen';
+import PreparingOrder from './screens/PreparingOrder';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -92,6 +93,9 @@ export default function App() {
          />
           <Stack.Screen name='Basket' component={BasketScreen} 
            options={{title : 'My Basket', presentation :  'modal', headerShown : false}}
+         />
+          <Stack.Screen name='OrderWaiting' component={PreparingOrder} 
+           options={{title : 'Order Preparation'}}
          />
       </Stack.Navigator>
     </NavigationContainer>

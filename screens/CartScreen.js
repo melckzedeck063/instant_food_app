@@ -104,7 +104,7 @@ const CartScreen = () => {
             <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> {totalBills(cart_items.cart_items.data.data)} Tshs </Text>
           </View>
           <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-500 rounded-lg px-4 py-2 w-5/12`} 
-            onPress={() => navigation.navigate('Location')}
+            onPress={() => navigation.navigate('OrderWaiting')}
           >
              <Text className={`text-white font-medium text-center ${Platform.select({ios  :  'text-lg'})}`}> Place Order </Text>
           </TouchableOpacity>
@@ -117,7 +117,7 @@ const CartScreen = () => {
             <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> 0 Tshs </Text>
           </View>
           <TouchableOpacity disabled style={{alignSelf : 'center'}} className={`bg-orange-500 rounded-lg px-4 py-2 w-5/12`} 
-            onPress={() => navigation.navigate('Location')}
+            onPress={() => navigation.navigate('OrderWaiting')}
           >
              <Text className={`text-white font-medium text-center ${Platform.select({ios  :  'text-lg'})}`}> Place Order </Text>
           </TouchableOpacity>
