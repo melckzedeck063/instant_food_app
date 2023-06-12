@@ -16,7 +16,6 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundle identifier" : "com.melckzedeck063.instant_food_app",
       "config" : {
         "googleMapsApiKey" : "AIzaSyAP2g5HWBOT3Zx03hkfMvW6PTW5cmLA0R0"
       }

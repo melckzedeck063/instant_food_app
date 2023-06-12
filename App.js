@@ -21,7 +21,6 @@ import RegisterBodaScreen from './screens/RegisterBodaScreen';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import LocationTracking from './screens/LocationTracking';
-import { CartProvider } from 'react-use-cart';
 import BasketScreen from './screens/BasketScreen';
 import PreparingOrder from './screens/PreparingOrder';
 
@@ -34,7 +33,6 @@ export default function App() {
     <>
     <StatusBar style='light'/>
     <Provider store={store} >
-      <CartProvider>
      <NavigationContainer>
       <Stack.Navigator
           screenOptions={{
@@ -99,7 +97,6 @@ export default function App() {
          />
       </Stack.Navigator>
     </NavigationContainer>
-    </CartProvider>
     </Provider>
     </>
   );

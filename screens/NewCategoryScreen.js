@@ -1,29 +1,59 @@
-import { View, Text, TouchableOpacity, TextInput, Button, ScrollView, Image, Platform } from 'react-native'
-import React, { useState , useLayoutEffect} from 'react'
+import { View, Text, TouchableOpacity, TextInput, Button, ScrollView, Image, Platform , StyleSheet} from 'react-native'
+import React, { useState , useLayoutEffect, useEffect} from 'react'
 import {   useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
+import * as Location from 'expo-location';
+
 
 import * as ImagePicker from 'expo-image-picker'
-// import showImagePicker from 'expo-image-picker'
-// import * as FileSystem from 'expo-file-system'
-// import * as ImagePicker from 'react-native-image-picker';
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker'
+
 import { Ionicons, MaterialIcons}  from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native';
-// import { useDispatch } from 'react-redux';
-// import { createNewBakery, uploadImage } from '../store/reduxStore/actions/bakery_actions';
-// import { FileSystemUploadType } from 'expo-file-system';
 import axios from 'axios';
 import { BASE_URL, IMAGE_URL, NEW_IMAGE_URL } from '../store/URL';
 import { useDispatch } from 'react-redux';
 import { registerRestaurant } from '../store/actions/restaurant_action';
+
 
 const NewCategory = () => {
 
     const [image, setImage] =   useState(null);
     const [imageData, setImageData] =  useState("")
     const [galleryPhoto, setgalleryPhoto] = useState(null)
+
+    const [location, setLocation] = useState();
+    const [address, setAddress]  =  useState({});
+
+    useEffect(() =>{
+        const  getPermissions = async () =>{
+            let {status} = await Location.requestForegroundPermissionsAsync();
+            if(status  !== "granted"){
+                console.log('Please grant location permissions');
+                return;
+            }
+
+            let currentLocation = await Location.getCurrentPositionAsync({});
+            setLocation(currentLocation);
+            console.log('location');
+            console.log(currentLocation);
+        };
+        getPermissions();
+    }, []);
+
+    const geocode = async (data) => {
+      console.log(data);
+      const geocodedLocation = await Location.geocodeAsync(data);
+      if (geocodedLocation.length > 0) {
+        const { latitude, longitude } = geocodedLocation[0];
+        setAddress({lat  : latitude, long : longitude})
+        console.log('Geocoded address:', latitude, longitude);
+      } else {
+        console.log('No geocoded address found');
+      }
+    };
+
+
     const { register,defaultValue, reset, handleSubmit, control, formState : {errors} } =  useForm({
       defaultValues  : {
         restaurantName : '',
@@ -36,6 +66,8 @@ const NewCategory = () => {
     });
     const navigation =  useNavigation();
     const dispatch =  useDispatch();
+
+    const [selectedLocation, setSelectedLocation] = useState(null);
 
 
 
@@ -90,8 +122,16 @@ const NewCategory = () => {
 
 const onSubmit = (data) => {
   data.photo = imageData
-  console.log(data)
-      dispatch(registerRestaurant(data))
+  const {location}  =  data;
+
+  geocode(location)
+  
+  data.geo  =  address
+
+  setTimeout(() => {
+    console.log(data)
+    // dispatch(registerRestaurant(data))
+  }, 1500);
       // uploadImage();
 
       setTimeout(() => {
@@ -107,10 +147,10 @@ useLayoutEffect(() => {
 
   return (
     <KeyboardAwareScrollView style={{height : responsiveHeight(100), backgroundColor : '#0e2433' }}  >
-    <ScrollView className="mt-4">
-      <View  className ="my-4">
+    <ScrollView className="mt-2">
+      <View  className ="my-3">
           <View className="relative">
-              <View  className="my-2 mb-4">
+              <View  className="my-1 mb-1">
                 <Text   className="text-center font-bold text-lg text-white" >
                   Register Restaurant
                 </Text>
@@ -158,14 +198,14 @@ useLayoutEffect(() => {
   render={({ field: { onChange, onBlur, value } }) => (
     <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})} ${errors.location? 'border-2 border-red-500' : 'border-2 border-slate-300'}`}
     placeholder="Enter bakery location"
-    keyboardType='phone-pad'
-      onBlur={onBlur}
-      onChangeText={onChange}
-      value={value}
+   onBlur={onBlur}
+   onChangeText={onChange}
+   value={value}
     />
   )}
   name="location"
 />
+ 
 </View>
 <View className="my-2">
 <Text className="text-xl text-white" >Contacts</Text>
@@ -181,6 +221,7 @@ useLayoutEffect(() => {
       onBlur={onBlur}
       onChangeText={onChange}
       value={value}
+      
     />
   )}
   name="contacts"
@@ -243,8 +284,11 @@ useLayoutEffect(() => {
        </TouchableOpacity>
   </View>
    </View> 
-          </View>
       </View>
+
+
+      </View>
+
     </ScrollView>
 </KeyboardAwareScrollView>
   )
@@ -252,3 +296,58 @@ useLayoutEffect(() => {
 
 
 export default NewCategory
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  inputContainer: {
+    width: '100%',
+  },
+  autocompleteContainer: {
+    flex: 1,
+  },
+  textInputContainer: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  textInput: {
+    fontSize: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  listView: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    marginTop: 4,
+    borderRadius: 8,
+  },
+  selectedLocationContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  selectedLocationTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  selectedLocationName: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  selectedLocationAddress: {
+    fontSize: 14,
+    color: 'gray',
+  },
+});

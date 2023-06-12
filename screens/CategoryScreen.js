@@ -1,5 +1,5 @@
 import { View, Text, Image, useWindowDimensions, TouchableOpacity, ScrollView, Platform, FlatList } from 'react-native'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState, useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
@@ -35,6 +35,13 @@ const CategoryScreen = () => {
     const [reload, setReload] = useState(0);
     const [isOWner , setIsOwner] = useState(false)
     const  dispatch =  useDispatch();
+
+
+    const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.setAddressText('Some Text');
+  }, []);
 
     setTimeout(() => {
       if(reload < 5){
