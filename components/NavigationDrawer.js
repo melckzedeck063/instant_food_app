@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity,  StyleSheet, Switch, Platform } from 'react-native'
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {Ionicons, AntDesign, FontAwesome}  from  '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -11,6 +11,29 @@ const NavigationDrawer = () => {
     const navigation = useNavigation();
     const dispatch =  useDispatch()
     const [notificationsEnabled, setNotificationsEnabled] = React.useState(false);
+
+    const [isModalVisible, setModalVisible] = useState(false);
+
+  const handleLogout = async () => {
+    // Clear the secure store items
+    await SecureStore.deleteItemAsync('token');
+
+    setTimeout(() => { 
+      navigation.navigate('Login');
+    }, 3000);
+  };
+
+  
+
+  useEffect(() => {
+    if (isModalVisible) {
+      // Automatically close modal after 2 seconds
+      setTimeout(() => {
+        toggleModal();
+      }, 2000);
+    }
+  }, [isModalVisible]);
+
 
     const handleToggleNotifications = () => {
         setNotificationsEnabled(!notificationsEnabled);
@@ -115,7 +138,9 @@ const NavigationDrawer = () => {
 
               </View>
               <View>
-              <TouchableOpacity className="py-1.5 px-3 my-4 bg-red-400 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg">
+              <TouchableOpacity className="py-1.5 px-3 my-4 bg-red-400 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg"
+                onPress={handleLogout}
+              >
                  <Text className={`text-white font-medium text-lg ${Platform.select({android : 'text-sm'})}`} >Sign Out</Text>
                  <Text className="mt-0.5">
                    <FontAwesome name='sign-out' size={24} color="white" />
