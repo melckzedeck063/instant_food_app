@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     padding: 26,
     marginVertical: 8,
     elevation: 2,
-    height : responsiveHeight(13),
-    width : responsiveWidth(31)
+    height : responsiveHeight(15),
+    width : responsiveWidth(42)
   },
 });
 

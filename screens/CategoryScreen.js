@@ -52,7 +52,7 @@ const CategoryScreen = () => {
     const restaurantProducts = useSelector(state => state.product);
     // console.log(restaurantProducts.restaurant_products);
 
-    // console.log(isOWner);
+    // console.log(props);
 
     const gettToken =  async () => {
       const storage = await SecureStore.getItemAsync('token');
@@ -113,10 +113,7 @@ const CategoryScreen = () => {
        
 
       </View>
-        <Text className={`font-mediumm capitalize text-slate-100 ${height  < 838 ? '-mt-1' :  ''} px-2 ${Platform.select({android : 'text-xs'})}`}> 
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quam suscipit veniam ut doloremque quas, reprehenderit commodi deserunt 
-         perferendis ducimus ullam fuga sequi optio laboriosam quaerat ipsum asperiores eius nemo.
-        </Text>
+        <Text className={`font-mediumm capitalize text-slate-100 ${height  < 838 ? '-mt-1' :  ''} px-2 ${Platform.select({android : 'text-xs'})}`}> {props.desc} </Text>
      </View>
 
      <View className={``}>
@@ -135,7 +132,7 @@ const CategoryScreen = () => {
            </TouchableOpacity> */}
         </View>
         {
-          restaurantProducts?.restaurant_products?.data?.product?(
+          restaurantProducts?.restaurant_products?.data?.product.length >=1?(
             <>
           <FlatList 
            data={restaurantProducts.restaurant_products.data.product}
@@ -150,7 +147,7 @@ const CategoryScreen = () => {
              return (
                <ProductCard name={itemData.item.productName} image={itemData.item.photo} price={itemData.item.price} quantity={itemData.item.quantity}
                  prepared_by={itemData.item.prepared_by} 
-                 desc = {itemData.item.description}
+                 desc = {itemData.item.description} id={itemData.item._id}
                  />
              )
            }}
@@ -160,7 +157,7 @@ const CategoryScreen = () => {
           )
           :
           <>
-             <View className="flex-row justify-between mx-3">
+             <View className="flex-row justify-between mx-1">
               <ProductSkeleton  />
               <ProductSkeleton  />
              </View>

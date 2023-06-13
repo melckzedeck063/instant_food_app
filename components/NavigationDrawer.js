@@ -5,6 +5,7 @@ import {Ionicons, AntDesign, FontAwesome}  from  '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useDispatch } from 'react-redux'
 import { allCartItems } from '../store/actions/cart_actions'
+import * as SecureStore from 'expo-secure-store';
 
 const NavigationDrawer = () => {
 

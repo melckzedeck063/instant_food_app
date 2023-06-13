@@ -23,6 +23,7 @@ import store from './store/store';
 import LocationTracking from './screens/LocationTracking';
 import BasketScreen from './screens/BasketScreen';
 import PreparingOrder from './screens/PreparingOrder';
+import OrderConfirmation from './screens/OrderConfirmation';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,6 +95,9 @@ export default function App() {
          />
           <Stack.Screen name='OrderWaiting' component={PreparingOrder} 
            options={{title : 'Order Preparation'}}
+         />
+         <Stack.Screen name='ConfirmOrder' component={OrderConfirmation} 
+           options={{title : 'Confirm Order'}}
          />
       </Stack.Navigator>
     </NavigationContainer>

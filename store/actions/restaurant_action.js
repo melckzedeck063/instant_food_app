@@ -29,7 +29,7 @@ export  const registerRestaurant  = createAsyncThunk ( 'new/category', async(val
             address :  values.geo
         })
 
-        // console.log(response);
+        console.log(response.data);
         return  response.data
     }
     catch(error){

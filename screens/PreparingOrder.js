@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React, {useLayoutEffect} from 'react'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation, useRoute } from '@react-navigation/core'
 import * as Animatable from 'react-native-animatable'
 import * as Progress from 'react-native-progress'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -8,10 +8,12 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions'
 
 const PreparingOrder = () => {
     const navigation =  useNavigation();
+    const {params : {data}} = useRoute()
 
+    //  console.log(data)
 
     setTimeout(() => {
-        navigation.navigate('Location')
+        navigation.navigate('Location', {data})
     }, 5000);
 
     useLayoutEffect (() => {

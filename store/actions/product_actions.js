@@ -44,7 +44,7 @@ export const getAllProducts = createAsyncThunk('all/laundry', async()  =>{
     try{
         const response =  await PRODUCT_API.get('/all_products?sort=-date_created');
 
-        // console.log(response.data);
+        // console.log(response);
         return response.data
     }
     catch(error){

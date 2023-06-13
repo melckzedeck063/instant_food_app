@@ -1,4 +1,4 @@
-import { View, Text, useWindowDimensions, FlatList,TextInput } from 'react-native'
+import { View, Text, useWindowDimensions, FlatList,TextInput, ScrollView } from 'react-native'
 import React, { useLayoutEffect, useState,useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import  {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'

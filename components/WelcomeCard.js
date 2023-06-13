@@ -12,7 +12,7 @@ const WelcomeCard = () => {
         resizeMode="cover"
       />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Welcome to Food Delivery!</Text>
+        <Text style={styles.title}>Welcome to instant Food App</Text>
         <Text style={styles.subtitle}>Order delicious food right to your doorstep.</Text>
       </View>
     </View>

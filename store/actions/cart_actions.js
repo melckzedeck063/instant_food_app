@@ -42,7 +42,7 @@ export const  addItemToCart  = createAsyncThunk('new/cart', async(values)  => {
                total_cost :  values.total_cost,
                product :  values.id
            })
-           console.log(response.data)
+           console.log(response)
            return  response.data
      }
      catch(error){

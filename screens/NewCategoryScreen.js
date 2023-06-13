@@ -46,7 +46,7 @@ const NewCategory = () => {
       const geocodedLocation = await Location.geocodeAsync(data);
       if (geocodedLocation.length > 0) {
         const { latitude, longitude } = geocodedLocation[0];
-        setAddress({lat  : latitude, long : longitude})
+        setAddress({latitude  : latitude, longitude : longitude})
         console.log('Geocoded address:', latitude, longitude);
       } else {
         console.log('No geocoded address found');
@@ -125,12 +125,15 @@ const onSubmit = (data) => {
   const {location}  =  data;
 
   geocode(location)
+  console.log(address)
   
   data.geo  =  address
 
   setTimeout(() => {
     console.log(data)
-    // dispatch(registerRestaurant(data))
+    setTimeout(() => {
+      dispatch(registerRestaurant(data))
+    }, 1500);
   }, 1500);
       // uploadImage();
 

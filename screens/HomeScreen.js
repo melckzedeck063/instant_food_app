@@ -29,7 +29,7 @@ const HomeScreen = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     setTimeout(() => {
-      if(reload < 5){
+      if(reload < 7){
         setReload(reload => reload + 1)
       }
     }, 1000);
@@ -42,7 +42,7 @@ const HomeScreen = () => {
     // console.log(products.all_products)
 
     useEffect(() => {
-      if(restaurants && restaurants.restaurants && reload < 4){
+      if(restaurants && restaurants.restaurants && reload < 6){
         dispatch( getAllRestaurant() )
       }
     })
@@ -54,7 +54,7 @@ const HomeScreen = () => {
 };
    
 useEffect(() => {
-  if(products  && products.all_products && reload < 4){
+  if(products  && products.all_products && reload < 6){
     dispatch( getAllProducts());
   }
 })

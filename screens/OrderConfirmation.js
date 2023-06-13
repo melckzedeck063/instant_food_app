@@ -1,25 +1,26 @@
 import { View, Text, useWindowDimensions, FlatList, TouchableOpacity, Platform } from 'react-native'
 import React, {useLayoutEffect, useState, useCallback, useEffect} from 'react'
-import { useNavigation } from '@react-navigation/native'
 
 import ProductCard from '../components/ProductCard';
 import CartItem from '../components/CartItem';
-import {responsiveHeight, useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-dimensions';
+import {responsiveFontSize, responsiveHeight, useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-dimensions';
 import { useCart } from 'react-use-cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { allCartItems } from '../store/actions/cart_actions';
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+const OrderConfirmation = () => {
+    const navigation =  useNavigation();
+    const {params  : {selectedDriver,latlong} } =  useRoute()
 
-
-
-
-const CartScreen = () => {
-
-    const navigation =  useNavigation()
+    console.log(selectedDriver);
+    console.log("My location : ",latlong)
     const {height, width} = useWindowDimensions();
     const {items, totalUniqueItems, cartTotal} = useCart();
     const dispatch =  useDispatch();
     const [reload,setReload] =  useState(0)
+    const [deliveryFee, setDeliveryFee] =  useState(5000)
 
     const cart_items =  useSelector(state => state.cartItem);
 
@@ -49,9 +50,7 @@ const CartScreen = () => {
 
     const orderDetails = (data) => {
       // console.log(data)
-       navigation.navigate('OrderWaiting', {
-        data
-       })
+       
     }
     
     useLayoutEffect(() => 
@@ -65,13 +64,18 @@ const CartScreen = () => {
         })
     })
 
+    useLayoutEffect(() =>{
+        navigation.setOptions({
+            headerShown  : true
+        })
+    })
   return (
-    <View style={{height : height, width: width, backgroundColor : '#0e2433'}} className="bg-slate-900" >
+       <View style={{height : height, width: width, backgroundColor : '#0e2433'}} className="bg-slate-900" >
       <View style={{alignSelf : 'center'}} className="border-b-2 border-slate-300 w-10/12 py-3">
         {
           cart_items?.cart_items?.data?.data?(
             <>
-            <Text className="text-white text-center font-bold text-xl" >Cart Items ({cart_items.cart_items.results}) </Text>
+            <Text className="text-white text-center font-bold text-xl" >Order Items ({cart_items.cart_items.results}) </Text>
             </>
           )
           :
@@ -103,26 +107,34 @@ const CartScreen = () => {
         }
       </View>
       <View className={`bg-slate-800 p-2 ${Platform.select({android :'mt-2 py-5'})}`}>
-         <View className="flex-row flex justify-between px-2">
+         <View className="px-2">
           {
             cart_items?.cart_items?.data?.data?(
               <>
-          <View>
-            <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> Total ({cart_items.cart_items.results}) Items </Text>
-            <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> {totalBills(cart_items.cart_items.data.data)} Tshs </Text>
+          <View className="flex-row justify-between">
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-white font-bold`}> Total ({cart_items.cart_items.results}) Items </Text>
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-orange-400 font-bold`}> {totalBills(cart_items.cart_items.data.data)} Tshs </Text>
           </View>
-          <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-500 rounded-lg px-4 py-2 w-5/12`} 
+          <View className="flex-row justify-between">
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-white font-bold`}> Delivery fee </Text>
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-orange-400 font-bold`}> {deliveryFee} Tshs </Text>
+          </View>
+          <View className="flex-row justify-between">
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-white font-bold`}> Total Cost </Text>
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-orange-400 font-bold`}> {Number(deliveryFee) +  Number(totalBills(cart_items.cart_items.data.data)) } Tshs </Text>
+          </View>
+          <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-500 rounded-lg px-4 py-1 w-5/12`} 
             onPress={() => orderDetails(cart_items.cart_items.data.data)}
           >
-             <Text className={`text-white font-medium text-center ${Platform.select({ios  :  'text-lg'})}`}> Place Order </Text>
+             <Text style={{fontSize :responsiveFontSize(2)}} className={`text-white font-medium text-center`}> Confirm Order </Text>
           </TouchableOpacity>
               </>
             )
             :
             <>
              <View>
-            <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> Total (0) Items </Text>
-            <Text className={`text-white font-bold text-lg ${Platform.select({android  :  'text-sm'})}`}> 0 Tshs </Text>
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-white font-bold`}> Total (0) Items </Text>
+            <Text style={{fontSize  :  responsiveFontSize(2)}} className={`text-white font-bold`}> 0 Tshs </Text>
           </View>
           <TouchableOpacity disabled style={{alignSelf : 'center'}} className={`bg-orange-500 rounded-lg px-4 py-2 w-5/12`} 
             onPress={() => navigation.navigate('OrderWaiting')}
@@ -134,7 +146,8 @@ const CartScreen = () => {
          </View>
       </View>
     </View>
+
   )
 }
 
-export default CartScreen
+export default OrderConfirmation

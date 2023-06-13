@@ -151,8 +151,11 @@ const AllCategories = () => {
           )
           :
           <>
-            <View className="flex-row justify-between mx-1.5">
+            <View className="flex-row justify-between mx-1">
             <RestaurantSkeleton />
+            <RestaurantSkeleton />
+          </View>
+          <View className="flex-row justify-between mx-1">
             <RestaurantSkeleton />
             <RestaurantSkeleton />
           </View>

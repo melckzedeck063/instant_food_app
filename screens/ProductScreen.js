@@ -29,6 +29,7 @@ const ProductScreen = () => {
     const  formData  =   new  FormData();
 
     const handlCartItem = (data) => {
+        console.log(props)
         formData.append({
             'amount' : amount,
             'total_cost': (props.price *  amount),
@@ -100,7 +101,7 @@ const ProductScreen = () => {
       <View className="flex flex-row justify-between py-2 my-2 px-4">
         <View>
             <Text style={{fontSize  :  responsiveFontSize(2.5)}} className={`font-bold capitalize text-white text-xl ${Platform.select({android : 'text-lg'})}`}>{props.name}</Text>
-            <Text className={`text-white font-medium py-1 ${Platform.select({android : 'text-xs'})}`}>Product category</Text>
+            <Text className={`text-white font-medium py-1 ${Platform.select({android : 'text-xs'})}`}> {props.prepared_by.restaurantName} </Text>
         </View>
         <View>
             <Text className={`text-white font-bold text-2xl py-2 ${Platform.select({android : 'text-xl'})}`}> {props.price} Tshs</Text>
