@@ -34,9 +34,6 @@ export const placeOrder = createAsyncThunk('/order', async(values) => {
             user_location :  values.latlong
         })
 
-        deleteCartItems()
-
-
         console.log(response.data);
         return response.data
     }
@@ -77,7 +74,7 @@ export const confirmOrder = createAsyncThunk('/confirm',  async  (id) => {
     // console.log(id)
     try{
          const response =  await ORDER_API.put(`/update_order/${id}`, {
-            order_status : "confirmed"
+            order_status : "Accepted"
          })
          console.log(response.data)
          return response.data
@@ -104,9 +101,9 @@ export const  deleteOrder =  createAsyncThunk('/delete_order', async (id) => {
 
 export const getSentOrders = createAsyncThunk ('sent/orders', async() =>{
     try{
-        const  response =  await ORDER_API.get('');
+        const  response =  await ORDER_API.get('/driver_orders');
 
-        console.log(response.data)
+        // console.log(response.data)
         return response.data
     }
     catch(error){

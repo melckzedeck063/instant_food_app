@@ -34,7 +34,7 @@ const OrderComponent = (props) => {
             </View>
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Order Status</Text>
-              <Text className={`font-medium text-slate-100 ${Platform.select({android: 'text-xs'})}  ${props.order_status === "Delivered"?'text-blue-500': 'text-orange-400'} ${props.order_status ==="Confirmed"?'text-green-500': 'text-orange-400'} `}>  {props.order_status} </Text>
+              <Text className={`font-medium text-slate-100 ${Platform.select({android: 'text-xs'})}  ${props.order_status === "Delivered"?'text-blue-500': 'text-orange-400'} ${props.order_status ==="Accepted"?'text-green-500': 'text-orange-400'} `}>  {props.order_status} </Text>
             </View>
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Items  </Text>

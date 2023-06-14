@@ -15,7 +15,7 @@ const OrdersScreen = () => {
     const navigation   =  useNavigation();
     const {width,  height} =  useWindowDimensions();
     const dispatch =  useDispatch();
-    const  [reload, setReload] =  useState(0)
+    const  [reload, setReload] =  useState(0);
 
     setTimeout(() => {
       if(reload  <  5){
@@ -57,7 +57,7 @@ const OrdersScreen = () => {
               data={my_orders.my_orders.data.data}
                  renderItem={(itemData)  => {
                   return(
-                    <OrderComponent date={itemData.item.createdAt} uuid={itemData.item._id} user={itemData.item.ordered_by} order_status={itemData.item.order_status} order_id={itemData.item.order_id} cost={itemData.item.total_cost} items={itemData.item.order_items.length} products={itemData.item.order_items} />
+                    <OrderComponent date={itemData.item.createdAt} uuid={itemData.item._id} user={itemData.item.ordered_by} driver={itemData.item.driver} order_status={itemData.item.order_status} order_id={itemData.item.order_id} cost={itemData.item.total_cost} items={itemData.item.order_items.length} products={itemData.item.order_items} />
                   )
                  }}
                  keyExtractor={(item)  =>  item._id}

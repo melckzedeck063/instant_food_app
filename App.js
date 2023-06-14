@@ -24,6 +24,9 @@ import LocationTracking from './screens/LocationTracking';
 import BasketScreen from './screens/BasketScreen';
 import PreparingOrder from './screens/PreparingOrder';
 import OrderConfirmation from './screens/OrderConfirmation';
+import DriversOrders from './screens/DriversOrders';
+import DeliveryScreen from './screens/DeliveryScreen';
+import DeliveryWaiting from './screens/DeliveryWaiting';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -98,6 +101,15 @@ export default function App() {
          />
          <Stack.Screen name='ConfirmOrder' component={OrderConfirmation} 
            options={{title : 'Confirm Order'}}
+         />
+         <Stack.Screen name='DriversOrder' component={DriversOrders} 
+           options={{title : 'Received Orders'}}
+         />
+         <Stack.Screen name='DeliveryScreen' component={DeliveryScreen} 
+           options={{title : 'Deliver Now', presentation:"modal"}}
+         />
+         <Stack.Screen name='DeliveryWaiting' component={DeliveryWaiting} 
+           options={{title : '', presentation:"modal"}}
          />
       </Stack.Navigator>
     </NavigationContainer>

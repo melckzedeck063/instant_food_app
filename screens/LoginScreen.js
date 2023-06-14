@@ -70,6 +70,9 @@ const LoginScreen = () => {
       const onSubmit = data => {
         // console.log(data)
         dispatch( signInUser(data))
+        setTimeout(() => {
+          reset()
+        }, 500);
 
         setTimeout(() => {
           checkUser()
@@ -78,7 +81,7 @@ const LoginScreen = () => {
       }
 
       setTimeout(() => {
-        checkUser()
+        // checkUser()
         //  navigation.navigate('HomeTab');
       }, 3000);
 

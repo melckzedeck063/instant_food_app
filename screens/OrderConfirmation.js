@@ -6,7 +6,7 @@ import CartItem from '../components/CartItem';
 import {responsiveFontSize, responsiveHeight, useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-dimensions';
 import { useCart } from 'react-use-cart';
 import { useDispatch, useSelector } from 'react-redux';
-import { allCartItems } from '../store/actions/cart_actions';
+import { allCartItems, deleteCartItems } from '../store/actions/cart_actions';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { placeOrder } from '../store/actions/order_actions';
@@ -73,6 +73,13 @@ const OrderConfirmation = () => {
     // console.log(datas)
     setTimeout(() => {
       dispatch(  placeOrder(datas) )
+
+      setTimeout(() => {
+        dispatch( deleteCartItems() )
+        setTimeout(() => {
+          navigation.navigate('HomeTab')
+        }, 500);
+      }, 2000);
     }, 1000);
     }
     
