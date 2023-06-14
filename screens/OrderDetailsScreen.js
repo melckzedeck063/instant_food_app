@@ -4,13 +4,15 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import {useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-dimensions'
 import OrderItem from '../components/OrderItem'
 import moment from 'moment'
+import { FlatList } from 'react-native-gesture-handler'
 
 const OrderDetailsScreen = () => {
 
     const navigation = useNavigation();
     const {params : {props}} =  useRoute();
     const  {width, height} =  useWindowDimensions();
-    console.log(props)
+    const delivery_fee = 4000;
+    // console.log(props.products)
 
 
     useLayoutEffect(() => {
@@ -25,10 +27,18 @@ const OrderDetailsScreen = () => {
         </View>
         <View className={`py-2`} >
             <View className={`mx-1`}>
-                <OrderItem  title={"Banana"} />
-                <OrderItem  title={"Strawberry"} />
-                <OrderItem  title={"Vannila cakes"} />
-                <OrderItem  title={"Banana"} />
+              {
+                props?.products.length >= 1(
+                    <FlatList 
+                     data={props.products}
+                     renderItem={(itemData) =>{ 
+                        return (
+                            <OrderItem  />
+                        )
+                     }}
+                    />
+                )
+              }
             </View>
             <View style={style.card} className={`bg-white w-full my-4 mx-2 py-2 rounded-lg`}>
                 <View className={`flex-row justify-between py-2 border-b border-slate-200 px-2`}>
@@ -37,7 +47,7 @@ const OrderDetailsScreen = () => {
                 </View>
                 <View className={`flex-row justify-between py-2 border-b border-slate-200 px-2`}>
                     <Text className={`text-slate-800 text-lg ${Platform.select({android : 'text-sm'})} font-medium`}> SubTotal </Text>
-                    <Text className={`font-medium text-red-400 text-sm ${Platform.select({android : 'text-xs'})}`}> {props.cost} </Text>
+                    <Text className={`font-medium text-red-400 text-sm ${Platform.select({android : 'text-xs'})}`}> {(Number(props.cost) + Number(delivery_fee))} </Text>
                 </View>
                 <View className={`flex-row justify-between py-2 border-b border-slate-200 px-2`}>
                     <Text className={`text-slate-800 text-lg ${Platform.select({android : 'text-sm'})} font-medium`}> Ordered </Text>

@@ -5,6 +5,7 @@ import *  as SecureStore from 'expo-secure-store';
 
 // import { response } from "express";
 import { BASE_URL } from "../URL";
+import { deleteCartItems } from "./cart_actions";
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -33,7 +34,10 @@ export const placeOrder = createAsyncThunk('/order', async(values) => {
             user_location :  values.latlong
         })
 
-        // console.log(response.data);
+        deleteCartItems()
+
+
+        console.log(response.data);
         return response.data
     }
     catch(error) {
@@ -96,4 +100,17 @@ export const  deleteOrder =  createAsyncThunk('/delete_order', async (id) => {
         return  error.message
     }
 
+})
+
+export const getSentOrders = createAsyncThunk ('sent/orders', async() =>{
+    try{
+        const  response =  await ORDER_API.get('');
+
+        console.log(response.data)
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+        return  error.response
+    }
 })

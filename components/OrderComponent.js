@@ -15,13 +15,13 @@ const OrderComponent = (props) => {
 
 
   return (
-    <View style={{backgroundColor : '#1c4966'}}  className="my-1.5 bg-black/10 opacityy-40">
-      <TouchableOpacity style={style.card} className="p-2  borderr border-slatee-500 mx-3 rounded-md"
+    <View style={{backgroundColor : '#1c4966'}}  className="my-1.5 flex flex-1  justify-center mx-2 rounded-md bg-black/10 opacityy-40">
+      <TouchableOpacity style={style.card} className="p-2  borderr border-slatee-500 rounded-md"
          onPress={() => handleOrder(props.uuid) }
       >
           <View className="p-1" >
             <View className="">
-              <Text className="text-white text-sm font-bold text-center text-llg"> Order Details </Text>
+              <Text className="text-white text-sm font-bold text-center text-llg -mt-1"> Order Details </Text>
             </View>
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Order ID </Text>
@@ -30,7 +30,7 @@ const OrderComponent = (props) => {
             
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Ordered By </Text>
-              <Text className="font-medium text-slate-100 capitalize "> {props.user} {props.user.lastName} </Text>
+              <Text className="font-medium text-slate-100 capitalize "> {props.user.firstName} {props.user.lastName} </Text>
             </View>
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Order Status</Text>
@@ -38,7 +38,7 @@ const OrderComponent = (props) => {
             </View>
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Items  </Text>
-              <Text className={`font-medium text-slate-100 ${Platform.select({android: 'text-xs'})} `} >  {props.products.length} (items) </Text>
+              <Text className={`font-medium text-slate-100 ${Platform.select({android: 'text-xs'})} `} >  {props.items} (items) </Text>
             </View>
             <View className="flex flex-row justify-between mr-2">
               <Text className={`font-bold text-white ${Platform.select({android :'text-xs'})}`}> Total Cost </Text>

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { allCartItems } from '../store/actions/cart_actions';
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { placeOrder } from '../store/actions/order_actions';
 
 const OrderConfirmation = () => {
     const navigation =  useNavigation();
@@ -69,7 +70,10 @@ const OrderConfirmation = () => {
       deliveryFee
     }
        
-    console.log(datas)
+    // console.log(datas)
+    setTimeout(() => {
+      dispatch(  placeOrder(datas) )
+    }, 1000);
     }
     
     useLayoutEffect(() => 

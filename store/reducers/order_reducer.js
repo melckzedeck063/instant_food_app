@@ -7,6 +7,8 @@ const OrderSlice =  createSlice({
     initialState : {
         orders : [],
         all_orders : [],
+        my_orders :  [],
+        driver_orders : [],
         order : "",
         status : "iddle",
         errors : null
@@ -49,7 +51,7 @@ const OrderSlice =  createSlice({
         })
         .addCase(getMyOrders.fulfilled, (state,action) => {
             state.status = "Succeeded",
-            state.orders = action.payload
+            state.my_orders = action.payload
         })
         .addCase(getMyOrders.rejected, (state,action) => {
             state.status = "failed",

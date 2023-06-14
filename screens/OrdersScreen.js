@@ -1,35 +1,36 @@
 import { View, Text, FlatList } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useWindowDimensions } from 'react-native';
 
 
-import image1 from '../assets/images/product-741755043-1673243019360.jpeg';
-import image2 from '../assets/images/product-741755043-1673243019360.jpeg';
-import image3 from '../assets/images/product-741755043-1673243019360.jpeg';
-import image4 from '../assets/images/product-741755043-1673243019360.jpeg';
-import image5 from '../assets/images/product-741755043-1673243019360.jpeg';
-import image6 from '../assets/images/product-741755043-1673243019360.jpeg';
-import image7 from '../assets/images/product-741755043-1673243019360.jpeg';
 import OrderComponent from '../components/OrderComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMyOrders } from '../store/actions/order_actions';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 
-
-const data = [
-    {name : "vegetables", image :image1, id : 1 },
-  {name : "Fruits", image :image2, id : 2 },
-  {name : "Drinks", image :image3, id: 3 },
-  {name : "Bites", image : image4 , id : 4},
-  {name : "Fast food", image :image1, id: 5 },
-  {name : "Fruits", image :image2, id : 6 },
-  {name : "Bites", image : image5 , id : 14},
-  {name : "Fast food", image :image6, id: 15 },
-  {name : "Fruits", image :image7, id : 10 },
-]
 
 const OrdersScreen = () => {
 
     const navigation   =  useNavigation();
     const {width,  height} =  useWindowDimensions();
+    const dispatch =  useDispatch();
+    const  [reload, setReload] =  useState(0)
+
+    setTimeout(() => {
+      if(reload  <  5){
+        setReload(reload => reload +1)
+      }
+    }, 1000);
+
+    const my_orders = useSelector(state => state.orders)
+    // console.log(my_orders.my_orders)
+
+    useEffect(() => {
+      if(my_orders && my_orders.my_orders && reload  < 4){
+        dispatch ( getMyOrders())
+      }
+    })
 
     useLayoutEffect(() => 
     {
@@ -46,20 +47,33 @@ const OrdersScreen = () => {
     <View>
         <View style={{backgroundColor : '#0e2433'}} className={`bg-slate-900 h-full`}>
           <View>
-             <Text className={`text-center font-bold text-lg py-2 text-white`}>OrdersScreen</Text>
+             <Text className={`text-center font-bold text-lg py-2 text-white`}>My Orders</Text>
           </View>
-
-          <View style={{height : height/1.32}} className={`mx-1`} >
+          <View style={{height  : responsiveHeight(78), width : responsiveWidth(98), alignSelf  :  'center'}} className="bg-whitee">
+          {
+            my_orders?.my_orders?.data?.data.length >= 1?(
+              <>
               <FlatList 
-              data={data}
+              data={my_orders.my_orders.data.data}
                  renderItem={(itemData)  => {
                   return(
-                    <OrderComponent date={"2023-03-24"} uuid={"234545"} user={"melckzedeck james"} order_status={"pending"} order_id={"12yrt67732"} cost={"234566"} items={"4"} products={["banana", "tomato"]} />
+                    <OrderComponent date={itemData.item.createdAt} uuid={itemData.item._id} user={itemData.item.ordered_by} order_status={itemData.item.order_status} order_id={itemData.item.order_id} cost={itemData.item.total_cost} items={itemData.item.order_items.length} products={itemData.item.order_items} />
                   )
                  }}
-                 keyExtractor={(item)  =>  item.id}
+                 keyExtractor={(item)  =>  item._id}
               />
+              </>
+            )
+            :
+            <>
+            <View  className="flex-1 justify-center items-center">
+              <Text style={{fontSize  :  responsiveFontSize(2.5)}} className="text-orange-400 font-bold text-center"> !Ooops </Text>
+              <Text style={{fontSize  :  responsiveFontSize(2.1)}} className="text-white font-bold text-center"> No order available </Text>
+            </View>
+            </>
+          }
           </View>
+          
         </View>
     </View>
   )

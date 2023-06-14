@@ -1,16 +1,32 @@
-import { View, Text, useWindowDimensions, Platform , StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, useWindowDimensions, Linking, Platform, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import {useResponsiveHeight, useResponsiveWidth} from 'react-native-responsive-dimensions'
+import {responsiveFontSize, responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
 import OrderItem from '../components/OrderItem'
 import moment from 'moment'
+import {Ionicons} from '@expo/vector-icons'
 
 const OrderDetails = () => {
 
     const navigation = useNavigation();
     const {params : {props}} =  useRoute();
     const  {width, height} =  useWindowDimensions();
-    console.log(props)
+    const delivery_fee = 4000;
+    console.log(props.user)
+
+    const openCallLogs = (phoneNumber) => {
+        let url = '';
+        
+        if (Platform.OS === 'android') {
+          url = `tel:${phoneNumber}`;
+        } else if (Platform.OS === 'ios') {
+          url = `telprompt:${phoneNumber}`;
+        }
+        
+        Linking.openURL(url)
+          .catch((error) => console.error('Failed to open call logs:', error));
+      };
+      
 
 
     useLayoutEffect(() => {
@@ -19,15 +35,23 @@ const OrderDetails = () => {
         })
     })
   return (
-    <View style={{height :  useResponsiveHeight(96), width : useResponsiveWidth(99), backgroundColor :  '#0e2433'}}  className={`bg-slate-100 py-3 px-2.5`} >
+    <View style={{height :  responsiveHeight(96), width : responsiveWidth(99), backgroundColor :  '#0e2433'}}  className={`bg-slate-100 py-3 px-2.5`} >
         <View className={``}>            
         </View>
         <View className={`py-2`} >
-            <View className={`mx-1`}>
-                <OrderItem  title={"Banana"} />
-                <OrderItem  title={"Strawberry"} />
-                <OrderItem  title={"Vannila cakes"} />
-                <OrderItem  title={"Banana"} />
+            <View  style={{height:  responsiveHeight(50)}} className={`mx-1`}>
+            {
+                props?.products.length >= 1 && (
+                    <FlatList 
+                     data={props.products}
+                     renderItem={(itemData) =>{ 
+                        return (
+                            <OrderItem photo={itemData.item.photo} name={itemData.item.productName} cost={itemData.item.price}  restaurant={itemData.item.prepared_by.restaurantName} />
+                        )
+                     }}
+                    />
+                )
+              }
             </View>
             <View style={style.card} className={`bg-white w-full my-4 mx-2 py-2 rounded-lg`}>
                 <View className={`flex-row justify-between py-2 border-b border-slate-200 px-2`}>
@@ -36,7 +60,7 @@ const OrderDetails = () => {
                 </View>
                 <View className={`flex-row justify-between py-2 border-b border-slate-200 px-2`}>
                     <Text className={`text-white text-lg ${Platform.select({android : 'text-sm'})} font-medium`}> SubTotal </Text>
-                    <Text className={`font-medium text-orange-400 text-sm ${Platform.select({android : 'text-xs'})}`}> {props.cost} </Text>
+                    <Text className={`font-medium text-orange-400 text-sm ${Platform.select({android : 'text-xs'})}`}> {Number(props.cost) + delivery_fee } </Text>
                 </View>
                 <View className={`flex-row justify-between py-2 border-b border-slate-200 px-2`}>
                     <Text className={`text-white text-lg ${Platform.select({android : 'text-sm'})} font-medium`}> Ordered </Text>
@@ -46,10 +70,28 @@ const OrderDetails = () => {
                     <Text className={`text-white text-lg ${Platform.select({android : 'text-sm'})} font-medium`}> OrderStatus </Text>
                     <Text className={`font-medium ${Platform.select({android: 'text-xs'})}  ${props.order_status === "Delivered"?'text-blue-500': 'text-orange-400'} ${props.order_status ==="Confirmed"?'text-green-500': 'text-orange-400'} `}>  {props.order_status} </Text>
                 </View>
+                <View className="mx-3">
+                    <View className="">
+                         <Text className="text-white font-bold text-center py-1">Delivery man</Text>
+                        <View className="flex flex-row justify-between mx-2 my-2">
+                        <Text style={{fontSize : responsiveFontSize(2.1)}} className="text-white font-medium">Name </Text>
+                        <Text style={{fontSize : responsiveFontSize(1.7)}} className="text-white font-medium pt-1">{props.user.firstName} {props.user.lastName} </Text>
+
+                        </View>
+                        <View className="flex-row flex justify-between mx-2 my-1">                           
+                        <TouchableOpacity className="bg-green-600 px-2 py-1 rounded-xl"
+                          onPress={() => openCallLogs(props.user.telephone)}
+                        >
+                            <Text style={{fontSize : responsiveFontSize(1.6)}} className="-ml-1">  <Ionicons  name='call' color="white" size={24} /> </Text>
+                        </TouchableOpacity>
+                        <Text style={{fontSize : responsiveFontSize(2)}} className="text-white font-medium pt-1.5">{props.user.telephone} </Text>
+                        </View>
+                    </View>
+                </View>
                 <View>
-                    <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-400 w-5/12 px-2 rounded-lg py-1.5 my-3`}>
+                    {/* <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-400 w-5/12 px-2 rounded-lg py-1.5 my-3`}>
                          <Text className={`text-lg text-white font-medium text-center ${Platform.select({android :  'text-sm'})}`}>Confirm Order</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
         </View>
