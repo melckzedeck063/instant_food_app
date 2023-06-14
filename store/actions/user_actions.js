@@ -32,7 +32,7 @@ export const signInUser = createAsyncThunk ("user/login", async (values) => {
          return  response.data
     }
     catch(error){
-        console.log(error)
+        console.log(error.response)
         return  error.message
     }
 })
@@ -50,11 +50,57 @@ export const  signUpUser =  createAsyncThunk ('user/signup', async(values) => {
             confirmPassword : values.confirmPassword
         })
         // console.log("called");
-        // console.log(response.data);
+        console.log(response.data);
         return response.data
     }
     catch(error){
         console.log(error);
         console.log(error.response.data)
+    }
+})
+
+export  const becomeDriver =  createAsyncThunk('new/driver',  async(values) => {
+    try{
+         const  response =  await AUTH_API.patch('/become_driver', {
+            vehicleNo : values.vehicleNo,
+            licenseNo :  values.licenseNo,
+            station :  values.station,
+            role :  "driver"
+         })
+
+         console.log(response.data);
+         return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+})
+
+export const updateLocation =   createAsyncThunk('new/location', async(values) => {
+    console.log("values :  " ,values)
+    try{
+        const response =   await AUTH_API.patch('/update_location',  {
+            latlong : values
+        })
+
+        console.log(response.data);
+        return response.data
+    }
+    catch(error){
+        console.loge(error);
+        return error.response
+    }
+})
+
+export const findDriversAvailable = createAsyncThunk('all/drivers', async() =>{
+    try{
+        const response =  await AUTH_API.get('/drivers')
+
+        // console.log(response.data);
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+        return error.message
     }
 })

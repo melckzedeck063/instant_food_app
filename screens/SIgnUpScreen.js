@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useForm, FormProvider, SubmitHandler, Controller } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers/yup'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import { useDispatch } from 'react-redux';
+import { signUpUser } from '../store/actions/user_actions';
 
 
 
@@ -11,6 +13,7 @@ const SIgnUpScreen = () => {
 
     const navigation = useNavigation();
     const { width, height } = useWindowDimensions();
+    const  dispatch  =  useDispatch()
 
     const { register, reset, control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
         defaultValues :  {
@@ -25,8 +28,12 @@ const SIgnUpScreen = () => {
       })
       
       const onSubmit = data => {
-          console.log(data);
-        //   dispatch( signUpUser(data) )
+          // console.log(data);
+          dispatch( signUpUser(data) )
+
+          setTimeout(() => {
+             reset()
+          }, 1000);
           
       }
 
@@ -44,7 +51,7 @@ const SIgnUpScreen = () => {
 
 
   return (
-    <View className="bg-slate-900">
+    <View className="bg-slate-900 h-full">
       <KeyboardAwareScrollView >
     {/* <View > */}
       <ScrollView>

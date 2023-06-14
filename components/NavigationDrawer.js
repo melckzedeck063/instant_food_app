@@ -12,8 +12,7 @@ const NavigationDrawer = () => {
     const navigation = useNavigation();
     const dispatch =  useDispatch()
     const [notificationsEnabled, setNotificationsEnabled] = React.useState(false);
-
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [user_role, setUser_role] =  useState(null)
 
   const handleLogout = async () => {
     // Clear the secure store items
@@ -24,16 +23,22 @@ const NavigationDrawer = () => {
     }, 3000);
   };
 
+  const gettToken =  async () => {
+    const storage = await SecureStore.getItemAsync('token');
+    const user_role = JSON.parse(storage);
   
+  if (user_role.doc.user.role === "admin") {
+    setUser_role("admin");
+  } else if (user_role.doc.user.role === "driver") {
+    setUser_role("driver");
+  }
+}
 
-  useEffect(() => {
-    if (isModalVisible) {
-      // Automatically close modal after 2 seconds
-      setTimeout(() => {
-        toggleModal();
-      }, 2000);
-    }
-  }, [isModalVisible]);
+useEffect(() => {
+  gettToken();
+}, []);
+
+  // console.log(user_role)
 
 
     const handleToggleNotifications = () => {
@@ -81,13 +86,27 @@ const NavigationDrawer = () => {
 
      <View className="border-b border-slate-300 my-2">
                 <Text className={`text-xl font-bold text-white mb-2`}>Orders & Carts</Text>
-
-              <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg">
-                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >All Orders</Text>
-                 <Text className="mt-0.5">
-                   <AntDesign name='arrowright' size={18} color="white" />
-                 </Text>
+                {
+                  user_role ===  "admin" &&(
+                    <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg">
+                      <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >All Orders</Text>
+                       <Text className="mt-0.5">
+                         <AntDesign name='arrowright' size={18} color="white" />
+                       </Text>
               </TouchableOpacity>
+                  )
+                }
+                {
+                  user_role === "driver" && (
+                    <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg">
+                        <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >My Orders</Text>
+                        <Text className="mt-0.5">
+                          <AntDesign name='arrowright' size={18} color="white" />
+                        </Text>
+                 </TouchableOpacity>
+                  )
+                }
+              
               <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between space-x-6 active:bg-slate-500  hover:bg-slate-500 rounded-lg"
                 onPress={()  =>  handleBasket() }
               >

@@ -5,6 +5,8 @@ import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-nat
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps'
 import { Tooltip } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { findDriversAvailable } from '../store/actions/user_actions';
 
 
 
@@ -25,10 +27,26 @@ const LocationTracking = () => {
     const  _map = useRef(1)
     const [latlong, setLatlong]  = useState({});
     const [selectedDriver, setSelectedDriver] = useState(null); 
+    const [reload, setReload] =  useState(0);
+    const dispatch =  useDispatch()
 
-    const {params : {data}} = useRoute();
+    setTimeout(() => {
+        if(reload  < 5){
+          setReload(reload  => reload + 1)
+        }
+    }, 1000);
 
-    // console.log(data)
+    const drivers =   useSelector(state => state.users);
+    // console.log(drivers.drivers);
+
+
+    useEffect(() => {
+      if(drivers && drivers.drivers && reload < 4){
+        dispatch( findDriversAvailable() )
+      }
+    })
+
+  
 
     // Location.setGoogleApiKey('AIzaSyAP2g5HWBOT3Zx03hkfMvW6PTW5cmLA0R0')
 
@@ -79,7 +97,7 @@ const LocationTracking = () => {
 
     }, []);
     
-    // console.log(latlong)
+    // console.log(selectedDriver)
     
   const handleDriver = (data) => {
     setSelectedDriver(data); // Set the selected driver to the state variable
@@ -107,27 +125,17 @@ const LocationTracking = () => {
     longitudeDelta: 0.0421,
     }}
   >
-    {/* {location && (
-      <Marker
-        coordinate={{
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        }}
-        title="Current Location"
-      />
-    )} */}
 
-      { driversAround.map((item, index) =>
-            <Marker coordinate={item} key={index.toString()}
-            onPress={() => handleDriver(item)}
-            >
-                <Image
-                  source={require('../assets/images/motorcycle.png')}
-                  resizeMode='cover'
-                  style={styles.driverImage}
-                />
-            </Marker>
-          )}
+{
+  drivers?.drivers?.data?.data
+    .filter(item => item.role === 'driver' && item.live_location && item.live_location.latitude && item.live_location.longitude)
+    .map((item, index) => (
+      <Marker coordinate={item.live_location} key={index.toString()} onPress={() => handleDriver(item)}>
+        <Image source={require('../assets/images/motorcycle.png')} resizeMode='cover' style={styles.driverImage} />
+      </Marker>
+    ))
+}
+
          </MapView>
             </View>
             <View>
@@ -139,8 +147,8 @@ const LocationTracking = () => {
             {selectedDriver != null && (
               <View className="">
                 <View className="flex-row justify-between">
-                <Text style={{ fontSize: responsiveFontSize(1.8) }} className="text-slate-700 font-medium p-1"> Name : {selectedDriver.name}</Text>
-                <Text style={{ fontSize: responsiveFontSize(1.8) }} className="text-slate-700 font-medium p-1"> Tel : {selectedDriver.phone} </Text>
+                <Text style={{ fontSize: responsiveFontSize(1.8) }} className="text-slate-700 font-medium p-1"> Name : {selectedDriver.firstName} {selectedDriver.lastName} </Text>
+                <Text style={{ fontSize: responsiveFontSize(1.8) }} className="text-slate-700 font-medium p-1"> Tel : {selectedDriver.telephone} </Text>
                 </View>
 
                 <View className="flex-row justify-between my-1">

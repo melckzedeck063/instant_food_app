@@ -3,70 +3,30 @@ import React, { useState, useCallback, useLayoutEffect }  from 'react'
 import  { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
-import * as ImagePicker from 'expo-image-picker';
 import { Ionicons, MaterialIcons}  from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
+import { becomeDriver } from '../store/actions/user_actions';
+import { useDispatch } from 'react-redux';
 
 const RegisterBodaScreen = () => {
-
-  const [image, setImage] =   useState(null);
-  const [imageData, setImageData] =  useState("")
 //   const dispatch =  useDispatch();
 
-    const { register, handleSubmit, control, formState : {error} } =  useForm();
+    const { register, handleSubmit, reset, control, formState : {error} } =  useForm();
     const navigation =  useNavigation();
     const {width, height}  =  useWindowDimensions()
+    const dispatch =  useDispatch()
 
-    const pickImage = async () => {
-      // No permissions request is necessary for launching the image 
-      try{
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-  
-      // console.log(result);
-  
-      if (!result.cancelled) {
-        setImageData(result.data)
-        setImage(result)
-        let localUri = result.uri;
-        let filename = localUri.split('/').pop();
-        let match = /\.(\w+)$/.exec(filename);
-        let type = match ? `image/${match[1]}` : `image`;
-        let formData = new FormData();
-        formData.append('photo', { uri: localUri, name: filename, type });
-        let options = {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data',
-          },
-        };
-  
-        // const response =  
-                         
-        // return fetch(`${BASE_URL}/posts/upload_photo`, options)
-        //             .then((response) => response.json())
-        //             .then( (data) => setImageData(data.data) )
-                    
-      }
-    } catch(e) {
-      console.log(e, "error");
-    }
-    };
 
 
     const onSubmit = data => {
-      data.photo = imageData
       // data.id =  restaurant_id
-      console.log(data)
+      // console.log(data)
       // createNewProduct(data)
-    //   dispatch(  makeNewProduct(data) )
+      dispatch( becomeDriver(data) )
+      setTimeout(() => {
+          reset()
+      }, 500);
     }
 
     useLayoutEffect(() => {
@@ -102,20 +62,20 @@ const RegisterBodaScreen = () => {
             value={value}
           />
         )}
-        name="license_no"
+        name="licenseNo"
       />
       </View>
 
-      <View className="my-2">
+      {/* <View className="my-2">
       <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >License Photo</Text>
       <View  className="px-2 bg-slatee-100">
          <Button className="text-red-50 text-2xl" color={"orange"}  title="Pick an image" onPress={pickImage} />
          {image && <Image className="rounded-lg mt-2.5" source={{ uri: image.uri }} style={{ width: responsiveWidth(78), height: responsiveHeight(20), alignSelf : 'center' }} />}
       </View>
-      </View>
+      </View> */}
 
       <View className="my-2">
-      <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Motorcycle No</Text>
+      <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Vehicle No</Text>
     <Controller
         control={control}
         rules={{
@@ -123,38 +83,17 @@ const RegisterBodaScreen = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
-          placeholder="Enter motorcycle no"
-          keyboardType='phone-pad'
+          placeholder="Enter vehicle no"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
           />
         )}
-        name="motorcycle_no"
+        name="vehicleNo"
       />
       </View>
       <View className="my-2">
-          <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Location</Text>
-          <Controller
-            control={control}
-            rules={{
-             required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
-              placeholder="Enter location"
-              keyboardType='phone-pad'
-              onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            )}
-            name="location"
-          />
-
-        </View>
-                  {/* <View className="my-2">
-                  <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Description</Text>
+                  <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Region</Text>
                   <Controller
         control={control}
         rules={{
@@ -162,16 +101,36 @@ const RegisterBodaScreen = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
-          placeholder="Enter Description"
-          multiline={true}
+          placeholder="Enter Region"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
           />
         )}
-        name="description"
+        name="region"
       />
-            </View> */}
+        </View>
+
+      <View className="my-2">
+          <Text className={`text-xl text-white ${Platform.select({android : 'text-lg'})}`} >Station</Text>
+          <Controller
+            control={control}
+            rules={{
+             required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput  className={`rounded-md bg-slate-100 px-4 py-1.5 ${Platform.select({ios : 'py-2.5'})}`}
+              placeholder="Enter parking station"
+              onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="station"
+          />
+
+        </View>
+                  
      
                   <View>
              <TouchableOpacity className="bg-orange-400 rounded-md px-2 py-1 my-3"

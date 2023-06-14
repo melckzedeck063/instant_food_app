@@ -6,27 +6,12 @@ import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
 import {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions';
 import * as SecureStore from 'expo-secure-store';
 
-import image1 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-import image2 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-import image3 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-import image4 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-// import categoryCard from '../components/categoryCard';
-// import CategoryCard from '../components/categoryCard';
 import ProductCard from '../components/ProductCard';
 import { IMAGE_URL, NEW_IMAGE_URL } from '../store/URL'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRestaurantProducts } from '../store/actions/product_actions'
 import ProductSkeleton from '../components/productSkeleton'
 
-
-const categories =  [
-  {name : "vegetables", image :image1, id : 1 },
-  {name : "Fruits", image :image2, id : 2 },
-  {name : "Drinks", image :image3, id: 3 },
-  {name : "Bites", image : image4 , id : 4},
-  {name : "Fast food", image :image1, id: 5 },
-  {name : "Fruits", image :image2, id : 6 },
-]
 
 const CategoryScreen = () => {
     const navigation =  useNavigation();

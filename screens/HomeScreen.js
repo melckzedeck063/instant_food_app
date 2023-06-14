@@ -5,6 +5,7 @@ import {Controller, useForm} from 'react-hook-form'
 import { Ionicons, FontAwesome, FontAwesome5, Entypo, MaterialCommunityIcons }  from '@expo/vector-icons'
 import {responsiveHeight, responsiveWidth, responsiveFontSize} from 'react-native-responsive-dimensions'
 
+import * as Location from 'expo-location';
 
 // import categoryCard from '../components/categoryCard';
 import CategoryCard from '../components/categoryCard';
@@ -17,6 +18,7 @@ import { getAllProducts } from '../store/actions/product_actions'
 import ProductSkeleton from '../components/productSkeleton'
 import RestaurantSkeleton from '../components/RestaurantSkeleton'
 import WelcomeCard from '../components/WelcomeCard'
+import { updateLocation } from '../store/actions/user_actions'
 
 
 
@@ -27,6 +29,7 @@ const HomeScreen = () => {
     const [reload, setReload]  =  useState(0);
     const dispatch = useDispatch();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [latlong, setLatlong]  = useState(null);
 
     setTimeout(() => {
       if(reload < 7){
@@ -48,10 +51,7 @@ const HomeScreen = () => {
     })
     // console.log(height);
 
-    const handleOutsidePress = (event) => {
-
-      setIsDrawerOpen(false);
-};
+    
    
 useEffect(() => {
   if(products  && products.all_products && reload < 6){
@@ -72,8 +72,60 @@ useEffect(() => {
 
     const { register, reset, control, handleSubmit, formState: { errors, isDirty, isValid } } =  useForm();
  
-   
+    const checkPermission = async () => {
+      const hasPermission = await Location.requestForegroundPermissionsAsync();
+ 
+      if(hasPermission.status === "granted"){
+       const permission =  askPermission();
+       return permission
+      }
+       return true
+    }
+ 
+    const askPermission = async() => {
+      const permission  = await Location.requestForegroundPermissionsAsync();
+      return  permission.status === "granted"
+    }
+ 
+     
+     const getCurrentLocation =  async () =>{
+       try{
+         const  {granted} = await Location.requestForegroundPermissionsAsync();
+         if(!granted) return
+         const { coords } = await Location.getCurrentPositionAsync({
+           accuracy: Location.Accuracy.High,
+         });
+         const { latitude, longitude } = coords;
+         // console.log('Latitude: ', latitude);
+         // console.log('Longitude: ', longitude);
+         setLatlong({
+           latitude : parseFloat(latitude),
+           longitude :  parseFloat(longitude)
+         })
+         // Do something with the location data
+ 
+       }
+       catch(error){ 
+         console.log(error)
+       }
+     }
+     
+      
+      const handleOutsidePress = (event) => {
 
+        setIsDrawerOpen(false);
+
+        checkPermission();
+       getCurrentLocation();
+ 
+       setTimeout(() => {
+         if(latlong != null){
+          //  console.log(latlong)
+           const address = latlong
+          dispatch( updateLocation(address))
+        }
+       }, 4000);
+  };
 
   return (
     <>

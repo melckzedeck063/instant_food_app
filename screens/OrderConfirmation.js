@@ -14,18 +14,19 @@ const OrderConfirmation = () => {
     const navigation =  useNavigation();
     const {params  : {selectedDriver,latlong} } =  useRoute()
 
-    console.log(selectedDriver);
-    console.log("My location : ",latlong)
+    // console.log(selectedDriver);
+    // console.log("My location : ",latlong)
+    
     const {height, width} = useWindowDimensions();
     const {items, totalUniqueItems, cartTotal} = useCart();
     const dispatch =  useDispatch();
     const [reload,setReload] =  useState(0)
-    const [deliveryFee, setDeliveryFee] =  useState(5000)
+    const [deliveryFee, setDeliveryFee] =  useState(4000)
 
     const cart_items =  useSelector(state => state.cartItem);
 
     // console.log(cart_items.cart_items);
-    let data  =   cart_items.cart_items;
+    // let data  =   cart_items.cart_items;
 
     setTimeout(() => {
       if(reload  < 5){
@@ -48,9 +49,27 @@ const OrderConfirmation = () => {
       return total;
     }
 
+    const order_items =[];
+  let costs = 0;
+
     const orderDetails = (data) => {
       // console.log(data)
+
+      const items = cart_items.cart_items.data.data;
+    for(let m = 0 ; m< items.length; m++) {
+        order_items.push(items[m].product._id)
+        costs += parseInt(items[m].total_cost)
+    } 
+    const driver = selectedDriver._id
+    const datas = {
+      order_items,
+      costs,
+      driver,
+      latlong,
+      deliveryFee
+    }
        
+    console.log(datas)
     }
     
     useLayoutEffect(() => 
@@ -83,7 +102,7 @@ const OrderConfirmation = () => {
           <Text className="text-white text-center font-bold text-xl" >Cart Items (0) </Text></>
         }
       </View>
-      <View style={{height  :  responsiveHeight(67)}} className="px-2">
+      <View style={{height  :  responsiveHeight(65)}} className="px-2">
         {
           cart_items?.cart_items?.data?.data?(
             <>

@@ -27,7 +27,10 @@ export const placeOrder = createAsyncThunk('/order', async(values) => {
     try{
         const response =  await ORDER_API.post('/create_order',  {
             order_items : values.order_items,
-            total_cost : values.costs
+            total_cost : values.costs,
+            delivery_fee  : values.delivery_fee,
+            driver : values.driver,
+            user_location :  values.latlong
         })
 
         // console.log(response.data);
@@ -83,9 +86,9 @@ export const confirmOrder = createAsyncThunk('/confirm',  async  (id) => {
 
 export const  deleteOrder =  createAsyncThunk('/delete_order', async (id) => {
     try{
-          const resonse =  await ORDER_API.delete(`/delete_order/${id}`);
+          const response =  await ORDER_API.delete(`/delete_order/${id}`);
 
-          console.log(resonse.data);
+          console.log(response.data);
           return  response.data
     }
     catch(error) {

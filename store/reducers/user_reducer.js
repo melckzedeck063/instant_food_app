@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signInUser, signUpUser } from "../actions/user_actions";
+import { becomeDriver, findDriversAvailable, signInUser, signUpUser, updateLocation } from "../actions/user_actions";
 
 
 const UserSlice =  createSlice({
     name : 'users',
     initialState : {
         all_users: [],
+        drivers :[],
         current_user : null,
         loged_user : null,
         error : null,
@@ -44,6 +45,39 @@ const UserSlice =  createSlice({
             state.current_user =  action.payload
         })
         .addCase(signUpUser.rejected,  (state, action)  => {
+            state.status  = "failed",
+            state.error  =  action.error.message
+        })
+        .addCase(becomeDriver.pending, (state, action) => {
+            state.status = "loading"
+        })
+        .addCase(becomeDriver.fulfilled ,  (state, action) => {
+            state.status = "succeeded",
+            state.current_user =  action.payload
+        })
+        .addCase(becomeDriver.rejected,  (state, action)  => {
+            state.status  = "failed",
+            state.error  =  action.error.message
+        })
+        .addCase(updateLocation.pending, (state, action) => {
+            state.status = "loading"
+        })
+        .addCase(updateLocation.fulfilled ,  (state, action) => {
+            state.status = "succeeded",
+            state.current_user =  action.payload
+        })
+        .addCase(updateLocation.rejected,  (state, action)  => {
+            state.status  = "failed",
+            state.error  =  action.error.message
+        })
+        .addCase(findDriversAvailable.pending, (state, action) => {
+            state.status = "loading"
+        })
+        .addCase(findDriversAvailable.fulfilled ,  (state, action) => {
+            state.status = "succeeded",
+            state.drivers =  action.payload
+        })
+        .addCase(findDriversAvailable.rejected,  (state, action)  => {
             state.status  = "failed",
             state.error  =  action.error.message
         })
