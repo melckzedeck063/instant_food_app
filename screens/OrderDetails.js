@@ -45,6 +45,7 @@ const OrderDetails = () => {
         setUser_role("user")
       }
     }
+    //  console.log(user_role)
     
     useEffect(() => {
       gettToken();
@@ -93,7 +94,7 @@ const OrderDetails = () => {
                 </View>
                 <View className="mx-3">
                     {
-                        user_role === "admin" ||  user_role ==="driver" &&(
+                        user_role ==="driver" &&(
 
                     <View className="">
                          <Text className="text-white font-bold text-center py-1">Your Customer</Text>
@@ -123,6 +124,43 @@ const OrderDetails = () => {
                              onPress={() => navigation.navigate('DeliveryScreen', {props})}
                             >
                                <Text className={`text-lg text-white font-medium text-center ${Platform.select({android :  'text-sm'})}`}>Deliver Now</Text>
+                            </TouchableOpacity>                         
+                           }
+                    </View>
+                        )
+                    }
+
+{
+                        user_role === "admin" &&(
+
+                    <View className="">
+                         <Text className="text-white font-bold text-center py-1">Your Customer</Text>
+                        <View className="flex flex-row justify-between mx-2 my-2">
+                        <Text style={{fontSize : responsiveFontSize(2.1)}} className="text-white font-medium">Name </Text>
+                        <Text style={{fontSize : responsiveFontSize(1.7)}} className="text-white font-medium pt-1">{props.user.firstName} {props.user.lastName} </Text>
+
+                        </View>
+                        <View className="flex-row flex justify-between mx-2 my-1">                           
+                        <TouchableOpacity className="bg-green-600 px-2 py-1 rounded-xl"
+                          onPress={() => openCallLogs(props.user.telephone)}
+                        >
+                            <Text style={{fontSize : responsiveFontSize(1.6)}} className="-ml-1">  <Ionicons  name='call' color="white" size={24} /> </Text>
+                        </TouchableOpacity>
+                        <Text style={{fontSize : responsiveFontSize(2)}} className="text-white font-medium pt-1.5">{props.user.telephone} </Text>
+                        </View>
+                        {
+                            props.order_status === "Pending"?(
+                           <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-400 w-5/12 px-2 rounded-lg py-1.5 my-3`}
+                            onPress={() => dispatch( confirmOrder(props.uuid) ) }
+                           >
+                              <Text className={`text-lg text-white font-medium text-center ${Platform.select({android :  'text-sm'})}`}>Confirm Order</Text>
+                           </TouchableOpacity>
+                            )
+                            :
+                            <TouchableOpacity style={{alignSelf : 'center'}} className={`bg-orange-400 w-5/12 px-2 rounded-lg py-1.5 my-3`}
+                               onPress={()  =>  navigation.navigate('DeliveryWaiting', {props})}
+                            >
+                               <Text className={`text-lg text-white font-medium text-center ${Platform.select({android :  'text-sm'})}`}>Track Order</Text>
                             </TouchableOpacity>                         
                            }
                     </View>

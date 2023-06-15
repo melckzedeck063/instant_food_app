@@ -1,6 +1,5 @@
 import { View, Text, Image, useWindowDimensions, TouchableOpacity, ImageBackground, Platform } from 'react-native'
 import React, { useLayoutEffect } from 'react'
-import image1 from '../assets/images/product-368218056-1672121717738.jpeg'
 import image2 from '../assets/images/product-238816929-1673073324827.jpeg'
 
 import { useNavigation } from '@react-navigation/native'
