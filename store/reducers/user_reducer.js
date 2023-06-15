@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { becomeDriver, findDriversAvailable, signInUser, signUpUser, updateLocation } from "../actions/user_actions";
+import { becomeDriver, fetchUsers, findDriversAvailable, getLogedUser, signInUser, signUpUser, updateLocation } from "../actions/user_actions";
 
 
 const UserSlice =  createSlice({
@@ -81,6 +81,31 @@ const UserSlice =  createSlice({
             state.status  = "failed",
             state.error  =  action.error.message
         })
+        .addCase(getLogedUser.pending, (state, action) => {
+            state.status = "loading"
+        })
+        .addCase(getLogedUser.fulfilled ,  (state, action) => {
+            state.status = "succeeded",
+            state.loged_user =  action.payload
+        })
+        .addCase(getLogedUser.rejected,  (state, action)  => {
+            state.status  = "failed",
+            state.error  =  action.error.message
+        })
+        .addCase(fetchUsers.pending, (state, action) => {
+            state.status =  "loading"
+            console.log("loading")
+        })
+        .addCase(fetchUsers.fulfilled, (state, action) => {
+            state.status = "succeeded"
+            state.all_users =  action.payload
+            // console.log(action.payload)
+        })
+        .addCase(fetchUsers.rejected, (state, action) => {
+            state.status = "failed"
+            state.error = action.error.message
+        })
+
     }
 })
 

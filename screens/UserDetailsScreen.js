@@ -1,76 +1,73 @@
-import { View, Text, useWindowDimensions, SafeAreaView, TextInput, Platform, Image, TouchableOpacity  } from 'react-native'
+import { View, Text, useWindowDimensions, SafeAreaView, TextInput, Image } from 'react-native'
 import React from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import { useForm,  Controller } from 'react-hook-form';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Ionicons} from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { useForm,  Controller } from 'react-hook-form';
+import { useLayoutEffect } from 'react';
 import image2 from '../assets/images/pexels-elina-sazonova-1850595.jpg';
-import { useLayoutEffect, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-// import { getLogedUser } from '../store/reduxStore/reducers/userActions';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import {responsiveFontSize} from 'react-native-responsive-dimensions'
 
-const MyProfile = () => {
+const UserDetailsScreen = () => {
 
     const navigation  = useNavigation();
-    const {width, height} = useWindowDimensions();
-    const  dispatch =  useDispatch();
-    const { params : {current_user}  }  =  useRoute()
-    const [reload, setReload] =  useState(0);
-    
-    // console.log(current_user)
+    const {width, height} =  useWindowDimensions();
 
+    const {params : {props}} =  useRoute();
+    console.log(props)
 
-      
     const { register, reset, control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
         defaultValues :  {
-          user_role : current_user.role,
-          username : current_user.email,
-          firstName : current_user.firstName,
-          lastName : current_user.lastName,
-          telephone : current_user.telephone
+          user_role : props.role,
+          username : props.email,
+          firstName : props.name,
+          lastName : props.lname,
+          telephone : props.tel
         },
           mode: 'all',
       })
-
+      
       const onSubmit = data => {
-        console.log(data);
-      //   dispatch( signUpUser(data) )
-        
-    }
+          console.log(data);
+        //   dispatch( signUpUser(data) )
 
-    useLayoutEffect(() => {
+        setTimeout(() => {
+            navigation.navigate('HomeTab')
+        }, 2000);
+          
+      }
+
+      useLayoutEffect(() => {
         navigation.setOptions({
-            headerShown : true
+          headerShown : true
         })
-    })
+      })
 
   return (
-    <View className="bg-slate-900 h-full">
+    <View className="bg-slate-800">
         <KeyboardAwareScrollView className="">
         <SafeAreaView  />
 
-   <View className={`w-full h-full bg-slatee-700 mt-3 ${Platform.select({ios : 'py-12', android : 'py-12'})}`}>
-     <View style={{alignSelf : 'center', backgroundColor : '#1c4966' }} className="bg-slate-700 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
-    <View className="">
-           {/* <Text className="text-2xl font-medium text-orange-400 text-center my-2" >User Profile</Text>  */}
+        <View className="">
+        <View className={`w-full h-full bg-slatee-700 mt-3 ${Platform.select({ios : 'py-6', android : 'py-6'})}`}>
+      <View style={{alignSelf : 'center',backgroundColor : '#1c4966'}} className="bg-white shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
+           {/* <Text style={{fontSize :  responsiveFontSize(2)}}  className="font-medium text-red-400 text-center" >User Details</Text> */}
+
            <View style={{alignSelf : 'center', borderWidth : 2}} className="p-0.5 border-sky-400 rounded-full bg-sky-500">
              <Image  source={image2} className="overflow-hidden h-32 w-32 rounded-full" />
            </View>
-          </View>
-          
-          <View className="my-1" >
-          </View>
-       <View className="my-2">
+
+      <View className="my-2">
        <Text className="text-lg text-slate-200" >FirstName</Text>
         <Controller
         control={control}
         rules={{
          required: {value : true, message : "Firstname is required"},
+        //  minLength : {value : 3,  message : "Requires atleast three characters"}
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-500 text-white px-4 py-3 capitalize ${errors.firstName? 'border-2 border-red-400' : ''}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-1.5 capitalize ${errors.firstName? 'border-2 border-red-400' : ''}`}
           placeholder="Enter firstName"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -90,7 +87,7 @@ const MyProfile = () => {
           minLength : {value : 3,  message : "Requires atleast three characters"}
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-500 text-white px-4 py-3 capitalize ${errors.lastName? 'border-2 border-red-400' : ''}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-1.5 capitalize ${errors.lastName? 'border-2 border-red-400' : ''}`}
           placeholder="Enter lastName"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -113,7 +110,7 @@ const MyProfile = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-500 text-white px-4 py-3 ${errors.username? 'border-2 border-red-400' : ''}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-1.5 ${errors.username? 'border-2 border-red-400' : ''}`}
           placeholder="Enter username or email"
             onBlur={onBlur}
             autoCapitalize = {false}
@@ -133,7 +130,7 @@ const MyProfile = () => {
          required: "Telephone is  required",
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-500 text-white px-4 py-3 ${errors.telephone? 'border-2 border-red-400' : ''}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-1.5 ${errors.telephone? 'border-2 border-red-400' : ''}`}
           placeholder="Enter telephone"
             onBlur={onBlur}
             onChangeText={onChange}
@@ -143,8 +140,8 @@ const MyProfile = () => {
         name="telephone"
       />
       {  errors.telephone && <Text className="text-red-500" > {errors.telephone.message} </Text>}
-            </View> 
-      {/* <View className="my-2">
+            </View>
+      <View className="my-2">
        <Text className="text-lg text-slate-200" > User Role </Text>
        <Controller
         control={control}
@@ -156,7 +153,7 @@ const MyProfile = () => {
           }
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput  className={`rounded-md bg-slate-500 text-white px-4 py-3 capitalize ${errors.user_role? 'border-2 border-red-400' : ''}`}
+          <TextInput  className={`rounded-md bg-gray-500 text-white px-4 py-1.5 capitalize ${errors.user_role? 'border-2 border-red-400' : ''}`}
           placeholder="Enter user_role"
             onBlur={onBlur}
             autoCapitalize={false}
@@ -167,23 +164,23 @@ const MyProfile = () => {
         name="user_role"
       />
       {errors.user_role && <Text className="text-red-500"> {errors.user_role.message} </Text>}
-                  </View> */}
+                  </View>
                  
-         <View>
+                  <View>
              <TouchableOpacity className="bg-orange-400 rounded-md px-2 py-1 my-3"
                onPress={handleSubmit(onSubmit)}
              >
                 <Text style={{fontSize :  responsiveFontSize(2)}} className="font-medium text-white text-center" > Update </Text>
              </TouchableOpacity>
         </View>
-        </View>
+            
+         </View> 
         </View>
 
+        </View>
     </KeyboardAwareScrollView>
     </View>
-
-    
   )
 }
 
-export default MyProfile
+export default UserDetailsScreen

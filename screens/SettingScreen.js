@@ -1,8 +1,9 @@
-import React,{useLayoutEffect} from 'react';
+import React,{useLayoutEffect, useState, useEffect} from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Switch, ScrollView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import  {responsiveHeight, responsiveWidth} from 'react-native-responsive-dimensions'
+import * as SecureStore  from 'expo-secure-store';
 
 const SettingsScreen = () => {
 
@@ -10,6 +11,8 @@ const SettingsScreen = () => {
   const [notificationsEnabled, setNotificationsEnabled] = React.useState(false);
   const [locationEnabled, setLocationEnabled] = React.useState(true);
   const [autoCompleteEnabled, setAutoCompleteEnabled] = React.useState(true);
+  const [current_user, setCurrent_user] =  useState(null)
+
 
   const handleLocationToggle = () => setLocationEnabled(!locationEnabled);
   const handleAutoCompleteToggle = () => setAutoCompleteEnabled(!autoCompleteEnabled);
@@ -17,6 +20,20 @@ const SettingsScreen = () => {
   const handleToggleNotifications = () => {
     setNotificationsEnabled(!notificationsEnabled);
   };
+  const gettToken =  async () => {
+    const storage = await SecureStore.getItemAsync('token');
+    const user = JSON.parse(storage);
+  
+  if (user.doc.user) {
+    setCurrent_user(user.doc.user);
+  }
+}
+
+useEffect(() => {
+  gettToken();
+}, []);
+
+// console.log(current_user)
 
   useLayoutEffect(() => 
     {
@@ -35,7 +52,7 @@ const SettingsScreen = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle} className={`${Platform.select({android : '-mt-2'})}`}>Account</Text>
           <TouchableOpacity style={styles.item} 
-             onPress={() => navigation.navigate("Profile") }
+             onPress={() => navigation.navigate("Profile", {current_user}) }
           >
             <Text style={styles.itemText} className={`text-white text-sm ${Platform.select({android : 'text-xs'})}`}>Edit Profile</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />

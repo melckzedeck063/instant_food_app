@@ -104,3 +104,27 @@ export const findDriversAvailable = createAsyncThunk('all/drivers', async() =>{
         return error.message
     }
 })
+
+export  const fetchUsers =  createAsyncThunk('users/fetchUsers', async () =>  {
+    try{
+        const response  =  await AUTH_API.get('/all_users');
+        console.log(response.data)
+        return response.data
+    }
+    catch(err) {
+        console.log(err)
+        return err.message
+    }
+})
+
+export const getLogedUser = createAsyncThunk('user/me', async () => {
+    try {
+         const response =  await AUTH_API.get('/me');
+        //  console.log(response.data)
+         return response.data
+    }
+    catch(error) {
+        console.log(error)
+        return error.message
+    }
+})

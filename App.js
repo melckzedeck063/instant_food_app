@@ -27,6 +27,8 @@ import OrderConfirmation from './screens/OrderConfirmation';
 import DriversOrders from './screens/DriversOrders';
 import DeliveryScreen from './screens/DeliveryScreen';
 import DeliveryWaiting from './screens/DeliveryWaiting';
+import AllUsers from './screens/AllUsers';
+import UserDetailsScreen from './screens/UserDetailsScreen';
 
 const Stack =  createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,6 +112,12 @@ export default function App() {
          />
          <Stack.Screen name='DeliveryWaiting' component={DeliveryWaiting} 
            options={{title : '', presentation:"modal"}}
+         />
+         <Stack.Screen name='AllUsers' component={AllUsers} 
+           options={{title : 'System Users', presentation:"modal"}}
+         />
+         <Stack.Screen name='UserDetails' component={UserDetailsScreen} 
+           options={{title : 'User Details'}}
          />
       </Stack.Navigator>
     </NavigationContainer>

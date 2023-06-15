@@ -54,7 +54,7 @@ useEffect(() => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
      {/* <Text className="text-white">Drawer Content</Text> */}
-     <View className="my-1 pt-10 mb-10">
+     <View className="my-4 pt-10 mb-10">
 
      <View className="border-b border-slate-300 my-2">
                 <Text className={`text-lg font-bold text-white`}>Products & Categories</Text>
@@ -74,6 +74,8 @@ useEffect(() => {
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
               </TouchableOpacity>
+              {
+                user_role  ===  "admin" &&(
               <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg"
                 onPress={() => navigation.navigate("NewCategory")}
               >
@@ -82,6 +84,8 @@ useEffect(() => {
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
               </TouchableOpacity>
+                )
+              }
      </View>
 
      <View className="border-b border-slate-300 my-2">
@@ -109,23 +113,22 @@ useEffect(() => {
                   )
                 }
               
-              <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between space-x-6 active:bg-slate-500  hover:bg-slate-500 rounded-lg"
+              {/* <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between space-x-6 active:bg-slate-500  hover:bg-slate-500 rounded-lg"
                 onPress={()  =>  handleBasket() }
               >
                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >My Basket</Text>
                  <Text className="mt-0.5">
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
 
               </View>
-              <View className="border-b border-slate-300 my-2">
+              {/* <View className="border-b border-slate-300 my-2">
                 <Text className={`text-xl font-bold text-white mb-2`}>Notifications</Text>
 
               <TouchableOpacity className="py-1 px-2 my-1.5 bg-selate-500 flex flex-row justify-between  active:bg-slate-500  hover:bg-slate-500 rounded-lg">
                  <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})} mr-1`} >Allow Notifications</Text>
                  <Text className={`-mt-1 ml-2 ${Platform.select({android : '-mt-3.5'})}`}>
-                   {/* <AntDesign name='arrowright' size={18} color="white" /> */}
                    <Switch value={notificationsEnabled} onValueChange={handleToggleNotifications} />
                  </Text>
               </TouchableOpacity>
@@ -136,7 +139,26 @@ useEffect(() => {
                  </Text>
               </TouchableOpacity>
 
+              </View> */}
+
+              {
+                user_role  === "admin" &&(
+              <View className="border-b border-slate-300 my-2">
+                <Text className={`text-xl font-bold text-white mb-2`}>Users</Text>
+
+              
+              <TouchableOpacity className="py-1 px-3 my-1.5 bg-selate-500 flex flex-row justify-between  active:bg-slate-500  hover:bg-slate-500 rounded-lg"
+               onPress={() => navigation.navigate('AllUsers') }
+              >
+                 <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >All Users</Text>
+                 <Text className="mt-0.5">
+                   <AntDesign name='arrowright' size={18} color="white" />
+                 </Text>
+              </TouchableOpacity>
+
               </View>
+                )
+              }
 
               <View className="border-b border-slate-300 my-2">
                 <Text className={`text-xl font-bold text-white mb-2`}>Settings</Text>
@@ -149,14 +171,14 @@ useEffect(() => {
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
               </TouchableOpacity>
-              <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg"
+              {/* <TouchableOpacity className="py-1.5 px-3 my-1.5 bg-slatee-500 flex flex-row justify-between active:bg-slate-500  hover:bg-slate-500 rounded-lg"
                  onPress={() => navigation.navigate('Location')}
               >
                  <Text className={`text-white font-medium text-sm ${Platform.select({android : 'text-xs'})}`} >Location Tracking</Text>
                  <Text className="mt-0.5">
                    <AntDesign name='arrowright' size={18} color="white" />
                  </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
 
               </View>
               <View>
